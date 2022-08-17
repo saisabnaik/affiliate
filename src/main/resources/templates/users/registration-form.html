@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>gogoGlobal.LIFE</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/myuser/images/favicon.png}">
+    <!-- Custom CSS -->
+   <link th:href="@{/myuser/css/style.min.css}" rel="stylesheet">
+   <link th:href="@{/myuser/css/responsive.css}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+         <div class="forget-password-detail-area responsive_height">
+          <div class="forget-password-left-area left_area">
+              <a th:href="@{/dashboard}">
+                  <img th:src="@{/myuser/images/logo-JD-business-02-1-1-p8vrip8b47htdpmkyb4kcbgm964m3uckzbrcg8qmh0.png}" alt="logo-img"> 
+              </a>
+          </div> 
+          <div class="forget-password-input-area middel-heading-main-area right_area_back-image">
+            <div class="forget-password-left-area">
+                <a th:href="@{/users/business-panel-dashboard}">
+                    <img th:src="@{/myuser/images/logopng.png}" alt="logo-img"> 
+                </a>
+            </div>
+            <div th:if="${param.success}">
+					<h5 class="text-danger text-success">login error</h5>
+				</div> 
+            <form th:action="@{addNewUser}"  th:object="${user}" method="post" class="right_area responsive_area">
+                <div class="login">
+                    <h2 class="change_position">Sign Up</h2> 
+                </div>
+                <p>Personal Details</p>
+                <div class="resgistration-input-box-area box_area">
+                   <input type="text" id="firstname" name="firstname" class="form-control input_area" placeholder="First Name">
+                  </div>
+                  <div class="resgistration-input-box-area box_area">
+                   <input type="text" id="lastname" name="lastname" class="form-control input_area" placeholder="Last Name">
+                  </div>
+                  <div class="resgistration-input-box-area box_area">
+                   <input type="password" id="password" name="password" class="form-control input_area" placeholder="Password">
+                  </div>
+                  <div class="resgistration-input-box-area box_area">
+                   <input type="password" id="confirmpassword" name="confirmpassword" class="form-control input_area" placeholder="Confirm Password">
+                  </div>
+                  <div class="resgistration-input-box-area box_area">
+                   <input type="email" id="email" name="email" class="form-control input_area" placeholder="Email ID">
+                  </div>
+      
+                  <div class="email-submit-btn-area btn_area">
+                   <button type="submit" class="email-submit-btn btn_submit">Submit</button>   
+                </div>
+                <div class="signup_area">
+                    <p>Not a member?<a href="@{/}"> Sign up now</a></p>
+                </div>
+            </form>
+          </div>
+         </div>   
+        <!-- ============================================================== -->
+        <!-- class="footer_link" End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script th:src="@{myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{myuser/js/app-style-switcher.js}"></script>
+    <!--Wave Effects -->
+    <script th:src="@{myuser/js/waves.js}"></script>
+    <!--Menu sidebar -->
+    <script th:src="@{myuser/js/sidebarmenu.js}"></script>
+    <!--Custom JavaScript -->
+    <script th:src="@{myuser/js/custom.js}"></script>
+</body>
+<script>
+
+
+/* var password=document.getElementById("password").val();
+var confirmPassword=document.getElementById("confirmpassword").val();
+if(password==confirmPassword){
+	
+}else{
+	
+} */
+
+
+</script>
+</html>
