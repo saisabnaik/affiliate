@@ -13,7 +13,11 @@
    <link th:href="@{/myuser/css/style.min.css}" rel="stylesheet">
    <link th:href="@{/myuser/css/responsive.css}" rel="stylesheet">
 </head>
-
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <body>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
@@ -50,9 +54,10 @@
                 </div>
                 <p>Personal Details</p>
                 <div class="resgistration-input-box-area box_area">
+                <p th:text="${message}" class="error"/>
                    <input type="text" id="firstname" name="firstname" class="form-control input_area" placeholder="First Name">
                   </div>
-                  <div class="resgistration-input-box-area box_area">
+                  <div class="resgistration-input-box-area box_area"><p th:text="${lastname}"/>
                    <input type="text" id="lastname" name="lastname" class="form-control input_area" placeholder="Last Name">
                   </div>
                   <div class="resgistration-input-box-area box_area">
@@ -69,7 +74,7 @@
                    <button type="submit" class="email-submit-btn btn_submit">Submit</button>   
                 </div>
                 <div class="signup_area">
-                    <p>Not a member?<a href="@{/}"> Sign up now</a></p>
+                    <p>Already a member?<a th:href="@{/user/dologin}" type="submit"> login</a></p>
                 </div>
             </form>
           </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html >
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -78,16 +79,15 @@
 						</form>
 					</li>
 
-					<li class="dropdown" 
-						>
-					<a class="profile-pic" data-bs-toggle="dropdown" href="#">	<img
-							src="/myuser/plugins/images/users/varun.jpg" th:src="@{/myuser/plugins/images/users/varun.jpg}" alt="user-img" width="36"
-							class="img-circle">
-					<span class="text-white font-medium" th:text="${user_details.firstname}" >
-								<i class="fa fa-caret-down" aria-hidden="true"></i>
-						</span></a>
-					
-					<!-- <a class="profile-pic"
+					<li class="dropdown"><a class="profile-pic"
+						data-bs-toggle="dropdown" href="#"> <img
+							src="/myuser/plugins/images/users/varun.jpg"
+							th:src="@{/myuser/plugins/images/users/varun.jpg}" alt="user-img"
+							width="36" class="img-circle"> <span
+							class="text-white font-medium"
+							th:text="${user_details.firstname}"> <i
+								class="fa fa-caret-down" aria-hidden="true"></i>
+						</span></a> <!-- <a class="profile-pic"
 						href="users/profile-details.html" th:href="@{/profile-details}" class="dropdown-toggle"
 						data-bs-toggle="dropdown"> <img
 							src="/myuser/plugins/images/users/varun.jpg" th:src="@{/myuser/plugins/images/users/varun.jpg}" alt="user-img" width="36"
@@ -96,13 +96,17 @@
 								<i class="fa fa-caret-down" aria-hidden="true"></i>
 						</span>
 					</a> -->
-					
+
 						<ul class="dropdown-menu profileDropdown">
-							<li ><a class="dropdown-item" href="myusers/profile-details.html" th:href="@{'/user/profile-details/'+${user_details.userid}}">Profile</a></li>
-							<li><a class="dropdown-item" href="myusers/settings.html" th:href="@{/user/settings}" >Setting</a></li>
-							<li><a class="dropdown-item" href="myusers/login.html" th:href="@{/user/logout}" >Log Out</a></li>
+							<li><a class="dropdown-item"
+								href="myusers/profile-details.html"
+								th:href="@{'/user/profile-details/'+${user_details.userid}}">Profile</a></li>
+							<li><a class="dropdown-item" href="myusers/mysetting.html"
+								th:href="@{/user/settings}">Setting</a></li>
+							<li><a class="dropdown-item" href="myusers/login.html"
+								th:href="@{/logout}">Log Out</a></li>
 						</ul></li>
-          
+
 					<li class="notification_bell"><a href="#" class="color_white"><i
 							class="fas fa-bell"></i></a> <span class="noti_number">5</span></li>
 					<li class="comment_chat"><a href="#" class="color_white"><i
@@ -124,138 +128,146 @@
 	<!-- side menu -->
 
 	<!-- ============================================================== -->
-	 <aside class="left-sidebar left_aside" data-sidebarbg="skin6" th:fragment="sidemenu">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="nav_bar_side">
-                        <!-- User Profile-->
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="users/business-panel-dashboard.html"
-                                th:href="@{/user/home}" aria-expanded="false">
-                                <i class="fas fa-tachometer-alt leftside_icon"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./my-affiliate.html"
-                                aria-expanded="false">
-                                <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">My Affiliate</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-<!--                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./sales_by_affiliate.html"
+	<aside class="left-sidebar left_aside" data-sidebarbg="skin6"
+		th:fragment="sidemenu">
+		<!-- Sidebar scroll-->
+		<div class="scroll-sidebar">
+			<!-- Sidebar navigation-->
+			<nav class="sidebar-nav">
+				<ul id="sidebarnav" class="nav_bar_side">
+					<!-- User Profile-->
+					<li class="sidebar-item pt-2"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="users/business-panel-dashboard.html" th:href="@{/user/home}"
+						aria-expanded="false"> <i
+							class="fas fa-tachometer-alt leftside_icon"></i> <span
+							class="hide-menu">Dashboard</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/my-affiliate.html" th:href="@{/user/myaffiliate}"  aria-expanded="false"> <i
+							class="fas fa-user-plus leftside_icon"></i> <span
+							class="hide-menu">My Affiliate</span>
+					</a></li>
+					<li class="sidebar-item">
+						<!--                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./sales_by_affiliate.html"
                                th:href="@{/sales_by_affiliate}  aria-expanded="false">
                                 <i class="fas fa-users leftside_icon"></i>
                                 <span class="hide-menu">Sales By Affiliate </span>
                             </a> -->
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./payment.html"
-                                th:href="@{/payment}" aria-expanded="false">
-                                <i class="fas fa-users leftside_icon"></i>
-                                <span class="hide-menu">Total Sale</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
-                               th:href="@{/setting}"  aria-expanded="false">
-                                <i class="fas fa-cog leftside_icon"></i>
-                                <span class="hide-menu">Settings</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./notification.html"
-                                th:href="@{/notification}" aria-expanded="false">
-                                <i class="fas fa-bell leftside_icon"></i>
-                                <span class="hide-menu">Notifications</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./faq.html"
-                                aria-expanded="false">
-                                <i class="fas fa-question-circle leftside_icon"></i>
-                                <span class="hide-menu">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./contact-us.html"
-                                th:href="@{/contact-us}" aria-expanded="false">
-                                <i class="fas fa-address-card leftside_icon"></i>
-                                <span class="hide-menu">Contact Us</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./term-condition.html"
-                                th:href="@{/term-condition}" aria-expanded="false">
-                                <i class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
-                                <span class="hide-menu">Terms & Conditions</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./privacy-policy.html"
-                                th:href="@{/privacy-policy}" aria-expanded="false">
-                                <i class="fas fa-file-alt leftside_icon"></i>
-                                <span class="hide-menu">Privacy & Policy</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./login.html"
-                                th:href="@{/login}" aria-expanded="false">
-                                <i class="fas fa-power-off leftside_icon"></i>
-                                <span class="hide-menu">Log Out</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                
-                
-                
-                
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+					</li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/payment.html" th:href="@{/user/payment}" aria-expanded="false">
+							<i class="fas fa-users leftside_icon"></i> <span
+							class="hide-menu">Total Sale</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/mysetting.html" th:href="@{/user/settings}"
+						aria-expanded="false"> <i class="fas fa-cog leftside_icon"></i>
+							<span class="hide-menu">Settings</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/notification.html" th:href="@{/user/notification}"
+						aria-expanded="false"> <i class="fas fa-bell leftside_icon"></i>
+							<span class="hide-menu">Notifications</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/faq.html" aria-expanded="false"> <i
+							class="fas fa-question-circle leftside_icon"></i> <span
+							class="hide-menu">FAQ</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/contact-us.html" th:href="@{/user/contact-us}"
+						aria-expanded="false"> <i
+							class="fas fa-address-card leftside_icon"></i> <span
+							class="hide-menu">Contact Us</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/term-condition.html" th:href="@{/user/term-condition}"
+						aria-expanded="false"> <i
+							class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
+							<span class="hide-menu">Terms & Conditions</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/privacy-policy.html" th:href="@{/user/privacy-policy}"
+						aria-expanded="false"> <i
+							class="fas fa-file-alt leftside_icon"></i> <span
+							class="hide-menu">Privacy & Policy</span>
+					</a></li>
+					<li class="sidebar-item"><a
+						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
+						href="user/login.html" th:href="@{/logout}" aria-expanded="false">
+							<i class="fas fa-power-off leftside_icon"></i> <span
+							class="hide-menu">Log Out</span>
+					</a></li>
+				</ul>
+			</nav>
+
+
+
+
+			<!-- End Sidebar navigation -->
+		</div>
+		<!-- End Sidebar scroll-->
+	</aside>
 
 
 	<!-- footer section -->
 	<footer class="footer text-center footer_text" th:fragment="footer">
 		2022 © All rights reserved. <a class="footer_link" href="#">gogoGlobal</a>
 	</footer>
-	
-<!-- 	script links -->
-	<div th:fragment="script-links" >
-	<script src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
-		th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
-	<!-- Bootstrap tether Core JavaScript -->
-	<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-	<script  src="/myuser/js/app-style-switcher.js" th:src="@{/myuser/js/app-style-switcher.js}"></script>
-	<script
-		 src="/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"  th:src="@{/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}"></script>
-	<!--Wave Effects -->
-	<script src="/myuser/js/waves.js"  th:src="@{/myuser/js/waves.js}"></script>
-	<!--Menu sidebar -->
-	<script src="/myuser/js/sidebarmenu.js" th:src="@{/myuser/js/sidebarmenu.js}"></script>
-	<!--Custom JavaScript -->
-	<script src="/myuser/js/custom.js" th:src="@{/myuser/js/custom.js}"></script>
-	<!--This page JavaScript -->
-	<!--chartis chart-->
-	<script
-		 src="/myuser/plugins/bower_components/chartist/dist/chartist.min.js" th:src="@{/myuser/plugins/bower_components/chartist/dist/chartist.min.js}"></script>
-	<script
-		 src="/myuser/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js" th:src="@{/myuser/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
-	<script src="/myuser/js/pages/dashboards/dashboard1.js" th:src="@{/myuser/js/pages/dashboards/dashboard1.js}"></script>
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-1.12.0.min.js" th:src="@{https://code.jquery.com/jquery-1.12.0.min.js}"></script>
-	<script
-		 src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" th:src="@{https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js}"></script>
-	<script  src="/myuser/js/char/t.js" th:src="@{/myuser/js/char/t.js}"></script>
-	<script src="/myuser/js/pie-chart.js" th:src="@{/myuser/js/pie-chart.js}"></script>
-	<script src="/myuser/assets/vendors/highlight.js" th:src="@{/myuser/assets/vendors/highlight.js}"></script>
-	<script src="/myuser/assets/js/app.js" th:src="@{/myuser/assets/js/app.js}"></script>
-</div>
+
+	<!-- 	script links -->
+	<div th:fragment="script-links">
+		<script
+			src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
+			th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js"
+			th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+		<script src="/myuser/js/app-style-switcher.js"
+			th:src="@{/myuser/js/app-style-switcher.js}"></script>
+		<script
+			src="/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"
+			th:src="@{/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}"></script>
+		<!--Wave Effects -->
+		<script src="/myuser/js/waves.js" th:src="@{/myuser/js/waves.js}"></script>
+		<!--Menu sidebar -->
+		<script src="/myuser/js/sidebarmenu.js"
+			th:src="@{/myuser/js/sidebarmenu.js}"></script>
+		<!--Custom JavaScript -->
+		<script src="/myuser/js/custom.js" th:src="@{/myuser/js/custom.js}"></script>
+		<!--This page JavaScript -->
+		<!--chartis chart-->
+		<script
+			src="/myuser/plugins/bower_components/chartist/dist/chartist.min.js"
+			th:src="@{/myuser/plugins/bower_components/chartist/dist/chartist.min.js}"></script>
+		<script
+			src="/myuser/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"
+			th:src="@{/myuser/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+		<script src="/myuser/js/pages/dashboards/dashboard1.js"
+			th:src="@{/myuser/js/pages/dashboards/dashboard1.js}"></script>
+		<script type="text/javascript"
+			src="https://code.jquery.com/jquery-1.12.0.min.js"
+			th:src="@{https://code.jquery.com/jquery-1.12.0.min.js}"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"
+			th:src="@{https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js}"></script>
+		<script src="/myuser/js/char/t.js" th:src="@{/myuser/js/char/t.js}"></script>
+		<script src="/myuser/js/pie-chart.js"
+			th:src="@{/myuser/js/pie-chart.js}"></script>
+		<script src="/myuser/assets/vendors/highlight.js"
+			th:src="@{/myuser/assets/vendors/highlight.js}"></script>
+		<script src="/myuser/assets/js/app.js"
+			th:src="@{/myuser/assets/js/app.js}"></script>
+	</div>
 
 </body>
 </html>

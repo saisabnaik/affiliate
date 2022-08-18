@@ -14,7 +14,11 @@
 <link th:href="@{/myuser/css/style.min.css}" rel="stylesheet">
 <link th:href="@{/myuser/css/responsive.css}" rel="stylesheet">
 </head>
-
+<style>
+    .success {
+        color:green;
+    }
+</style>
 <body>
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
@@ -50,7 +54,7 @@
 				<div th:if="${param.error}">
 					<h5 class="text-danger text-success">login error</h5>
 				</div> 
-
+					
 
 				<form th:action="@{/dologin}" method="post" class="right_area">
 					<div class="login">

@@ -1,9 +1,15 @@
 package com.affiliate.controller;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.core.support.DefaultCrudMethods;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +21,12 @@ import com.affiliate.repository.UserRepository;
 
 @Controller
 @RequestMapping("/user")
-public class HomeController {
+public class HomeController{
 
+	
+	@Autowired
+	private BCryptPasswordEncoder bp;
+	
 	@Autowired
 	private UserRepository repo;
 	
@@ -42,19 +52,25 @@ public class HomeController {
 		return modelAndView;
 	}
 	@RequestMapping("/notification-details")
-	public ModelAndView notificationDetails(ModelAndView modelAndView) {
+	public ModelAndView notificationDetails(ModelAndView modelAndView, Principal principal) {
+		User u=repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details",u);
 		modelAndView.setViewName("users/notification-details");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/notification")
-	public ModelAndView notification(ModelAndView modelAndView) {
+	public ModelAndView notification(ModelAndView modelAndView,Principal principal) {
+		User u=repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details",u);
 		modelAndView.setViewName("users/notification");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/payment")
-	public ModelAndView payment(ModelAndView modelAndView) {
+	public ModelAndView payment(ModelAndView modelAndView,Principal principal) {
+		User u=repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details",u);
 		modelAndView.setViewName("users/payment");
 		return modelAndView;
 	}
@@ -75,40 +91,58 @@ public class HomeController {
 		
 		return modelAndView;
 	}
-	@RequestMapping("/updateUser/{userid}")
-	public ModelAndView showEditStudentPage(@ModelAttribute User user,ModelAndView modelAndView ) {
-		User savedUser=(User)repo.save(user);
+	@RequestMapping("/updateUser")
+	public String showEditStudentPage(User user, Model model) {
+		//User u=repo.findByEmail("");
+		if(user.getUserid()==null) {
+			throw new UsernameNotFoundException("user not found");
+		}else {
+			repo.save(user);
+			System.out.println("userid "+user.getUserid());
+			System.out.println("user updated");
+			//user.setPassword(bp.encode(user.getPassword()));
+			//user.setRole("ROLE_USER");
 		
-		return modelAndView;
+			
+			
+		}
+		
+		return "";
 	}
 	
 	
 	@RequestMapping("/sales-by-affiliate")
 	public ModelAndView salesByAffiliate(ModelAndView modelAndView) {
+		
 		modelAndView.setViewName("users/sales_by_affiliate");
 		return modelAndView;
 	}
 	@RequestMapping("/settings")
-	public ModelAndView settings(ModelAndView modelAndView) {
-		modelAndView.setViewName("users/settings");
-		return modelAndView;
+	public String settings(Principal principal,Model model) {
+		User u=repo.findByEmail(principal.getName());
+		model.addAttribute("user_details",u);
+		return "users/mysetting";
 	}
 	
 	@RequestMapping("/term-condition")
-	public ModelAndView termsAndConditions(ModelAndView modelAndView) {
-		modelAndView.setViewName("users/term-condition");
-		return modelAndView;
+	public String termsAndConditions(Model model) {
+	
+		return "users/term-condition";
 	}
-	
-	@RequestMapping("/logout")
-	public ModelAndView logout(ModelAndView modelAndView) {
-		modelAndView.setViewName("users/login");
-		return modelAndView;
-	}
-	
-	
 
+	@RequestMapping("/myaffiliate")
+	public String myAffiliate(Model model, Principal principal) {
+		User u=repo.findByEmail(principal.getName());
+		model.addAttribute("user_details",u);
+		return "users/my-affiliate";
+}
 	
 	
+	
+	public String myUsername(Principal principal) {
+		User u=repo.findByEmail(principal.getName());
+		String name = u.getFirstname();
+		return name;
+	}
 	
 }
