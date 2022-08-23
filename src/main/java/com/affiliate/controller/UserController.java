@@ -37,7 +37,6 @@ public class UserController {
 	
 	@PostMapping("/addNewUser")
 	public String registerUser(@ModelAttribute User user,  RedirectAttributes redirect,Model model) {
-		
 		if(user.getFirstname()==null || user.getFirstname().isEmpty()) {
 			redirect.addFlashAttribute("message", "firstname cannot be blank");
 			return "redirect:/registerUser";
@@ -54,11 +53,22 @@ public class UserController {
 			redirect.addFlashAttribute("message", "password cannot be blank");
 			return "redirect:/registerUser";
 		}
-		user.setPassword(bp.encode(user.getPassword()));
-		user.setRole("ROLE_USER");
-		System.out.println(user);
-		repo.save(user);
-		//model.addAttribute("success", "registration successfully");
+		
+		try {
+			User u=repo.findByEmail(user.getEmail());
+			if(u.getEmail()!=null) {
+				redirect.addFlashAttribute("message", "User already Exist Choose Another");
+				return "redirect:/registerUser";
+			}else {
+				user.setPassword(bp.encode(user.getPassword()));
+				user.setRole("ROLE_USER");
+				System.out.println(user);
+				repo.save(user);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return "/users/login";
 	}
 	
