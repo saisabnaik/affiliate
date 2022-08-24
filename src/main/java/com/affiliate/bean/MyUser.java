@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="myuser")
+public class MyUser {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -54,94 +54,62 @@ public class User {
 
 	
 	private String role;
-	
-	
-	public String getRole() {
-		return role;
-	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+	@Column(name="image", length=280)
+	private String image;
 
 	public Long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
-	}
 
 	public String getFirstname() {
 		return firstname;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
 
 	public String getLastname() {
 		return lastname;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+
+	public String getGender() {
+		return gender;
 	}
+
 
 	public String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
 
 	public Long getZip() {
 		return zip;
 	}
 
-	public void setZip(Long zip) {
-		this.zip = zip;
-	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getState() {
 		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
 	}
 
 
@@ -149,27 +117,83 @@ public class User {
 		return mobile;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+
+	public String getRole() {
+		return role;
 	}
 
-	public String getGender() {
-		return gender;
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userid=" + userid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", gender=" + gender + ", city=" + city + ", country=" + country + ", zip="
-				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile
-				+ ", role="+role+"]";
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
+	public void setZip(Long zip) {
+		this.zip = zip;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	@Override
+	public String toString() {
+		return "MyUser [userid=" + userid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + password + ", gender=" + gender + ", city=" + city + ", country=" + country + ", zip="
+				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role + "]";
+	}
 	
 	
 	

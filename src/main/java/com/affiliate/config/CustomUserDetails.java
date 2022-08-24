@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.affiliate.bean.User;
+import com.affiliate.bean.MyUser;
 
 public class CustomUserDetails implements UserDetails  {
 	
@@ -17,11 +17,11 @@ public class CustomUserDetails implements UserDetails  {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private User u;
+	private MyUser u;
 	
 	
 
-	public CustomUserDetails(User u) {
+	public CustomUserDetails(MyUser u) {
 		super();
 		this.u = u;
 	}

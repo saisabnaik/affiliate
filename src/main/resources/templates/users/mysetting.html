@@ -134,7 +134,7 @@
 											</div>
 											<div class="setting-profile-detail-input-area">
 												<form class="contact-form-main-area"
-													th:action="@{/user/updateUser}" method="post"
+													th:action="@{/user/updateMyUser}" method="post" 
 													id="paymentFrm">
 													<div class="row">
 														<div class="col-lg-6">
@@ -248,7 +248,7 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="setting-tab-heading-area">
-													<h2>Change Password</h2>
+													<h2>Change Password</h2><small th:if="${messageP}"></small>
 												</div>
 											</div>
 										</div>
@@ -261,7 +261,7 @@
 												</div>
 												<div class="col-lg-9">
 													<div class="change-password-input-box">
-														<input type="password" id="oldPassword" name="password"
+														<input type="password" id="oldPassword" name="oldPassword"
 															class="form-control change_border"
 															placeholder="Enter Old Password">
 															<small></small>
@@ -278,7 +278,7 @@
 												</div>
 												<div class="col-lg-9">
 													<div class="change-password-input-box">
-														<input type="password" id="newPassword" name="newPassword"
+														<input type="password" id="password" name="password"
 															class="form-control change_border"
 															placeholder="Enter New Password">
 															<small></small>
@@ -295,7 +295,7 @@
 												</div>
 												<div class="col-lg-9">
 													<div class="change-password-input-box">
-														<input type="password" id="confirmPassword"
+														<input type="password" id="confirm-password"
 															name="confirmPassword" class="form-control change_border"
 															placeholder="Enter Confirm Password">
 															<small></small>
@@ -304,8 +304,8 @@
 											</div>
 										</div>
 										<div class="change-password-submit-area">
-											<input type="submit"
-												class="submit-password-change-btn btn_submit" value="Change Password">
+											<button type="submit"
+												class="submit-password-change-btn btn_submit">Change password</button>
 												
 										</div>
 									</form>
@@ -333,40 +333,47 @@
 	<div th:replace="userlayout/layouts.html :: script-links"></div>
 
 	<script>
-		const oldPasswordE1 = document.querySelector('#oldPassword');
-		const newPasswordE1 = document.querySelector('#newPassword');
-		const confirmPasswordE1 = document.querySelector('#confirmPassword');
+
+		const oldPasswordEl = document.querySelector('#oldPassword');
+		const passwordEl = document.querySelector('#password');
+		const confirmPasswordEl = document.querySelector('#confirm-password');
+
 		const form = document.querySelector('#changePassword');
-
 		const checkOldPassword = () => {
+		    let valid = false;
 
-		    var valid = false;
-
-		    const min = 3,  max = 25;
-
-		    const oldPassword = oldPasswordE1.value.trim();
+		    const oldPassword = oldPasswordEl.value.trim();
 
 		    if (!isRequired(oldPassword)) {
-		        showError(oldPasswordE1, 'oldPassword cannot be blank.');
-		    } else if (!isBetween(oldPassword.length, min, max)) {
-		        showError(oldPasswordE1, 'oldPassword must be between ${min} and ${max} characters.')
+		        showError(oldPasswordEl, 'Password cannot be blank.');
+		    } else if (!isOldPasswordSecure(oldPassword)) {
+		        showError(oldPasswordEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)');
 		    } else {
-		        showSuccess(oldPasswordE1);
+		        showSuccess(oldPasswordEl);
 		        valid = true;
 		    }
+
 		    return valid;
+		};	
+		
+		
+		const isOldPasswordSecure = (oldPassword) => {
+		    const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+		    return re.test(oldPassword);
 		};
 
-		const checknewPassword = () => {
-		    var valid = false;
-		    const newPassword = newPasswordE1.value.trim();
 
-		    if (!isRequired(newPassword)) {
-		        showError(newPasswordE1, 'new Password cannot be blank.');
-		    } else if (!isPasswordSecure(newPassword)) {
-		        showError(newPasswordE1, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)');
+		const checkPassword = () => {
+		    let valid = false;
+
+		    const password = passwordEl.value.trim();
+
+		    if (!isRequired(password)) {
+		        showError(passwordEl, 'Password cannot be blank.');
+		    } else if (!isPasswordSecure(password)) {
+		        showError(passwordEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)');
 		    } else {
-		        showSuccess(newPasswordE1);
+		        showSuccess(passwordEl);
 		        valid = true;
 		    }
 
@@ -374,28 +381,28 @@
 		};
 
 		const checkConfirmPassword = () => {
-		    var valid = false;
+		    let valid = false;
 		    // check confirm password
-		    const confirmPassword = confirmPasswordE1.value.trim();
-		    const newPassword = newPasswordE1.value.trim();
+		    const cPassword = confirmPasswordEl.value.trim();
+		    const mypassword = passwordEl.value.trim();
 
-		    if (!isRequired(confirmPassword)) {
-		        showError(confirmPasswordE1, 'Please enter the password again');
-		    } else if (newPassword !== confirmPassword) {
-		        showError(confirmPasswordE1, 'The password does not match');
+		    if (!isRequired(cPassword)) {
+		        showError(confirmPasswordEl, 'Please enter the password again');
+		    } else if (mypassword !== cPassword) {
+		        showError(confirmPasswordEl, 'The password does not match');
 		    } else {
-		        showSuccess(confirmPasswordE1);
+		        showSuccess(confirmPasswordEl);
 		        valid = true;
 		    }
 
 		    return valid;
 		};
 
-
-		const isPasswordSecure = (newPassword) => {
+		const isPasswordSecure = (password) => {
 		    const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-		    return re.test(newPassword);
+		    return re.test(password);
 		};
+
 
 		const isRequired = value => value === '' ? false : true;
 		const isBetween = (length, min, max) => length < min || length > max ? false : true;
@@ -432,26 +439,51 @@
 		    e.preventDefault();
 
 		    // validate fields
-		    var isOldPassword = checkOldPassword(),
-		        isNewPasswordValid = checknewPassword(),
+		    let isOldPasswordValid = checkOldPassword(),
+		        isPasswordValid = checkPassword(),
 		        isConfirmPasswordValid = checkConfirmPassword();
 
-		    var isFormValid = isOldPassword &&
-		    isNewPasswordValid &&
+		    let isFormValid = isOldPasswordValid &&
+		    isPasswordValid &&
 		    isConfirmPasswordValid;
 
 		    // submit to the server if the form is valid
 		    if (isFormValid) {
-
+		    	document.getElementById("changePassword").submit();
 		    }
 		});
-		
-		
-		
-		
+
+
+		const debounce = (fn, delay = 500) => {
+		    let timeoutId;
+		    return (...args) => {
+		        // cancel the previous timer
+		        if (timeoutId) {
+		            clearTimeout(timeoutId);
+		        }
+		        // setup a new timer
+		        timeoutId = setTimeout(() => {
+		            fn.apply(null, args)
+		        }, delay);
+		    };
+		};
+
+		form.addEventListener('input', debounce(function (e) {
+		    switch (e.target.id) {
+
+		        case 'oldPassword':
+		            checkEmail();
+		            break;
+		        case 'password':
+		            checkPassword();
+		            break;
+		        case 'mypassword':
+		            checkConfirmPassword();
+		            break;
+		    }
+		}));
 		
 	</script>
-
 
 
 </body>

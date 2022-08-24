@@ -1,26 +1,22 @@
 package com.affiliate.controller;
 
 import java.security.Principal;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.core.support.DefaultCrudMethods;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.affiliate.bean.User;
+import com.affiliate.bean.MyUser;
 import com.affiliate.repository.UserRepository;
 
 //@Controller
@@ -34,13 +30,16 @@ public class HomeController {
 	@Autowired
 	private UserRepository repo;
 
+	MyUser u=null;
+	
+	
 	@GetMapping("/home")
-	public ModelAndView home(ModelAndView modelAndView, Principal principal) throws NumberFormatException {
+	public ModelAndView home(ModelAndView modelAndView, Principal principal) throws NumberFormatException,Exception {
 
 		modelAndView.setViewName("users/business-panel-dashboard1");
-		User u = repo.findByEmail(principal.getName());
+		u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
-		// System.out.println("user id: "+u.getUserid());
+		// System.out.println("user id: "+u.getMyUserid());
 
 		return modelAndView;
 	}
@@ -58,24 +57,24 @@ public class HomeController {
 	}
 
 	@RequestMapping("/notification-details")
-	public ModelAndView notificationDetails(ModelAndView modelAndView, Principal principal) {
-		User u = repo.findByEmail(principal.getName());
+	public ModelAndView notificationDetails(ModelAndView modelAndView, Principal principal) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/notification-details");
 		return modelAndView;
 	}
 
 	@RequestMapping("/notification")
-	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
-		User u = repo.findByEmail(principal.getName());
+	public ModelAndView notification(ModelAndView modelAndView, Principal principal) throws Exception  {
+		//MyUser u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/notification");
 		return modelAndView;
 	}
 
 	@RequestMapping("/payment")
-	public ModelAndView payment(ModelAndView modelAndView, Principal principal) {
-		User u = repo.findByEmail(principal.getName());
+	public ModelAndView payment(ModelAndView modelAndView, Principal principal) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/payment");
 		return modelAndView;
@@ -90,26 +89,29 @@ public class HomeController {
 	@RequestMapping("/profile-details")
 	public ModelAndView profileDetails(ModelAndView modelAndView, Principal principal) throws Exception {
 		System.out.println("this is profile");
-		User u = repo.findByEmail(principal.getName());
+		//MyUser u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/profile-details");
 
 		return modelAndView;
 	}
 
-	@PostMapping("/updateUser")
-	public ModelAndView showEditStudentPage(User user, ModelAndView modelAndView) {
+	@PostMapping("/updateMyUser")
+	public ModelAndView showEditStudentPage(MyUser myuser, ModelAndView modelAndView, RedirectAttributes redirectAttributes) throws Exception{
 
 		try {
-			User u = repo.findByEmail(user.getEmail());
-
+			//MyUser u = repo.findByEmail(myuser.getEmail());
+			modelAndView.addObject("user_details", u);
 			if (u.getUserid() == null) {
 				throw new UsernameNotFoundException("user not found");
 			} else {
 
-				repo.update(user.getFirstname(), user.getLastname(), user.getMobile(), user.getGender(),
-						user.getAddress(), user.getCountry(), user.getState(), user.getCity(), user.getZip(),
-						user.getEmail());
+				repo.updateData(myuser.getFirstname(), myuser.getLastname(), myuser.getMobile(), myuser.getGender(),
+						myuser.getAddress(), myuser.getCountry(), myuser.getState(), myuser.getCity(), myuser.getZip(),
+						myuser.getEmail());
+				
+				redirectAttributes.addFlashAttribute("successMsg");
+				
 				System.out.println("updated record successfully....");
 			}
 
@@ -117,18 +119,41 @@ public class HomeController {
 			e.printStackTrace();
 		}
 
-		modelAndView.setViewName("/login");
+		
+		modelAndView.setViewName("users/mysetting");
 
 		return modelAndView;
 	}
 	
 	
-	@PostMapping("")
-	public ModelAndView changePassword(ModelAndView modelAndView, HttpServletRequest request) {
-		modelAndView.setViewName("");
-		String password=request.getParameter("password");
-		String newPassword=request.getParameter("newPassword");
+	@PostMapping("/changePassword")
+	public ModelAndView changePassword(ModelAndView modelAndView, HttpServletRequest request,Principal principal,RedirectAttributes redirect) throws Exception{
+		System.out.println("this is change password method called");
+		//MyUser u = repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details", u);
+		String oldPwd=bp.encode(request.getParameter("oldPassword").trim());
+		String newPassword =bp.encode(request.getParameter("password").trim());
+
+		String dbUserPassword = u.getPassword();
+		System.out.println("oldPwd"+oldPwd);
+		System.out.println("db password "+dbUserPassword);
 		
+		
+		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+		
+		//if(dbUserPassword.equals(oldPwd)) {
+			//System.out.println("if condition");
+				//repo.updatePassword(newPassword,u.getEmail());
+				//System.out.println("record updated successfully");
+	//	}
+		
+		
+		//if() {
+			
+		//}else {
+		//	redirect.addFlashAttribute("messageP", "you have entered wrong password");
+		//}
+		modelAndView.setViewName("users/mysetting");
 		
 		return modelAndView;
 		
@@ -138,15 +163,16 @@ public class HomeController {
 	
 
 	@RequestMapping("/sales-by-affiliate")
-	public ModelAndView salesByAffiliate(ModelAndView modelAndView) {
-
+	public ModelAndView salesByAffiliate(ModelAndView modelAndView, Principal principal) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/sales_by_affiliate");
 		return modelAndView;
 	}
 
 	@RequestMapping("/settings")
-	public ModelAndView settings(Principal principal, ModelAndView modelAndView) {
-		User u = repo.findByEmail(principal.getName());
+	public ModelAndView settings(Principal principal, ModelAndView modelAndView) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
 		modelAndView.addObject("user_details", u);
 		modelAndView.setViewName("users/mysetting");
 		return modelAndView;
@@ -161,16 +187,17 @@ public class HomeController {
 	
 	
 	@RequestMapping("/myaffiliate")
-	public String myAffiliate(Model model, Principal principal) {
-		User u = repo.findByEmail(principal.getName());
-		model.addAttribute("user_details", u);
-		return "users/my-affiliate";
+	public ModelAndView myAffiliate(ModelAndView modelAndView, Principal principal) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
+		modelAndView.addObject("user_details", u);
+		modelAndView.setViewName("users/my-affiliate");
+		return modelAndView;
 	}
 
 	
 	
-	public String myUsername(Principal principal) {
-		User u = repo.findByEmail(principal.getName());
+	public String myMyUsername(Principal principal) throws Exception {
+		//MyUser u = repo.findByEmail(principal.getName());
 		String name = u.getFirstname();
 		return name;
 	}

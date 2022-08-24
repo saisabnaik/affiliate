@@ -15,9 +15,9 @@
 <link th:href="@{/myuser/css/responsive.css}" rel="stylesheet">
 </head>
 <style>
-    .success {
-        color:green;
-    }
+.success {
+	color: green;
+}
 </style>
 <body>
 	<!-- ============================================================== -->
@@ -53,22 +53,22 @@
 				</div>
 				<div th:if="${param.error}">
 					<h5 class="text-danger text-success">login error</h5>
-				</div> 
-					
+				</div>
 
-				<form th:action="@{/dologin}" method="post" class="right_area">
+
+				<form th:action="@{/dologin}" method="post" class="right_area" autocomplete="off" id="login-form">
 					<div class="login">
 						<h2>Login In</h2>
 					</div>
 					<div class="login-input-box">
 						<input type="email" id="email" name="username"
 							class="form-control input_area" placeholder="Enter Email ID"
-							required="required">
+							required="required"><small></small>
 					</div>
 					<div class="login-input-box">
 						<input type="password" id="password" name="password"
 							class="form-control input_area" placeholder="Enter Password"
-							required="required">
+							required="required"><small></small>
 					</div>
 					<div class="login-resset-btn-area">
 						<div class="email-submit-btn-area submit_area">
@@ -79,6 +79,7 @@
 								class="email-submit-btn btn_login">Forgot Password?</a>
 						</div>
 					</div>
+					
 					<div class="signup_area">
 						<p>
 							Not a member?<a th:href="@{/registerUser}"> Sign up now</a>
@@ -97,7 +98,8 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<script th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+	<script
+		th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
 	<!-- Bootstrap tether Core JavaScript -->
 	<script th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/myuser/js/app-style-switcher.js}"></script>
@@ -107,6 +109,9 @@
 	<script th:src="@{/myuser/js/sidebarmenu.js}"></script>
 	<!--Custom JavaScript -->
 	<script th:src="@{/myuser/js/custom.js}"></script>
+
+
+
 </body>
 
 </html>

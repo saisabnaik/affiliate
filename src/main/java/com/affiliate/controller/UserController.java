@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.affiliate.bean.User;
+import com.affiliate.bean.MyUser;
 import com.affiliate.repository.UserRepository;
 
 @Controller
@@ -36,39 +36,39 @@ public class UserController {
 
 	
 	@PostMapping("/addNewUser")
-	public String registerUser(@ModelAttribute User user,  RedirectAttributes redirect,Model model) {
-		if(user.getFirstname()==null || user.getFirstname().isEmpty()) {
+	public String registerUser(@ModelAttribute MyUser myuser,  RedirectAttributes redirect,Model model) throws Exception {
+		if(myuser.getFirstname()==null || myuser.getFirstname().isEmpty()) {
 			redirect.addFlashAttribute("message", "firstname cannot be blank");
 			return "redirect:/registerUser";
 		}
-		if(user.getLastname()==null || user.getLastname().isEmpty()) {
+		if(myuser.getLastname()==null || myuser.getLastname().isEmpty()) {
 			redirect.addFlashAttribute("message", "Last Name cannot be blank");
 			return "redirect:/registerUser";
 		}
-		if(user.getEmail()==null || user.getEmail().isEmpty()) {
+		if(myuser.getEmail()==null || myuser.getEmail().isEmpty()) {
 			redirect.addFlashAttribute("message", "email cannot be blank");
 			return "redirect:/registerUser";
 		}
-		if(user.getPassword()==null || user.getPassword().isEmpty()) {
+		if(myuser.getPassword()==null || myuser.getPassword().isEmpty()) {
 			redirect.addFlashAttribute("message", "password cannot be blank");
 			return "redirect:/registerUser";
 		}
 		
-		try {
-			User u=repo.findByEmail(user.getEmail());
-			if(u.getEmail()!=null) {
-				redirect.addFlashAttribute("message", "User already Exist Choose Another");
-				return "redirect:/registerUser";
+
+		 MyUser u=repo.findByEmail(myuser.getEmail());
+
+			if(u==null) {
+				System.out.println("this user is null values");
+				myuser.setPassword(bp.encode(myuser.getPassword().trim()));
+				myuser.setRole("ROLE_USER");
+				System.out.println(myuser);
+				repo.save(myuser);
 			}else {
-				user.setPassword(bp.encode(user.getPassword()));
-				user.setRole("ROLE_USER");
-				System.out.println(user);
-				repo.save(user);
+				 redirect.addFlashAttribute("message", "User already Exist Choose Another");
+				 
+					return "redirect:/registerUser";	
 			}
 			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		return "/users/login";
 	}
 	
