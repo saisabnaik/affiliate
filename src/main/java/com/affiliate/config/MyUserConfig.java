@@ -69,7 +69,7 @@ public class MyUserConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/user/**").hasRole("USER")
 		.antMatchers("/registerUser").permitAll().antMatchers("/user/profile-details/**")
 		.hasAnyAuthority("ADMIN", "USER").antMatchers("/delete/**").hasAuthority("ADMIN")
-		.antMatchers("/**").permitAll().and().formLogin().loginPage("/login")
+		.antMatchers("/**").permitAll().and().formLogin().loginPage("/")
 		.loginProcessingUrl("/dologin").defaultSuccessUrl("/user/home")
 		.and().csrf().disable();
 		

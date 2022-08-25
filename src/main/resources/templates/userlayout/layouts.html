@@ -43,11 +43,12 @@
 		<nav class="navbar top-navbar navbar-expand-md navbar-dark">
 			<div class="navbar-header" data-logobg="skin6">
 				<!-- Logo -->
-				<a class="navbar-brand navbar_logo" href="dashboard.html"> <span
-					class="logo-icon icon_logo"> <img src="images/logopng.png"
-						alt="logo-img">
+				 <span
+					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
+						src="./myuser/images/logopng.png"
+						th:src="@{/myuser/images/logopng.png}" alt="logo-img">
 				</span>
-				</a>
+				
 				<!-- toggle and nav items -->
 				<a
 					class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
@@ -145,7 +146,8 @@
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/my-affiliate.html" th:href="@{/user/myaffiliate}"  aria-expanded="false"> <i
+						href="user/my-affiliate.html" th:href="@{/user/myaffiliate}"
+						aria-expanded="false"> <i
 							class="fas fa-user-plus leftside_icon"></i> <span
 							class="hide-menu">My Affiliate</span>
 					</a></li>
@@ -158,9 +160,9 @@
 					</li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/payment.html" th:href="@{/user/payment}" aria-expanded="false">
-							<i class="fas fa-users leftside_icon"></i> <span
-							class="hide-menu">Total Sale</span>
+						href="user/payment.html" th:href="@{/user/payment}"
+						aria-expanded="false"> <i class="fas fa-users leftside_icon"></i>
+							<span class="hide-menu">Total Sale</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
@@ -226,24 +228,14 @@
 
 	<!-- 	script links -->
 	<div th:fragment="script-links">
-		<script
-			src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
-			th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js"
-			th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-		<script src="/myuser/js/app-style-switcher.js"
-			th:src="@{/myuser/js/app-style-switcher.js}"></script>
+
+
+
 		<script
 			src="/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"
 			th:src="@{/myuser/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}"></script>
 		<!--Wave Effects -->
-		<script src="/myuser/js/waves.js" th:src="@{/myuser/js/waves.js}"></script>
-		<!--Menu sidebar -->
-		<script src="/myuser/js/sidebarmenu.js"
-			th:src="@{/myuser/js/sidebarmenu.js}"></script>
-		<!--Custom JavaScript -->
-		<script src="/myuser/js/custom.js" th:src="@{/myuser/js/custom.js}"></script>
+
 		<!--This page JavaScript -->
 		<!--chartis chart-->
 		<script
@@ -267,10 +259,41 @@
 			th:src="@{/myuser/assets/vendors/highlight.js}"></script>
 		<script src="/myuser/assets/js/app.js"
 			th:src="@{/myuser/assets/js/app.js}"></script>
-	</div>
-	
 
-	
+		<script
+			src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
+			th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js"
+			th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+		<script src="/myuser/js/app-style-switcher.js"
+			th:src="@{/myuser/js/app-style-switcher.js}"></script>
+		<script src="/myuser/js/waves.js" th:src="@{/myuser/js/waves.js}"></script>
+		<!--Menu sidebar -->
+		<script src="/myuser/js/sidebarmenu.js"
+			th:src="@{/myuser/js/sidebarmenu.js}"></script>
+		<!--Custom JavaScript -->
+		<script src="/myuser/js/custom.js" th:src="@{/myuser/js/custom.js}"></script>
+	</div>
+
+	<div th:fragment="script-customLinks">
+		<script
+			src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
+			th:src="@{/myuser/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js"
+			th:src="@{/myuser/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+		<script src="/myuser/js/app-style-switcher.js"
+			th:src="@{/myuser/js/app-style-switcher.js}"></script>
+		<script src="/myuser/js/waves.js" th:src="@{/myuser/js/waves.js}"></script>
+		<!--Menu sidebar -->
+		<script src="/myuser/js/sidebarmenu.js"
+			th:src="@{/myuser/js/sidebarmenu.js}"></script>
+		<!--Custom JavaScript -->
+		<script src="/myuser/js/custom.js" th:src="@{/myuser/js/custom.js}"></script>
+
+	</div>
+
 
 </body>
 </html>

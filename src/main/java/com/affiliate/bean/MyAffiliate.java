@@ -1,10 +1,13 @@
 package com.affiliate.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,82 +18,96 @@ public class MyAffiliate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long affiliateId;
 	
+	@Column(name="user_id",length=10)
+	private Long userid;
 
-	@Column(name="first_name",length=50)
-	private String firstname;
+	@Column(name="product_name",length=100)
+	private String productName;
 	
-	@Column(name="last_name",length=50)
-	private String lastname;
+	@Column(name="product_links",length=50)
+	private String productLinks;
 	
-	@Column(name="email",length=50)
-	private String email;
-	
-	@Column(name="mobile",length=15)
-	private String mobile;
 
+	@Column(name="created_date",length=15)
+	private String createdDate;
+
+
+	@Column(name="total_shared_links",length=10)
+	private Long totalSharedLinks;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private MyUser myAffiliateUser;
 	
-	@Column(name="new_date",length=15)
-	private String newdate;
 	
-	@Column(name="poduct_image",length=15)
-	private String productImage;
 
 	public Long getAffiliateId() {
 		return affiliateId;
 	}
 
-	public String getFirstname() {
-		return firstname;
+
+	public Long getUserid() {
+		return userid;
 	}
 
-	public String getLastname() {
-		return lastname;
+
+	public String getProductName() {
+		return productName;
 	}
 
-	public String getEmail() {
-		return email;
+
+	public String getProductLinks() {
+		return productLinks;
 	}
 
-	public String getMobile() {
-		return mobile;
+
+	public String getCreatedDate() {
+		return createdDate;
 	}
 
-	public String getNewdate() {
-		return newdate;
+
+	public Long getTotalSharedLinks() {
+		return totalSharedLinks;
 	}
 
-	public String getProductImage() {
-		return productImage;
-	}
 
 	public void setAffiliateId(Long affiliateId) {
 		this.affiliateId = affiliateId;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setProductLinks(String productLinks) {
+		this.productLinks = productLinks;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public void setNewdate(String newdate) {
-		this.newdate = newdate;
+
+	public void setTotalSharedLinks(Long totalSharedLinks) {
+		this.totalSharedLinks = totalSharedLinks;
 	}
 
-	public void setProductImage(String productImage) {
-		this.productImage = productImage;
+
+	@Override
+	public String toString() {
+		return "MyAffiliate [affiliateId=" + affiliateId + ", userid=" + userid + ", productName=" + productName
+				+ ", productLinks=" + productLinks + ", createdDate=" + createdDate + ", totalSharedLinks="
+				+ totalSharedLinks + "]";
 	}
 	
+
 	
 	
 }

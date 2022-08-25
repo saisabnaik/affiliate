@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.affiliate.bean.MyUser;
@@ -21,7 +22,7 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bp;
 	
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public String login() {
 		
 		return "users/login";
@@ -71,6 +72,21 @@ public class UserController {
 			
 		return "/users/login";
 	}
+	
+	
+	
+	@RequestMapping("/forgot-password")
+	public ModelAndView forgetPassword(ModelAndView modelAndView) {
+		modelAndView.setViewName("users/forget-password");
+		return modelAndView;
+	}
+	
+	@PostMapping("/send-otp")
+	public ModelAndView sendOTP(ModelAndView modelAndView) {
+		modelAndView.setViewName("users/forget-password");
+		return modelAndView;
+	}
+	
 	
 	
 }

@@ -18,14 +18,14 @@ public interface UserRepository extends JpaRepository<MyUser, Long> {
 	
 	
 	
-	
+	/*
 	@Transactional
 	@Modifying
 	@Query("UPDATE MyUser feedUser SET feedUser.firstname=:firstname, feedUser.lastname=:lastname, feedUser.mobile=:mobile, feedUser.gender=:gender,feedUser.address=:address,feedUser.country=:country,feedUser.state=:state,feedUser.city=:city,feedUser.zip=:zip WHERE feedUser.email=:email")
 	public void updateData(@Param("firstname") String firstname, @Param("lastname") String lastname,
 			@Param("mobile") String mobile, @Param("gender") String gender, @Param("address") String address,
 			@Param("country") String country, @Param("state") String state, @Param("city") String city,
-			@Param("zip") Long zip, @Param("email") String email) throws Exception;
+			@Param("zip") Long zip, @Param("email") String email) throws Exception; */
 
 
 	@Transactional

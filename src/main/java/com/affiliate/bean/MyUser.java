@@ -1,10 +1,16 @@
 package com.affiliate.bean;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -14,14 +20,14 @@ public class MyUser {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id",length=10)
+	@Column(name="userid",length=10)
 	private Long userid;
 	
 	
-	@Column(name="first_name",length=50)
+	@Column(name="firstname",length=50)
 	private String firstname;
 	
-	@Column(name="last_name",length=50)
+	@Column(name="lastname",length=50)
 	private String lastname;
 	
 	@Column(name="email",length=50,unique=true)
@@ -54,6 +60,34 @@ public class MyUser {
 
 	
 	private String role;
+	
+	@OneToMany(targetEntity = MyAffiliate.class ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name="myuser_fk", referencedColumnName = "userid")
+	private List<MyAffiliate> affiliateList;
+	
+	
+	public List<MyAffiliate> getAffiliateList() {
+		return affiliateList;
+	}
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+	public void setAffiliateList(List<MyAffiliate> affiliateList) {
+		this.affiliateList = affiliateList;
+	}
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+	
+	
 
 	@Column(name="image", length=280)
 	private String image;
@@ -192,10 +226,17 @@ public class MyUser {
 	public String toString() {
 		return "MyUser [userid=" + userid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", password=" + password + ", gender=" + gender + ", city=" + city + ", country=" + country + ", zip="
-				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role + "]";
+				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role
+				+ ", affiliateList=" + affiliateList + ", image=" + image + ", getAffiliateList()=" + getAffiliateList()
+				+ ", getImage()=" + getImage() + ", getUserid()=" + getUserid() + ", getFirstname()=" + getFirstname()
+				+ ", getLastname()=" + getLastname() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword()
+				+ ", getGender()=" + getGender() + ", getCity()=" + getCity() + ", getCountry()=" + getCountry()
+				+ ", getZip()=" + getZip() + ", getAddress()=" + getAddress() + ", getState()=" + getState()
+				+ ", getMobile()=" + getMobile() + ", getRole()=" + getRole() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
-	
+
+
 	
 	
 }
