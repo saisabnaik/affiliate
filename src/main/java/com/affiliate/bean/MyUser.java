@@ -61,6 +61,11 @@ public class MyUser {
 	
 	private String role;
 	
+	private String otp;
+	
+	private String DateTime;
+
+	
 	@OneToMany(targetEntity = MyAffiliate.class ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="myuser_fk", referencedColumnName = "userid")
 	private List<MyAffiliate> affiliateList;
@@ -221,22 +226,45 @@ public class MyUser {
 		this.role = role;
 	}
 
+	public String getOtp() {
+		return otp;
+	}
+
+
+	public String getDateTime() {
+		return DateTime;
+	}
+
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+
+	public void setDateTime(String dateTime) {
+		DateTime = dateTime;
+	}
+
 
 	@Override
 	public String toString() {
 		return "MyUser [userid=" + userid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", password=" + password + ", gender=" + gender + ", city=" + city + ", country=" + country + ", zip="
-				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role
-				+ ", affiliateList=" + affiliateList + ", image=" + image + ", getAffiliateList()=" + getAffiliateList()
-				+ ", getImage()=" + getImage() + ", getUserid()=" + getUserid() + ", getFirstname()=" + getFirstname()
-				+ ", getLastname()=" + getLastname() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword()
-				+ ", getGender()=" + getGender() + ", getCity()=" + getCity() + ", getCountry()=" + getCountry()
-				+ ", getZip()=" + getZip() + ", getAddress()=" + getAddress() + ", getState()=" + getState()
-				+ ", getMobile()=" + getMobile() + ", getRole()=" + getRole() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role + ", otp="
+				+ otp + ", DateTime=" + DateTime + ", affiliateList=" + affiliateList + ", image=" + image
+				+ ", getAffiliateList()=" + getAffiliateList() + ", getImage()=" + getImage() + ", getUserid()="
+				+ getUserid() + ", getFirstname()=" + getFirstname() + ", getLastname()=" + getLastname()
+				+ ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", getGender()=" + getGender()
+				+ ", getCity()=" + getCity() + ", getCountry()=" + getCountry() + ", getZip()=" + getZip()
+				+ ", getAddress()=" + getAddress() + ", getState()=" + getState() + ", getMobile()=" + getMobile()
+				+ ", getRole()=" + getRole() + ", getOtp()=" + getOtp() + ", getDateTime()=" + getDateTime()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
 
-	
+
+
+
 	
 }

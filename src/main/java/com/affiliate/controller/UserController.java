@@ -1,17 +1,23 @@
 package com.affiliate.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.affiliate.bean.MyUser;
 import com.affiliate.repository.UserRepository;
+import com.affiliate.service.EmailSenderService;
 
 @Controller
 public class UserController {
@@ -21,6 +27,11 @@ public class UserController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bp;
+	
+	@Autowired
+	private EmailSenderService emailSenderService;
+
+
 	
 	@RequestMapping("/")
 	public String login() {
@@ -82,7 +93,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/send-otp")
-	public ModelAndView sendOTP(ModelAndView modelAndView) {
+	public ModelAndView sendOTP(ModelAndView modelAndView,@RequestParam("email") String email){
+
+		try {
+			this.emailSenderService.sendEmail(email);
+			System.out.println("otp sent successfully...");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.addObject("success","otp sent successfully");
 		modelAndView.setViewName("users/forget-password");
 		return modelAndView;
 	}

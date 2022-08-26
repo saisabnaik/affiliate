@@ -36,18 +36,19 @@
 		data-sidebartype="full" data-sidebar-position="absolute"
 		data-header-position="absolute" data-boxed-layout="full">
 		<div class="forget-password-detail-area responsive_height">
-			<div class="forget-password-left-area left_area">
+<!-- 			<div class="forget-password-left-area left_area">
 				<a th:href="@{/dashboard}"> <img
 					th:src="@{/myuser/images/logo-JD-business-02-1-1-p8vrip8b47htdpmkyb4kcbgm964m3uckzbrcg8qmh0.png}"
 					alt="logo-img">
 				</a>
-			</div>
+			</div> -->
+			
 			<div
 				class="forget-password-input-area middel-heading-main-area right_area_back-image">
 				<div class="forget-password-left-area">
-					<a th:href="@{/users/business-panel-dashboard}"> <img
+					 <img
 						th:src="@{/myuser/images/logopng.png}" alt="logo-img">
-					</a>
+					
 				</div>
 
 				<form th:action="@{/addNewUser}" th:object="${myuser}" method="post"
@@ -91,7 +92,7 @@
 					</div>
 					<div class="signup_area">
 						<p>
-							Already a member?<a th:href="@{/login}" type="submit"> login</a>
+							Already a member?<a th:href="@{/}" type="submit"> login</a>
 						</p>
 					</div>
 				</form>

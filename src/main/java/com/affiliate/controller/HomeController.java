@@ -24,6 +24,7 @@ import com.affiliate.bean.MyAffiliate;
 import com.affiliate.bean.MyUser;
 import com.affiliate.repository.UserAffiliateRepository;
 import com.affiliate.repository.UserRepository;
+import com.affiliate.user.service.UserUpdateAndChangePassword;
 
 
 @RestController
@@ -36,7 +37,11 @@ public class HomeController {
 	@Autowired
 	private UserRepository repo;
 
-private UserAffiliateRepository userAffiliateRepository;
+	@Autowired
+	private UserAffiliateRepository userAffiliateRepository;
+	
+	@Autowired
+	private UserUpdateAndChangePassword userUpdateAndChangePassword;
 	
 	
 	
@@ -62,31 +67,11 @@ private UserAffiliateRepository userAffiliateRepository;
 	}
 
 	@PostMapping("/updateMyUser")
-	public ModelAndView showEditStudentPage(MyUser myuser, ModelAndView modelAndView,Principal principal,RedirectAttributes redirAttrs) throws Exception{
+	public ModelAndView showEditStudentPage(MyUser myuser, ModelAndView modelAndView,Principal principal) throws Exception{
 
-			MyUser currentUser = this.repo.findByEmail(principal.getName());
-
-
-				//repo.updateData(myuser.getFirstname(), myuser.getLastname(), myuser.getMobile(), myuser.getGender(),
-						//myuser.getAddress(), myuser.getCountry(), myuser.getState(), myuser.getCity(), myuser.getZip(),
-						//myuser.getEmail());
-				
-				currentUser.setFirstname(myuser.getFirstname());
-				currentUser.setLastname(myuser.getLastname());
-				currentUser.setMobile(myuser.getMobile());
-				currentUser.setGender(myuser.getGender());
-				currentUser.setAddress(myuser.getAddress());
-				currentUser.setCountry(myuser.getCountry());
-				currentUser.setState(myuser.getState());
-				currentUser.setCity(myuser.getCity());
-				currentUser.setZip(myuser.getZip());
-				this.repo.save(currentUser);
-				
+		MyUser currentUser =this.userUpdateAndChangePassword.updatePassword(myuser, principal);
 				modelAndView.addObject("user_details", currentUser);
 				modelAndView.addObject("success", "Record updated successfully");
-				System.out.println("updated record successfully....");
-				//redirAttrs.addFlashAttribute("success", "Record updated successfully");
-				
 				modelAndView.setViewName("users/mysetting");
 
 		return modelAndView;
@@ -96,17 +81,9 @@ private UserAffiliateRepository userAffiliateRepository;
 	@PostMapping("/changePassword")
 	public ModelAndView changePassword(ModelAndView modelAndView, @RequestParam("oldPassword") String oldPassword,@RequestParam("password") String password ,Principal principal) throws Exception{
 
-		MyUser currentUser = this.repo.findByEmail(principal.getName());
-		
-		if(this.bCryptPasswordEncoder.matches(oldPassword, currentUser.getPassword())) {
-			
-			currentUser.setPassword(this.bCryptPasswordEncoder.encode(password));
-			this.repo.save(currentUser);
-			modelAndView.addObject("user_details", currentUser);
-			modelAndView.addObject("success","Your password hasbeen changed successfully...");
-			System.out.println("password changed successfully");
-		}
-
+		MyUser currentUser = this.userUpdateAndChangePassword.changeMyPassword(oldPassword, password, principal );
+		modelAndView.addObject("user_details", currentUser);
+		modelAndView.addObject("success","Your password hasbeen changed successfully...");
 		modelAndView.setViewName("users/mysetting");
 		
 		return modelAndView;
