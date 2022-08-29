@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>gogoGlobal.LIFE</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="/myuser/images/favicon.png"
+	th:href="@{/myuser/images/favicon.png}">
+<!-- Custom CSS -->
+<link href="./myuser/css/style.min.css" rel="stylesheet"
+	th:href="@{/myuser/css/style.min.css}">
+<link href="./myuser/css/responsive.css" rel="stylesheet"
+	th:href="@{/myuser/css/responsive.css}">
+</head>
+
+<body>
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
+		data-sidebartype="full" data-sidebar-position="absolute"
+		data-header-position="absolute" data-boxed-layout="full">
+		<div class="forget-password-detail-area">
+			<div class="forget-password-left-area left_area">
+				<!-- <a href="./dashboard.html">  </a> -->
+				<img
+					src="/myuser/images/logo-JD-business-02-1-1-p8vrip8b47htdpmkyb4kcbgm964m3uckzbrcg8qmh0.png"
+					alt="logo-img"
+					th:src="@{/myuser/images/logo-JD-business-02-1-1-p8vrip8b47htdpmkyb4kcbgm964m3uckzbrcg8qmh0.png}">
+
+			</div>
+			<div class="forget-password-input-area right_area_back-image">
+				<div class="forget-password-left-area">
+					<!-- <a href="users/business-panel-dashboard1.html"></a> -->
+					<img src="./myuser/images/logopng.png"
+						th:src="@{/myuser/images/logopng.png}" alt="logo-img">
+					<!-- th:src="@{/myuser/images/user-img.jpg}" -->
+				</div>
+				<form action="" class="right_area" th:action="@{/verify-otp}" name="veify-otp"
+					method="post" id="sendOtpToMailForm">
+					<div class="login">
+						<h2> Verify Your OTP </h2>
+						<div  th:text="${session.message}" th:if="${session.message}"></div>
+					</div>
+					<p>Please provide 4 digit otp to reset your password.</p>
+
+					<input type="text" id="text" name="otp"
+						class="form-control input_area" placeholder="Enter OTP"
+						> <small></small>
+					<div class="email-submit-btn-area btn_area">
+						<input type="submit" class="btn_submit" value="verify otp" >
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+
+
+	<div th:replace="userlayout/layouts.html :: script-customLinks"></div>
+
+	<script>
+
+	   function emptyValidation() {
+	      var formField = document.forms["veify-otp"]["otp"].value;
+	      if (formField == "" || x == null) {
+	         return false;
+	      }else{	    	  
+	    	  return true;
+	      }
+	   }
+</script>
+
+</body>
+
+</html>

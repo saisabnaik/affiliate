@@ -58,6 +58,9 @@ public class MyUser {
 	@Column(name="mobile",length=15)
 	private String mobile;
 
+
+	@Column(name="image", length=500)
+	private String image;
 	
 	private String role;
 	
@@ -90,12 +93,6 @@ public class MyUser {
 		this.image = image;
 	}
 
-
-	
-	
-
-	@Column(name="image", length=280)
-	private String image;
 
 	public Long getUserid() {
 		return userid;

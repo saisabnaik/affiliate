@@ -1,13 +1,10 @@
 package com.affiliate.bean;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,38 +14,31 @@ public class MyAffiliate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long affiliateId;
-	
-	@Column(name="user_id",length=10)
-	private Long userid;
 
-	@Column(name="product_name",length=100)
+	@Column(name="product_name",length=150)
 	private String productName;
 	
-	@Column(name="product_links",length=50)
+	@Column(name="product_links",length=250)
 	private String productLinks;
 	
 
-	@Column(name="created_date",length=15)
+	@Column(name="created_date",length=30)
 	private String createdDate;
 
+	@Column(name="product_image",length=500)
+	private String productImage;
 
 	@Column(name="total_shared_links",length=10)
 	private Long totalSharedLinks;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private MyUser myAffiliateUser;
-	
 	
 
+	
 	public Long getAffiliateId() {
 		return affiliateId;
 	}
 
-
-	public Long getUserid() {
-		return userid;
-	}
-
+	
 
 	public String getProductName() {
 		return productName;
@@ -75,11 +65,6 @@ public class MyAffiliate {
 	}
 
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
-	}
-
-
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
@@ -95,6 +80,19 @@ public class MyAffiliate {
 	}
 
 
+	
+	public String getProductImage() {
+		return productImage;
+	}
+
+
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
+
+
+
 	public void setTotalSharedLinks(Long totalSharedLinks) {
 		this.totalSharedLinks = totalSharedLinks;
 	}
@@ -102,7 +100,7 @@ public class MyAffiliate {
 
 	@Override
 	public String toString() {
-		return "MyAffiliate [affiliateId=" + affiliateId + ", userid=" + userid + ", productName=" + productName
+		return "MyAffiliate [affiliateId=" + affiliateId + ", productName=" + productName
 				+ ", productLinks=" + productLinks + ", createdDate=" + createdDate + ", totalSharedLinks="
 				+ totalSharedLinks + "]";
 	}
