@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -81,10 +82,10 @@ public class HomeController {
 	}
 
 	@PostMapping("/updateMyUser")
-	public ModelAndView showEditStudentPage(MyUser myuser, ModelAndView modelAndView, Principal principal)
+	public ModelAndView showEditStudentPage(MyUser myuser, ModelAndView modelAndView, Principal principal, @RequestParam("userImage") MultipartFile profileImage)
 			throws Exception {
 
-		MyUser currentUser = this.userUpdateAndChangePassword.updatePassword(myuser, principal);
+		MyUser currentUser = this.userUpdateAndChangePassword.updateProfile(myuser, principal, profileImage);
 		modelAndView.addObject("user_details", currentUser);
 		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
 		modelAndView.addObject("success", "Record updated successfully");
@@ -132,8 +133,17 @@ public class HomeController {
 			System.out.println("myaffiliate called....");
 
 			List<MyAffiliate> affiliatelist=currentUser.getAffiliateList();
-			modelAndView.addObject("affiliatelist", affiliatelist);
-			return modelAndView;
+			
+			if(affiliatelist.isEmpty()==false) {
+				modelAndView.addObject("affiliatelist", affiliatelist);
+				return modelAndView;
+			}else {
+				modelAndView.addObject("noDataMsg","No Record found");
+				return modelAndView;
+			}
+			
+			
+
 		}else {
 			modelAndView.setViewName("users/login");
 			return modelAndView;
@@ -141,6 +151,38 @@ public class HomeController {
 		
 	}
 
+//total sale by affiliate
+	@RequestMapping("/payment")
+	public ModelAndView totalSale(ModelAndView modelAndView, Principal principal) throws Exception {
+		MyUser currentUser = this.repo.findByEmail(principal.getName());
+	
+		if(currentUser!=null) {
+			modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+			modelAndView.setViewName("users/payment");	
+			System.out.println("myaffiliate called....");
+
+			List<MyAffiliate> affiliatelist=currentUser.getAffiliateList();
+			
+			if(affiliatelist.isEmpty()==false) {
+				modelAndView.addObject("affiliatelist", affiliatelist);
+				
+				return modelAndView;
+			}else {
+				modelAndView.addObject("noDataMsg","No Record found");
+				return modelAndView;
+			}
+		}
+		else {
+			modelAndView.setViewName("users/login");
+			return modelAndView;
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

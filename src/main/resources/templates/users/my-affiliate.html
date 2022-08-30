@@ -59,28 +59,32 @@
                       <tr>
                         <th>Sl No</th>
                         <th>Affiliate Id</th>
-                        <th>Created Date</th>
                         <th>Product Name</th>
-                        <th>Product links</th>
-                        <th>Total shared links</th>
                         <th>Product Image</th>
+                        <th>Product links</th>
+                        <th>Created Date</th>
+                        <th>Total shared links</th>
                       </tr>
                     </thead>
                     <tbody th:if="${affiliatelist}" >
                       <tr th:each="mydata, iStart : ${affiliatelist}">
                       <td th:text=${iStart.count}/> 
                         <td th:text="${mydata.getAffiliateId()}"/>
-                         <td th:text="${mydata.getCreatedDate()}"/>
-                          <td th:text="${mydata.getProductName()}"/>
-                          <td th:text="${mydata.getProductLinks()}"/>
-                          <td th:text="${mydata.getTotalSharedLinks()}"/>
+                        <td th:text="${mydata.getProductName()}"/>
                         <td>
                             <div class="images">
                                 <img src="./images/marissa-grootes-D4jRahaUaIc-unsplash.jpg" th:text="${mydata.getProductImage()}" alt="unsplash" width="100px" height="100px">
                             </div>
                         </td>
-                        
+                         <td th:text="${mydata.getProductLinks()}"/>
+                         <td th:text="${mydata.getCreatedDate()}"/>
+                         <td th:text="${mydata.getTotalSharedLinks()}"/>
                       </tr>
+                    </tbody>
+                    <tbody th:if="${noDataMsg}">
+                    <tr>
+                    <td colspan="7" th:text="${noDataMsg}" style="text-align: center;"></td>
+                    </tr>
                     </tbody>
                   </table>   
                 </div>

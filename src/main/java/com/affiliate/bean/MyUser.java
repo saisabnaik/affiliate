@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -59,8 +60,9 @@ public class MyUser {
 	private String mobile;
 
 
+	@Lob
 	@Column(name="image", length=500)
-	private String image;
+	private Byte[] image;
 	
 	private String role;
 	
@@ -72,26 +74,6 @@ public class MyUser {
 	@OneToMany(targetEntity = MyAffiliate.class ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="myuser_fk", referencedColumnName = "userid")
 	private List<MyAffiliate> affiliateList;
-	
-	
-	public List<MyAffiliate> getAffiliateList() {
-		return affiliateList;
-	}
-
-
-	public String getImage() {
-		return image;
-	}
-
-
-	public void setAffiliateList(List<MyAffiliate> affiliateList) {
-		this.affiliateList = affiliateList;
-	}
-
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 
 	public Long getUserid() {
@@ -154,8 +136,28 @@ public class MyUser {
 	}
 
 
+	public Byte[] getImage() {
+		return image;
+	}
+
+
 	public String getRole() {
 		return role;
+	}
+
+
+	public String getOtp() {
+		return otp;
+	}
+
+
+	public String getDateTime() {
+		return DateTime;
+	}
+
+
+	public List<MyAffiliate> getAffiliateList() {
+		return affiliateList;
 	}
 
 
@@ -219,17 +221,13 @@ public class MyUser {
 	}
 
 
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
+
+
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public String getOtp() {
-		return otp;
-	}
-
-
-	public String getDateTime() {
-		return DateTime;
 	}
 
 
@@ -243,25 +241,11 @@ public class MyUser {
 	}
 
 
-	@Override
-	public String toString() {
-		return "MyUser [userid=" + userid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", gender=" + gender + ", city=" + city + ", country=" + country + ", zip="
-				+ zip + ", address=" + address + ", state=" + state + ", mobile=" + mobile + ", role=" + role + ", otp="
-				+ otp + ", DateTime=" + DateTime + ", affiliateList=" + affiliateList + ", image=" + image
-				+ ", getAffiliateList()=" + getAffiliateList() + ", getImage()=" + getImage() + ", getUserid()="
-				+ getUserid() + ", getFirstname()=" + getFirstname() + ", getLastname()=" + getLastname()
-				+ ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", getGender()=" + getGender()
-				+ ", getCity()=" + getCity() + ", getCountry()=" + getCountry() + ", getZip()=" + getZip()
-				+ ", getAddress()=" + getAddress() + ", getState()=" + getState() + ", getMobile()=" + getMobile()
-				+ ", getRole()=" + getRole() + ", getOtp()=" + getOtp() + ", getDateTime()=" + getDateTime()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+	public void setAffiliateList(List<MyAffiliate> affiliateList) {
+		this.affiliateList = affiliateList;
 	}
-
-
-
-
+	
+	
 
 	
 }

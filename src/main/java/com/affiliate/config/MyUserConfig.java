@@ -47,30 +47,18 @@ public class MyUserConfig  extends WebSecurityConfigurerAdapter{
 		//super.configure(auth);
 	}
 
-	/*
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-		// TODO Auto-generated method stub
-		return super.authenticationManager();
-	}*/
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		/*
-		 * http .authorizeHttpRequests() .antMatchers("/user/**") .hasRole("USER")
-		 * .antMatchers("/**") .permitAll().and().formLogin().loginPage("/login")
-		 * .loginProcessingUrl("/dologin").defaultSuccessUrl("/user/home")
-		 * .and().csrf().disable();
-		 */
-		
-		
 		
 		http.authorizeRequests()
 		.antMatchers("/user/**").hasRole("USER")
 		.antMatchers("/registerUser").permitAll().antMatchers("/user/profile-details/**")
 		.hasAnyAuthority("ADMIN", "USER").antMatchers("/delete/**").hasAuthority("ADMIN")
-		.antMatchers("/**").permitAll().and().formLogin().loginPage("/")
+		.antMatchers("/**").permitAll()
+		.and().formLogin().loginPage("/")
 		.loginProcessingUrl("/dologin").defaultSuccessUrl("/user/home")
+		.and().exceptionHandling().accessDeniedPage("/error")
 		.and().csrf().disable();
 		
 		
