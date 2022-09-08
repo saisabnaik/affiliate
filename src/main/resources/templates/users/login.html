@@ -37,15 +37,15 @@
 		data-header-position="absolute" data-boxed-layout="full">
 		<div class="forget-password-detail-area">
 			<div class="forget-password-left-area left_area">
-				<a th:href="@{/myuser/dashboard}" type="submit"> <img
-					src="@{/myuser/images/logopng.png}" alt="logo-img">
-				</a>
+				<!-- <a th:href="@{/myuser/dashboard}" type="submit">  --><img
+					th:src="@{/myuser/images/logopng.png}" alt="logo-img">
+			<!-- 	</a> -->
 			</div>
 			<div class="forget-password-input-area right_area_back-image">
 				<div class="forget-password-left-area">
-					<a href="@{/myuser/business-panel-dashboard}" type="submit"> <img
-						src="@{/myuser/images/logopng.png}" alt="logo-img">
-					</a>
+					<!-- <a th:href="@{/myuser/business-panel-dashboard}" type="submit">  --><img
+						th:src="@{/myuser/images/logopng.png}" alt="logo-img">
+					<!-- </a> -->
 				</div>
 
 				<div th:if="${param.logout}">
@@ -56,12 +56,12 @@
 				</div>
 
 
-				<form th:action="@{/dologin}" method="post" class="right_area" autocomplete="off" id="login-form">
+				<form th:action="@{/customer/dologin}" method="post" class="right_area" autocomplete="off" id="login-form">
 					<div class="login">
 						<h2>Login In</h2>
 					</div>
 					<div class="login-input-box">
-						<input type="email" id="email" name="username"
+						<input type="email" id="email" name="email"
 							class="form-control input_area" placeholder="Enter Email ID"
 							required="required"><small></small>
 					</div>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="login-resset-btn-area">
 						<div class="email-submit-btn-area submit_area">
-							<button type="submit" class="email-submit-btn btn_submit" > Login</button>
+							<input type="submit" class="email-submit-btn btn_submit" value="submit" /> 
 						</div>
 						<div class="email-submit-btn-area forget_login">
 							<a href="forget-password" type="submit" th:href="@{/forgot-password}"

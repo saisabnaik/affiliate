@@ -81,7 +81,7 @@
 					</li>
 
 					<li class="dropdown"><a class="profile-pic"
-						data-bs-toggle="dropdown" href="#"> <img
+						data-bs-toggle="dropdown" href="#" > <img
 							src="/myuser/plugins/images/users/varun.jpg"
 							th:src="@{/myuser/plugins/images/users/varun.jpg}" alt="user-img"
 							width="36" class="img-circle"> <span
@@ -101,11 +101,13 @@
 						<ul class="dropdown-menu profileDropdown">
 							<li><a class="dropdown-item"
 								href="myusers/profile-details.html"
-								th:href="@{/user/profile-details}">Profile</a></li>
+								th:href="@{/customer/profile-details}">Profile</a></li>
 							<li><a class="dropdown-item" href="myusers/mysetting.html"
-								th:href="@{/user/settings}">Setting</a></li>
-							<li><a class="dropdown-item" href="myusers/login.html"
-								th:href="@{/logout}">Log Out</a></li>
+								th:href="@{/customer/settings}">Setting</a></li>
+							<li>
+							
+							<a class="dropdown-item" href="myusers/login.html"
+								th:href="@{/customer/logout}" method="post" type="submit">Log Out</a></li>
 						</ul></li>
 
 					<li class="notification_bell"><a href="#" class="color_white"><i
@@ -139,14 +141,14 @@
 					<!-- User Profile-->
 					<li class="sidebar-item pt-2"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="users/business-panel-dashboard.html" th:href="@{/user/home}"
+						href="users/business-panel-dashboard.html" th:href="@{/customer/home}"
 						aria-expanded="false"> <i
 							class="fas fa-tachometer-alt leftside_icon"></i> <span
 							class="hide-menu">Dashboard</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/my-affiliate.html" th:href="@{/user/myaffiliate}"
+						href="user/my-affiliate.html" th:href="@{/customer/myaffiliate}"
 						aria-expanded="false"> <i
 							class="fas fa-user-plus leftside_icon"></i> <span
 							class="hide-menu">My Affiliate</span>
@@ -160,19 +162,19 @@
 					</li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/payment.html" th:href="@{/user/payment}"
+						href="user/payment.html" th:href="@{/customer/payment}"
 						aria-expanded="false"> <i class="fas fa-users leftside_icon"></i>
 							<span class="hide-menu">Total Sale</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/mysetting.html" th:href="@{/user/settings}"
+						href="user/mysetting.html" th:href="@{/customer/settings}"
 						aria-expanded="false"> <i class="fas fa-cog leftside_icon"></i>
 							<span class="hide-menu">Settings</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/notification.html" th:href="@{/user/notification}"
+						href="user/notification.html" th:href="@{/customer/notification}"
 						aria-expanded="false"> <i class="fas fa-bell leftside_icon"></i>
 							<span class="hide-menu">Notifications</span>
 					</a></li>
@@ -184,21 +186,21 @@
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/contact-us.html" th:href="@{/user/contact-us}"
+						href="user/contact-us.html" th:href="@{/customer/contact-us}"
 						aria-expanded="false"> <i
 							class="fas fa-address-card leftside_icon"></i> <span
 							class="hide-menu">Contact Us</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/term-condition.html" th:href="@{/user/term-condition}"
+						href="user/term-condition.html" th:href="@{/customer/term-condition}"
 						aria-expanded="false"> <i
 							class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
 							<span class="hide-menu">Terms & Conditions</span>
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/privacy-policy.html" th:href="@{/user/privacy-policy}"
+						href="user/privacy-policy.html" th:href="@{/customer/privacy-policy}"
 						aria-expanded="false"> <i
 							class="fas fa-file-alt leftside_icon"></i> <span
 							class="hide-menu">Privacy & Policy</span>

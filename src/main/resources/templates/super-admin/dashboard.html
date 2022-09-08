@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex,nofollow">
-    <title>gogoGlobal.LIFE</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
-    <!-- Custom CSS -->
-    <link href="./css/style.min.css" rel="stylesheet">
-    <link href="./css/fontawesome.min.css" rel="stylesheet">
-    <link href="./css/responsive.css" rel="stylesheet">
-</head>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+	<!-- links section -->
+<head th:replace="adminlayout/layouts.html :: head"> links</head>
+		<!-- *********** -->
+
 <body style="font-family: Roboto, sans-serif;">
     <div class="preloader">
         <div class="lds-ripple">
@@ -26,139 +18,15 @@
     <!-- ============================================================== -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <header class="topbar top_header responsive_head" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- Logo -->
-                    <a class="navbar-brand navbar_logo" href="dashboard.html">
-                        <span class="logo-icon icon_logo">
-                            <img src="images/logopng.png" alt="logo-img"> 
-                        </span>
-                    </a>
-                    <!-- toggle and nav items -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <i class='fas fa-bars' style='color: #4691ce; font-size: 22px; margin-left: 10px;'></i>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse collapse_navbar" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav d-none d-md-block d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                        </li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0 border_color">
-                                <a href="" class="active">
-                                    <i class="fa fa-search" style="color: #4691ce;"></i>
-                                </a>
-                            </form>
-                        </li>
-                        
-                        <li class="dropdown">
-                            <a class="profile-pic" href="profile-details.html" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Steave <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                            </a>
-                            <ul class="dropdown-menu profileDropdown">
-                              <li><a class="dropdown-item" href="profile-details.html">Profile</a></li>
-                              <li><a class="dropdown-item" href="./setting.html">Setting</a></li>
-                              <li><a class="dropdown-item" href="login.html">Log Out</a></li>
-                            </ul>
-                        </li>
+        
+        <!-- header section -->
+ 		<div th:replace="adminlayout/layouts.html :: header">header section</div>
 
-                        <li class="notification_bell">
-                            <a href="#" class="color_white"><i class="fas fa-bell"></i></a>
-                            <span class="noti_number">5</span>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-         <aside class="left-sidebar left_aside" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="nav_bar_side">
-                        <!-- User Profile-->
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="dashboard.html"
-                                aria-expanded="false">
-                                <i class="fas fa-tachometer-alt leftside_icon"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
-                                aria-expanded="false">
-                                <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">Manage Business</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
-                                aria-expanded="false">
-                                <i class="fas fa-cog leftside_icon"></i>
-                                <span class="hide-menu">Settings</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="notification.html"
-                                aria-expanded="false">
-                                <i class="fas fa-bell leftside_icon"></i>
-                                <span class="hide-menu">Notifications</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="contact-us.html"
-                                aria-expanded="false">
-                                <i class="fas fa-address-card leftside_icon"></i>
-                                <span class="hide-menu">Contact Us</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="term-condition.html"
-                                aria-expanded="false">
-                                <i class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
-                                <span class="hide-menu">Terms & Conditions</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="privacy-policy.html"
-                                aria-expanded="false">
-                                <i class="fas fa-file-alt leftside_icon"></i>
-                                <span class="hide-menu">Privacy & Policy</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="login.html"
-                                aria-expanded="false">
-                                <i class="fas fa-power-off leftside_icon"></i>
-                                <span class="hide-menu">Log Out</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <!-- ******** -->
+        
+      <div th:replace="adminlayout/layouts.html :: sidemenu"></div>
+      
+			<!-- body of this page -->
 
         <div class="page-wrapper wrapper_page">
             <div class="page-breadcrumb bg-white white_bg">
@@ -361,30 +229,17 @@
             
         </div>
     </div>
-    <footer class="footer text-center footer_text"> 2022 © All rights reserved. <a class="footer_link"
-            href="#">gogoGlobal</a>
-        </footer>
+
+        <!-- footer section -->
+     <footer th:replace="userlayout/layouts.html :: footer"></footer>
         
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
-    <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
-    <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="js/pages/dashboards/dashboard1.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-    <script src="./js/char/t.js"></script>
-    <script src="./js/pie-chart.js"></script>
+        <!--  links  -->
+	<div th:replace="adminlayout/layouts.html :: script-links"></div>
+
+
+
+
+
     <script>
         $(document).ready(function(){
             $('.counter-value').each(function(){

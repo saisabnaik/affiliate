@@ -87,8 +87,8 @@
                          <td th:text="${mydata.getProductSerialNo()}"/>
                          <td th:text="${mydata.getTotalSold()}"/>
                          <td th:text="${'$'+mydata.getPriceOfProduct()}"/>         
-                         <td th:text="${'$'+mydata.getCommission()}"/>
-                         <td th:text="${'$'+mydata.getSubTotal()}"/>
+                         <td th:text="${'$'+mydata.getRate()}"/>
+                         <td th:text="${'$'+mydata.getTotalEarnings()}"/>
                       </tr>
                     </tbody>
                     <tbody th:if="${noDataMsg}">

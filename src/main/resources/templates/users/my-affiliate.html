@@ -60,10 +60,15 @@
                         <th>Sl No</th>
                         <th>Affiliate Id</th>
                         <th>Product Name</th>
+                        <th>Product serialNo</th>
                         <th>Product Image</th>
                         <th>Product links</th>
-                        <th>Created Date</th>
-                        <th>Total shared links</th>
+                        <th>Referal links</th>
+                        <th>Product price</th>
+                        <th>Rate</th>
+                        <th>Total earnings</th>
+                        <th>Generated Date</th>
+                        <th>Total sold</th>
                       </tr>
                     </thead>
                     <tbody th:if="${affiliatelist}" >
@@ -71,19 +76,24 @@
                       <td th:text=${iStart.count}/> 
                         <td th:text="${mydata.getAffiliateId()}"/>
                         <td th:text="${mydata.getProductName()}"/>
+                        <td th:text="${mydata.getProductSerialNo()}"/>
                         <td>
                             <div class="images">
                                 <img src="./images/marissa-grootes-D4jRahaUaIc-unsplash.jpg" th:text="${mydata.getProductImage()}" alt="unsplash" width="100px" height="100px">
                             </div>
                         </td>
                          <td th:text="${mydata.getProductLinks()}"/>
+                         <td th:text="${mydata.getGeneratedLinks()}"/>
+                         <td th:text="${'$'+mydata.getPriceOfProduct()}"/>
+                         <td th:text="${'$'+mydata.getRate()}"/>
+                         <td th:text="${'$'+mydata.getTotalEarnings()}"/>
                          <td th:text="${mydata.getCreatedDate()}"/>
-                         <td th:text="${mydata.getTotalSharedLinks()}"/>
+                         <td th:text="${mydata.getTotalSold()}"/>
                       </tr>
                     </tbody>
                     <tbody th:if="${noDataMsg}">
                     <tr>
-                    <td colspan="7" th:text="${noDataMsg}" style="text-align: center;"></td>
+                    <td colspan="12" th:text="${noDataMsg}" style="text-align: center;"></td>
                     </tr>
                     </tbody>
                   </table>   
