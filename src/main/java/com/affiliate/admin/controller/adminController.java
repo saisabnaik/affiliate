@@ -146,6 +146,42 @@ public class adminController {
 	}
 	
 	
+	@GetMapping("/notification")
+	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
+		MyAdmin currentAdmin = this.amdinRepo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentAdmin.getFirstname() + " " + currentAdmin.getLastname());
+		modelAndView.setViewName("super-admin/notification");
+		return modelAndView;
+	}
+	@GetMapping("/termsAndConditions")
+	public ModelAndView termCondition(ModelAndView modelAndView, Principal principal) {
+		MyAdmin currentAdmin = this.amdinRepo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentAdmin.getFirstname() + " " + currentAdmin.getLastname());
+		modelAndView.setViewName("super-admin/term-condition");
+		return modelAndView;
+	}	
+	
+	@GetMapping("/contactus")
+	public ModelAndView contactUs(ModelAndView modelAndView, Principal principal) {
+		MyAdmin currentAdmin = this.amdinRepo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentAdmin.getFirstname() + " " + currentAdmin.getLastname());
+		modelAndView.setViewName("super-admin/contact-us");
+		return modelAndView;
+	}	
+	
+	
+	@GetMapping("/privacyPolicy")
+	public ModelAndView privacyPolicy(ModelAndView modelAndView, Principal principal) {
+		MyAdmin currentAdmin = this.amdinRepo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentAdmin.getFirstname() + " " + currentAdmin.getLastname());
+		modelAndView.setViewName("super-admin/privacy-policy");
+		return modelAndView;
+	}
+	
+	
+	
+	
+	
 	
 	
 

@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <title>gogoGlobal.LIFE</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/super-admin/images/favicon.png}" >
-    <link href="plugins/bower_components/chartist/dist/chartist.min.css" th:href="@{/super-admin/plugins/bower_components/chartist/dist/chartist.min.css}" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" th:href="@{/super-admin/plugins/bower_components/chartist/dist/chartist.min.css}">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}" >
+    <link href="plugins/bower_components/chartist/dist/chartist.min.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}" rel="stylesheet">
+    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}">
     <!-- Custom CSS -->
-    <link href="./css/style.min.css" th:href="@{/super-admin/css/style.min.css}" rel="stylesheet">
-    <link href="./css/fontawesome.min.css" th:href="@{/super-admin/css/fontawesome.min.css}" rel="stylesheet">
-    <link href="./css/responsive.css" th:href="@{/super-admin/css/responsive.css}" rel="stylesheet">
+    <link href="./css/style.min.css" th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
+    <link href="./css/fontawesome.min.css" th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
+    <link href="./css/responsive.css" th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
 </head>
 
 	<!-- header section -->
@@ -29,7 +29,7 @@
                         				 <span
 					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
 						src="./myuser/images/logopng.png"
-						th:src="@{/super-admin/images/logopng.png}" alt="logo-img">
+						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
 				</span>
                  <!--   </a>  -->
                     <!-- toggle and nav items -->
@@ -63,8 +63,8 @@
                         <li class="dropdown">
 							<a class="profile-pic"
 						data-bs-toggle="dropdown" href="#" > <img
-							src="/super-admin/plugins/images/users/varun.jpg"
-							th:src="@{/super-admin/plugins/images/users/varun.jpg}" alt="user-img"
+							src="/mylibraries/plugins/images/users/varun.jpg"
+							th:src="@{/mylibraries/plugins/images/users/varun.jpg}" alt="user-img"
 							width="36" class="img-circle"> <span
 							class="text-white font-medium"
 							th:text="${fullname}"> <i
@@ -177,43 +177,43 @@
 
 	<!-- 	script links -->
 	<div th:fragment="script-links">
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"  th:src="@{/super-admin/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"  th:src="@{/mylibraries/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/super-admin/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <script src="js/app-style-switcher.js" th:src="@{/super-admin/}" ></script>
-    <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js" th:src="@{/super-admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}" ></script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script src="js/app-style-switcher.js" th:src="@{/mylibraries/}" ></script>
+    <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js" th:src="@{/mylibraries/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js}" ></script>
     <!--Wave Effects -->
-    <script src="js/waves.js" th:src="@{/super-admin/js/waves.js}"></script>
+    <script src="js/waves.js" th:src="@{/mylibraries/js/waves.js}"></script>
     <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js" th:src="@{/super-admin/js/sidebarmenu.js}"></script>
+    <script src="js/sidebarmenu.js" th:src="@{/mylibraries/js/sidebarmenu.js}"></script>
     <!--Custom JavaScript -->
-    <script src="js/custom.js" th:src="@{/super-admin/js/custom.js}"></script>
+    <script src="js/custom.js" th:src="@{/mylibraries/js/custom.js}"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
-    <script src="plugins/bower_components/chartist/dist/chartist.min.js" th:src="@{/super-admin/plugins/bower_components/chartist/dist/chartist.min.js}"></script>
-    <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js" th:src="@{/super-admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
-    <script src="js/pages/dashboards/dashboard1.js" th:src="@{/super-admin/js/pages/dashboards/dashboard1.js}" ></script>
+    <script src="plugins/bower_components/chartist/dist/chartist.min.js" th:src="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.js}"></script>
+    <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js" th:src="@{/mylibraries/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js}"></script>
+    <script src="js/pages/dashboards/dashboard1.js" th:src="@{/mylibraries/js/pages/dashboards/dashboard1.js}" ></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" ></script>
-    <script src="./js/char/t.js" th:src="@{/super-admin/js/char/t.js}" ></script>
-    <script src="./js/pie-chart.js" th:src="@{/super-admin/js/pie-chart.js}" ></script>
+    <script src="./js/char/t.js" th:src="@{/mylibraries/js/char/t.js}" ></script>
+    <script src="./js/pie-chart.js" th:src="@{/mylibraries/js/pie-chart.js}" ></script>
 	</div>
 
 	<div th:fragment="script-customLinks">
 		<script
-			src="/myuser/plugins/bower_components/jquery/dist/jquery.min.js"
-			th:src="@{/super-amin/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
+			src="/mylibraries/plugins/bower_components/jquery/dist/jquery.min.js"
+			th:src="@{/mylibraries/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
 		<!-- Bootstrap tether Core JavaScript -->
-		<script src="/myuser/bootstrap/dist/js/bootstrap.bundle.min.js"
-			th:src="@{/super-amin/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+		<script src="/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js"
+			th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 		<script src="/myuser/js/app-style-switcher.js"
-			th:src="@{/super-amin/js/app-style-switcher.js}"></script>
-		<script src="/myuser/js/waves.js" th:src="@{/super-admin/js/waves.js}"></script>
+			th:src="@{/mylibraries/js/app-style-switcher.js}"></script>
+		<script src="/mylibraries/js/waves.js" th:src="@{/mylibraries/js/waves.js}"></script>
 		<!--Menu sidebar -->
-		<script src="/myuser/js/sidebarmenu.js"
-			th:src="@{/super-amin/js/sidebarmenu.js}"></script>
+		<script src="/mylibraries/js/sidebarmenu.js"
+			th:src="@{/mylibraries/js/sidebarmenu.js}"></script>
 		<!--Custom JavaScript -->
-		<script src="/myuser/js/custom.js" th:src="@{/super-amin/js/custom.js}"></script>
+		<script src="/myuser/js/custom.js" th:src="@{/mylibraries/js/custom.js}"></script>
 
 	</div>
 

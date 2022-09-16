@@ -20,11 +20,6 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomerUserDetailsService();
 	}
 
-	/*
-	 * @Bean public PasswordEncoder passwordEncoder2() { return
-	 * NoOpPasswordEncoder.getInstance(); }
-	 */
-
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider2() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -37,7 +32,7 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authenticationProvider(authenticationProvider2());
-
+		
 		http.antMatcher("/customer/**")
 			.authorizeRequests().anyRequest().authenticated()
 			.and()

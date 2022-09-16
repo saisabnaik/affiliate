@@ -2,7 +2,18 @@
 <html dir="ltr" lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <!-- head section replace from layouts -->
-<head th:replace="userlayout/layouts.html :: head"></head>
+<head>
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>gogoGlobal.LIFE</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}" >
+    <!-- Custom CSS -->
+    <link href="css/style.min.css" th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
+    <link href="./css/responsive.css" th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
+</head>
 
 <body style="font-family: Roboto, sans-serif;">
     <!-- ============================================================== -->
@@ -135,13 +146,7 @@
             </div>
          </div>
             <!-- ============================================================== -->
-
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <!-- <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
-            </footer> -->
-			</footer>
+			
 			<footer th:replace="userlayout/layouts.html :: footer"></footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -152,7 +157,16 @@
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-	<div th:replace="userlayout/layouts.html :: script-links"></div>
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js" th:src="@{/mylibraries/plugins/bower_components/jquery/dist/jquery.min.js}" ></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}" ></script>
+    <script src="js/app-style-switcher.js" th:src="@{/mylibraries/js/app-style-switcher.js}" ></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js" th:src="@{/mylibraries/js/waves.js}" ></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js" th:src="@{/mylibraries/js/sidebarmenu.js}" ></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js" th:src="@{/mylibraries/js/custom.js}" ></script>
 </body>
 
 </html>

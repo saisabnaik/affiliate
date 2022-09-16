@@ -18,8 +18,7 @@ import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
 import com.affiliate.repository.CustomerAffiliateRepository;
 import com.affiliate.user.service.UserUpdate;
-import com.affiliate.user.serviceimpl.EmailSenderServiceimpl;
-import com.affiliate.user.serviceimpl.UserUpdateAndChangePassword;
+
 
 @RestController
 @RequestMapping("/customer")
@@ -59,7 +58,7 @@ public class HomeController {
 			modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			modelAndView.addObject("user_details", currentCustomer);
 
-			modelAndView.setViewName("users/business-panel-dashboard1");
+			modelAndView.setViewName("users/dashboard");
 			return modelAndView;
 		} else {
 			modelAndView.setViewName("users/login");
@@ -135,7 +134,7 @@ public class HomeController {
 			modelAndView.setViewName("users/my-affiliate");
 			System.out.println("myaffiliate called....");
 
-			List<CustomerMyAffiliate> affiliatelist = currentCustomer.getAffiliateList();
+			 List<CustomerMyAffiliate> affiliatelist = currentCustomer.getAffiliateList();
 
 			if (affiliatelist.isEmpty() == false) {
 				modelAndView.addObject("affiliatelist", affiliatelist);
@@ -177,5 +176,38 @@ public class HomeController {
 			return modelAndView;
 		}
 	}
+	
+	@GetMapping("/notification")
+	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
+		Customer currentUser = this.repo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+		modelAndView.setViewName("users/notification");
+		return modelAndView;
+	}
+	@GetMapping("/term-condition")
+	public ModelAndView termCondition(ModelAndView modelAndView, Principal principal) {
+		Customer currentUser = this.repo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+		modelAndView.setViewName("users/term-condition");
+		return modelAndView;
+	}	
+	
+	@GetMapping("/contact-us")
+	public ModelAndView contactUs(ModelAndView modelAndView, Principal principal) {
+		Customer currentUser = this.repo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+		modelAndView.setViewName("users/contact-us");
+		return modelAndView;
+	}	
+	
+	
+	@GetMapping("/privacy-policy")
+	public ModelAndView privacyPolicy(ModelAndView modelAndView, Principal principal) {
+		Customer currentUser = this.repo.findByEmail(principal.getName());
+		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+		modelAndView.setViewName("users/privacy-policy");
+		return modelAndView;
+	}
+	
 
 }

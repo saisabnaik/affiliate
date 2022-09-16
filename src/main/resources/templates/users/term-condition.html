@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
    <meta charset="utf-8">
@@ -8,10 +8,10 @@
     <meta name="robots" content="noindex,nofollow">
     <title>gogoGlobal.LIFE</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}" >
     <!-- Custom CSS -->
-   <link href="css/style.min.css" rel="stylesheet">
-   <link href="./css/responsive.css" rel="stylesheet">
+    <link href="css/style.min.css" th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
+    <link href="./css/responsive.css" th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
 </head>
 
 <body style="font-family: Roboto, sans-serif;">
@@ -32,166 +32,11 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar top_header responsive_head" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- Logo -->
-                    <a class="navbar-brand navbar_logo" href="dashboard.html">
-                        <span class="logo-icon icon_logo">
-                            <img src="images/logopng.png" alt="logo-img"> 
-                        </span>
-                    </a>
-                    <!-- toggle and nav items -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <i class='fas fa-bars' style='color: #4691ce; font-size: 22px; margin-left: 10px;'></i>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse collapse_navbar" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav d-none d-md-block d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                        </li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0 border_color">
-                                <a href="" class="active">
-                                    <i class="fa fa-search" style="color: #4691ce;"></i>
-                                </a>
-                            </form>
-                        </li>
-                        
-                        <li class="dropdown">
-                            <a class="profile-pic" href="profile-details.html" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Steave <i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                            </a>
-                            <ul class="dropdown-menu profileDropdown">
-                              <li><a class="dropdown-item" href="profile-details.html">Profile</a></li>
-                              <li><a class="dropdown-item" href="settings.html">Setting</a></li>
-                              <li><a class="dropdown-item" href="login.html">Log Out</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="notification_bell">
-                            <a href="#" class="color_white"><i class="fas fa-bell"></i></a>
-                            <span class="noti_number">5</span>
-                        </li>
-                        <li class="comment_chat">
-                            <a href="#" class="color_white"><i class="far fa-comment-alt"></i></a>
-                            <span class="chat_number">7</span>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-         <aside class="left-sidebar left_aside" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav" class="nav_bar_side">
-                        <!-- User Profile-->
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./business-panel-dashboard.html"
-                                aria-expanded="false">
-                                <i class="fas fa-tachometer-alt leftside_icon"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./my-affiliate.html"
-                                aria-expanded="false">
-                                <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">My Affiliate</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./sales_by_affiliate.html"
-                                aria-expanded="false">
-                                <i class="fas fa-users leftside_icon"></i>
-                                <span class="hide-menu">Sales By Affiliate </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./payment.html"
-                                aria-expanded="false">
-                                <i class="fas fa-users leftside_icon"></i>
-                                <span class="hide-menu">Total Sale</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
-                                aria-expanded="false">
-                                <i class="fas fa-cog leftside_icon"></i>
-                                <span class="hide-menu">Settings</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./notification.html"
-                                aria-expanded="false">
-                                <i class="fas fa-bell leftside_icon"></i>
-                                <span class="hide-menu">Notifications</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./faq.html"
-                                aria-expanded="false">
-                                <i class="fas fa-question-circle leftside_icon"></i>
-                                <span class="hide-menu">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./contact-us.html"
-                                aria-expanded="false">
-                                <i class="fas fa-address-card leftside_icon"></i>
-                                <span class="hide-menu">Contact Us</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./term-condition.html"
-                                aria-expanded="false">
-                                <i class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
-                                <span class="hide-menu">Terms & Conditions</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./privacy-policy.html"
-                                aria-expanded="false">
-                                <i class="fas fa-file-alt leftside_icon"></i>
-                                <span class="hide-menu">Privacy & Policy</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./login.html"
-                                aria-expanded="false">
-                                <i class="fas fa-power-off leftside_icon"></i>
-                                <span class="hide-menu">Log Out</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        
+        
+        	<div th:replace="userlayout/layouts.html :: header">header section</div>
+        	 <div th:replace="userlayout/layouts.html :: sidemenu"></div>
+        
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -236,23 +81,8 @@
             </div>
          </div>
             <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <!-- <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
-            </footer> -->
-            <footer class="footer text-center footer_text"> 2022 © All rights reserved. <a class="footer_link"
-                href="#">gogoGlobal</a>
-            </footer>
+
+			<footer th:replace="userlayout/layouts.html :: footer"></footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -267,16 +97,16 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js" th:src="@{/mylibraries/plugins/bower_components/jquery/dist/jquery.min.js}" ></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}" ></script>
+    <script src="js/app-style-switcher.js" th:src="@{/mylibraries/js/app-style-switcher.js}" ></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="js/waves.js" th:src="@{/mylibraries/js/waves.js}" ></script>
     <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
+    <script src="js/sidebarmenu.js" th:src="@{/mylibraries/js/sidebarmenu.js}" ></script>
     <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
+    <script src="js/custom.js" th:src="@{/mylibraries/js/custom.js}" ></script>
 </body>
 
 </html>
