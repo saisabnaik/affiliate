@@ -14,7 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.affiliate.bean.CustomerMyAffiliate;
+import com.affiliate.model.CustomerMyAffiliate;
 
 @Entity
 @Table(name = "customers")

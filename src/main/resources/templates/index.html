@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="css/responsive.css" th:href="@{/mylibraries/css/webcss/responsive.css}">
 	
 </head>
+
+<!-- <style th:inline="text">
+    body{
+        background: url([[@{/mylibraries/images/webimg/banner.jpg}]])
+                    no-repeat center center fixed;
+    }
+</style> -->
 <body class="js">
 	
 
@@ -45,7 +52,7 @@
 					<div class="col-lg-7 col-md-12 col-12">
 						<div class="right-content">
 							<ul class="list-main">
-								<li><i class="ti-user"></i> <a href="#!" th:href="@{/admin/login}">Become a vendor</a></li>
+								<li><i class="ti-user"></i> <a href="#!" th:href="@{/vender/login}">Become a vendor</a></li>
 								<li><i class="ti-user"></i> <a href="#!" th:href="@{/customer/login}">Become a affiliate</a></li>
 								<li><i class="ti-power-off"></i><a href="#!">Login</a></li>
 							</ul>
@@ -232,7 +239,7 @@
 	
 	<!-- Slider Area -->
 	<section class="hero-slider">
-		<div class="single-slider" style="background-image: url(..//images/webimg/banner.jpg);">
+		<div class="single-slider" th:style="'background: url(/mylibraries/images/webimg/banner.jpg) no-repeat center center ;'">
 			<div class="container">
 				<div class="row no-gutters">
 					<div class="col-lg-9 col-12">

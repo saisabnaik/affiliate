@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- head section replace from layouts -->
+<head th:replace="venderlayout/layouts.html :: head"></head>
+
+<body style="font-family: Roboto, sans-serif;">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
+		data-sidebartype="full" data-sidebar-position="absolute"
+		data-header-position="absolute" data-boxed-layout="full">
+
+		<!--  header section -->
+		<div th:replace="venderlayout/layouts.html :: header">header
+			section</div>
+		<!-- ============================================================== -->
+
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<div th:replace="venderlayout/layouts.html :: sidemenu"></div>
+
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper white_bg" style="min-height: 250px;">
+
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid fluid_container pt-3">
+				<div class="row responsive_row">
+					<div class="application-detail-heading-area">
+						<h2 class="noti_detail">Profile</h2>
+					</div>
+					<div class="col-lg-5 lg_col">
+						<!--  <div class="application-detail-heading-area">
+                 <h2 class="info_personal">Personal Info</h2>
+               </div> -->
+						<!-- <div class="add-payment-heading-area">
+                <h2>Photo</h2> 
+               </div> -->
+						<div
+							class="profile-detail-main-area main_area_profile_detail responsive_width">
+							<div class="user-photo-main-area">
+								<div class="user-img-area">
+									<img th:src="@{/mylibraries/images/user-img.jpg}" alt="user img">
+								</div>
+<!-- 								<div class="change-photo-btn-area">
+									<label for="edit" class="change-poto-btn edit_btn"> <i
+										class="fa fa-camera" aria-hidden="true"></i>
+									</label> <input type="file" id="edit" class="edit-file">
+								</div> -->
+							</div>
+
+							<div class="user-detail-main-area">
+								<div class="row space_left">
+									<div class="col-lg-6 col_lg_six">
+										<div class="personal-information-heading">
+											<h2>First Name</h2>
+											<h2>Last Name</h2>
+											<h2>Email ID</h2>
+<!-- 											
+											<h2>mobile</h2>
+											<h2>Gender</h2>
+											<h2>City</h2>
+											<h2>Country</h2>
+											<h2>Address</h2>
+											<h2>zip</h2>
+											<h2>State</h2> -->
+											
+										</div>
+									</div>
+									<div class="col-lg-6 col_lg_six">
+										<div class="personal-information-details">
+											<p th:text="${vender_details.firstname}"></p>
+											<p th:text="${vender_details.lastname}"></p>
+											<p th:text="${vender_details.email}"></p>
+<!-- 											
+											<p th:text="${user_details.mobile}"></p>
+											<p th:text="${user_details.gender}"></p>
+											<p th:text="${user_details.city}"></p>
+											<p th:text="${user_details.country}"></p>
+											<p th:text="${user_details.address}"></p>
+											<p th:text="${user_details.zip}"></p>
+											<p th:text="${user_details.state}"></p> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer -->
+			<!-- ============================================================== -->
+			<!-- <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+                    href="https://www.wrappixel.com/">wrappixel.com</a>
+            </footer> -->
+	<footer th:replace="venderlayout/layouts.html :: footer"></footer>
+			<!-- ============================================================== -->
+			<!-- End footer -->
+			<!-- ============================================================== -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- footer section -->
+
+	
+	<!-- scripts links -->
+	<div th:replace="venderlayout/layouts.html :: script-links" ></div>
+
+</body>
+
+</html>

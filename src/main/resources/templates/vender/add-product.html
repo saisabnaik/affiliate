@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- links section -->
+<head th:replace="venderlayout/layouts.html :: head">links
+</head>
+<!-- *********** -->
+<style>
+.addProductSec {
+	height: 460px;
+}
+
+.white-box.analytics-info.box_white.counter {
+	height: 150px;
+}
+</style>
+<body style="font-family: Roboto, sans-serif;">
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
+		data-sidebartype="full" data-sidebar-position="absolute"
+		data-header-position="absolute" data-boxed-layout="full">
+
+		<!-- header section -->
+		<div th:replace="venderlayout/layouts.html :: header">header
+			section</div>
+
+		<!-- ******** -->
+
+		<div th:replace="venderlayout/layouts.html :: sidemenu"></div>
+
+		<!-- body of this page -->
+
+		<div class="page-wrapper wrapper_page">
+			<div class="page-breadcrumb bg-white white_bg">
+				<div class="row align-items-center">
+					<div class="col-lg-9 col-md-4 col-sm-4 col-xs-12 mb-3">
+						<h4 class="page-title title_page">Add Product</h4>
+					</div>
+				</div>
+				<div class="dashboardBox">
+					<div class="container-fluid">
+						<div class="row justify-content-center">
+							<a class="col-lg-4 round_box col-md-4 col-sm-1">
+								<div class="white-box analytics-info box_white counter">
+									<h3 class="box-title">Total Earn</h3>
+									<ul class="list-inline two-part d-flex align-items-center mb-0">
+
+										<li class="ms-auto"><span
+											class="counter text-success counter-value">659</span></li>
+									</ul>
+								</div>
+							</a> <a class="col-lg-4 round_box col-md-4 col-sm-1">
+								<div class="white-box analytics-info box_white counter">
+									<h3 class="box-title">Total Sale</h3>
+									<ul class="list-inline two-part d-flex align-items-center mb-0">
+
+										<li class="ms-auto"><span
+											class="counter text-purple counter-value">869</span></li>
+									</ul>
+								</div>
+							</a> <a class="col-lg-4 round_box col-md-4 col-sm-1">
+								<div class="white-box analytics-info box_white counter">
+									<h3 class="box-title">Total Affiliate</h3>
+									<ul class="list-inline two-part d-flex align-items-center mb-0">
+
+										<li class="ms-auto"><span
+											class="counter text-info counter-value">911</span></li>
+									</ul>
+								</div>
+							</a>
+
+						</div>
+						<!-- Emd box -->
+
+						<div class="row justify-content-center">
+
+							<!-- <h2>Referral (Last 12 Month)</h2> -->
+
+							<!-- Button trigger modal -->
+
+
+
+
+
+							<div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+								<div class="white-box addProductSec" style="text-align: center;">
+									<a href="" data-bs-toggle="modal"
+										data-bs-target="#staticBackdrop"> <img
+										src="images/logo.png" alt="logo"
+										th:src="@{/mylibraries/images/webimg/product/addproduct.png}"
+										style="width: 30%;">
+									</a>
+
+									<div>
+
+										<h5>Click here to add new product</h5>
+									</div>
+									<h2 class="box-title" style="text-align: center;">Add
+										Product</h2>
+								</div>
+
+
+							</div>
+
+						</div>
+
+						<!-- ============================================================== -->
+						<!-- Recent Comments -->
+						<!-- Modal -->
+						<div class="modal fade" id="staticBackdrop"
+							data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+							aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="staticBackdropLabel">Modal
+											title</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									
+									
+									
+									
+									
+									<div class="modal-body">
+									  
+										<form class="row" th:action="@{/vender/add-newProduct}" method="post" enctype="multipart/form-data">
+											
+											<div class="col-md-12 mb-3">
+												<label for="pName" class="form-label">Product Name</label> <input
+													type="text" class="form-control"
+													placeholder="Enter product name" id="pName">
+											</div>
+											
+                                           
+                                           <div class="col-md-12">
+											   <label for="pDesc" class="form-label">Product Description</label>
+												<div class="form-floating" style="margin-bottom: 10px;">
+	
+													<textarea class="form-control"
+														placeholder="product description" id="pDesc" type="text"
+														style="height: 100px"></textarea>
+	
+												</div>
+											</div>
+
+                             
+											<div class="col-md-12 mb-3">
+												<label for="pPrice" class="form-label">Product Price</label>
+												<input type="number" placeholder="Enter product price"
+													class="form-control" id="pPrice">
+											</div>
+											<div class="col-md-12 mb-3">
+												<label for="pDiscount" class="form-label">Product
+													Discount</label> <input type="number"
+													placeholder="Enter product discount" class="form-control"
+													id="pDiscount">
+											</div>
+											<div class="col-md-12 mb-3">
+												<label for="pQuantity" class="form-label">Product
+													Quantity</label> <input type="number"
+													placeholder="Enter production Quantity"
+													class="form-control" id="pQuantity">
+											</div>
+											<div class="col-md-6 mb-3">
+												<label for="category" class="form-label">Product
+													Category</label> 
+													<select class="form-select" id="category" required  >
+													<option selected>Select the category</option>
+												<option th:each="productCategory : ${category}" name="pCategory" th:value="${productCategory.cTitle}" 
+												th:text="${productCategory.cTitle}" >
+												 </option>
+												</select>
+											</div>
+											
+											<div class="col-md-6 mb-3">
+											   <label for="category" class="form-label">Upload Images</label> 
+											   
+											       <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="form-control"  />
+											  
+											</div>
+											
+											<div style="text-align: center" class="mb-3">
+												<button type="submit" class="btn btn-primary" >Submit</button>
+											</div>
+											
+										</form>
+										
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+
+						<!-- ============================================================== -->
+
+					</div>
+
+				</div>
+			</div>
+
+
+			<!-- add product modal form -->
+
+
+
+
+
+
+			<!-- end add product modal form -->
+
+			<!-- footer section -->
+			<footer th:replace="venderlayout/layouts.html :: footer"></footer>
+
+			<!--  links  -->
+			<div th:replace="venderlayout/layouts.html :: script-links"></div>
+
+
+
+
+
+			<script>
+				$(document).ready(function() {
+					$('.counter-value').each(function() {
+						$(this).prop('Counter', 0).animate({
+							Counter : $(this).text()
+						}, {
+							duration : 3500,
+							easing : 'swing',
+							step : function(now) {
+								$(this).text(Math.ceil(now));
+							}
+						});
+					});
+				});
+			</script>
+</body>
+
+</html>

@@ -3,19 +3,26 @@ package com.affiliate.user.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.affiliate.bean.CustomerMyAffiliate;
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
+import com.affiliate.model.CustomerMyAffiliate;
 import com.affiliate.repository.CustomerAffiliateRepository;
 import com.affiliate.user.service.UserUpdate;
 
@@ -208,6 +215,25 @@ public class HomeController {
 		modelAndView.setViewName("users/privacy-policy");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = {"/logout"}, method = RequestMethod.POST)
+	public ModelAndView logoutDo(ModelAndView modelAndView,HttpServletRequest request,HttpServletResponse response){
+	HttpSession session= request.getSession(false);
+	    SecurityContextHolder.clearContext();
+	         session= request.getSession(false);
+	        if(session != null) {
+	            session.invalidate();
+	        }
+	        for(Cookie cookie : request.getCookies()) {
+	            cookie.setMaxAge(0);
+	        }
+	        System.out.println("you are successfully logedout.");
+	        modelAndView.setViewName("users/login");
+	    return modelAndView;
+	}	
+	
+	
+	
 	
 
 }
