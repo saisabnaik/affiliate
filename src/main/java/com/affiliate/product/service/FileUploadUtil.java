@@ -10,9 +10,13 @@ public class FileUploadUtil {
     public static void saveFile(String uploadDir, String fileName,
             MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
-         
+        System.out.println(uploadPath); 
+        
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
+            System.out.println("directory created");
+        }else {
+        	System.out.println("directory already exists..");
         }
          
         try (InputStream inputStream = multipartFile.getInputStream()) {

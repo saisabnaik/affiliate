@@ -14,106 +14,105 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long pId;
+	private Long pid;
 	@Column(length = 200)
-	private String pName;
+	private String pname;
 	@Column(length = 3000)
-	private String pDesc;
-	private String pPic;
-	private int pPrice;
-	private int pDiscount;
-	private int pQuantity;
+	private String pdesc;
+	private String ppic;
+	private int pprice;
+	private int pdiscount;
+	private int pquantity;
 
     @ManyToOne
-    @JoinColumn(name="cId")
+    @JoinColumn(name="cid")
 	private Category category;
 
-    
-    
-    
+    //constructor
 	public Product() {
 		super();
 	}
+	
 
-	public Product(Long pId, String pName, String pDesc, String pPic, int pPrice, int pDiscount, int pQuantity,
+	public Product(Long pid, String pname, String pdesc, String ppic, int pprice, int pdiscount, int pquantity,
 			Category category) {
 		super();
-		this.pId = pId;
-		this.pName = pName;
-		this.pDesc = pDesc;
-		this.pPic = pPic;
-		this.pPrice = pPrice;
-		this.pDiscount = pDiscount;
-		this.pQuantity = pQuantity;
+		this.pid = pid;
+		this.pname = pname;
+		this.pdesc = pdesc;
+		this.ppic = ppic;
+		this.pprice = pprice;
+		this.pdiscount = pdiscount;
+		this.pquantity = pquantity;
 		this.category = category;
 	}
 
-	public Long getpId() {
-		return pId;
+
+
+	public Long getPid() {
+		return pid;
 	}
 
-	public String getpName() {
-		return pName;
+	public String getPname() {
+		return pname;
 	}
 
-	public String getpDesc() {
-		return pDesc;
+	public String getPdesc() {
+		return pdesc;
 	}
 
-	public String getpPic() {
-		return pPic;
+	public String getPpic() {
+		return ppic;
 	}
 
-	public int getpPrice() {
-		return pPrice;
+	public int getPprice() {
+		return pprice;
 	}
 
-	public int getpDiscount() {
-		return pDiscount;
+	public int getPdiscount() {
+		return pdiscount;
 	}
 
-	public int getpQuantity() {
-		return pQuantity;
+	public int getPquantity() {
+		return pquantity;
 	}
 
 	public Category getCategory() {
 		return category;
 	}
 
-	public void setpId(Long pId) {
-		this.pId = pId;
+	public void setPid(Long pid) {
+		this.pid = pid;
 	}
 
-	public void setpName(String pName) {
-		this.pName = pName;
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
 
-	public void setpDesc(String pDesc) {
-		this.pDesc = pDesc;
+	public void setPdesc(String pdesc) {
+		this.pdesc = pdesc;
 	}
 
-	public void setpPic(String pPic) {
-		this.pPic = pPic;
+	public void setPpic(String ppic) {
+		this.ppic = ppic;
 	}
 
-	public void setpPrice(int pPrice) {
-		this.pPrice = pPrice;
+	public void setPprice(int pprice) {
+		this.pprice = pprice;
 	}
 
-	public void setpDiscount(int pDiscount) {
-		this.pDiscount = pDiscount;
+	public void setPdiscount(int pdiscount) {
+		this.pdiscount = pdiscount;
 	}
 
-	public void setpQuantity(int pQuantity) {
-		this.pQuantity = pQuantity;
+	public void setPquantity(int pquantity) {
+		this.pquantity = pquantity;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
     
-    
-    
-	
+   
 }

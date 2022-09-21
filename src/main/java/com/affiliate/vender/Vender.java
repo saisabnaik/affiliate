@@ -46,45 +46,65 @@ public class Vender {
 	}
 
 
-	public int getAdminid() {
+	public int getVenderId() {
 		return venderId;
 	}
+
+
 	public String getFirstname() {
 		return firstname;
 	}
+
+
 	public String getLastname() {
 		return lastname;
 	}
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
 	public String getPassword() {
 		return password;
 	}
-	public void setAdminid(int venderId) {
-		this.venderId = venderId;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 
 	public String getMobile() {
 		return mobile;
 	}
 
+
+	public void setVenderId(int venderId) {
+		this.venderId = venderId;
+	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
-	}	
+	}
 
-	
+
 	
 }

@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
@@ -67,13 +72,13 @@
 							th:src="@{/mylibraries/plugins/images/users/varun.jpg}" alt="user-img"
 							width="36" class="img-circle"> <span
 							class="text-white font-medium"
-							th:text="${fullname}"> <i
+							th:text="${session.fullname}" th:if="${session.fullname}"> <i
 								class="fa fa-caret-down" aria-hidden="true"></i>
 						</span></a>
                             <ul class="dropdown-menu profileDropdown">
-                              <li><a class="dropdown-item" href="profile-details.html" th:href="@{/vender/profile-details}" type="submit" method="get">Profile</a></li>
-                              <li><a class="dropdown-item" href="./setting.html" th:href="@{/vender/settings}" >Setting</a></li>
-                              <li><a class="dropdown-item" href="login.html" th:href="@{/vender/logout}" >Log Out</a></li>
+                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="profile-details.html" th:href="@{/vender/profile-details}" type="submit" method="get">Profile</a></li>
+                              <li sec:authorize="isAuthenticated()" ><a class="dropdown-item" href="./setting.html" th:href="@{/vender/settings}" >Setting</a></li>
+                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="login.html" th:href="@{/vender/logout}" >Log Out</a></li>
                             </ul>
                         </li>
 
@@ -102,63 +107,63 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="nav_bar_side">
                         <!-- User Profile-->
-                        <li class="sidebar-item pt-2">
+                        <li class="sidebar-item pt-2" >
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="dashboard.html" th:href="@{/vender/home}"
                                 aria-expanded="false">
                                 <i class="fas fa-tachometer-alt leftside_icon"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
                                 aria-expanded="false" th:href="@{/vender/manage-business}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
                                 <span class="hide-menu">Manage Business</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
                                 aria-expanded="false" th:href="@{/vender/add-product}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
                                 <span class="hide-menu">Add Product</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
                                 aria-expanded="false" th:href="@{/vender/settings}" >
                                 <i class="fas fa-cog leftside_icon"></i>
                                 <span class="hide-menu">Settings</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="notification.html"
                                 aria-expanded="false" th:href="@{/vender/notification}" >
                                 <i class="fas fa-bell leftside_icon"></i>
                                 <span class="hide-menu">Notifications</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="contact-us.html"
                                 aria-expanded="false" th:href="@{/vender/contactus}" >
                                 <i class="fas fa-address-card leftside_icon"></i>
                                 <span class="hide-menu">Contact Us</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="term-condition.html"
                                 aria-expanded="false" th:href="@{/vender/termsAndConditions}" >
                                 <i class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
                                 <span class="hide-menu">Terms & Conditions</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="privacy-policy.html"
                                 aria-expanded="false" th:href="@{/vender/privacyPolicy}" >
                                 <i class="fas fa-file-alt leftside_icon"></i>
                                 <span class="hide-menu">Privacy & Policy</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="login.html"
                                 aria-expanded="false" th:href="@{/vender/logout}" >
                                 <i class="fas fa-power-off leftside_icon"></i>

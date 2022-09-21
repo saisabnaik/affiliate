@@ -18,11 +18,11 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long cId;
+	private Long cid;
 	@Column(length=200)
-	private String cTitle;
+	private String ctitle;
 	
-	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY,  mappedBy = "pId")
+	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY,  mappedBy = "pid")
 	private List<Product> products;
 
 	
@@ -30,38 +30,37 @@ public class Category {
 		super();
 	}
 
-	public Category(Long cId, String cTitle, List<Product> products) {
+	public Category(Long cid, String ctitle, List<Product> products) {
 		super();
-		this.cId = cId;
-		this.cTitle = cTitle;
+		this.cid = cid;
+		this.ctitle = ctitle;
 		this.products = products;
 	}
 
-	public Long getcId() {
-		return cId;
+	public Long getCid() {
+		return cid;
 	}
 
-	public String getcTitle() {
-		return cTitle;
+	public String getCtitle() {
+		return ctitle;
 	}
-
 
 	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setcId(Long cId) {
-		this.cId = cId;
+	public void setCid(Long cid) {
+		this.cid = cid;
 	}
 
-	public void setcTitle(String cTitle) {
-		this.cTitle = cTitle;
+	public void setCtitle(String ctitle) {
+		this.ctitle = ctitle;
 	}
-
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
+	
 	
 }

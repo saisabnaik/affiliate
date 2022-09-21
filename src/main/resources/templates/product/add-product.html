@@ -134,21 +134,21 @@
 									
 									<div class="modal-body">
 									  
-										<form class="row" th:action="@{/vender/add-newProduct}" method="post" enctype="multipart/form-data">
+										<form class="row" th:action="@{/vender/add-newProduct}" th:Object="${product}" method="post" enctype="multipart/form-data">
 											
 											<div class="col-md-12 mb-3">
-												<label for="pName" class="form-label">Product Name</label> <input
-													type="text" class="form-control"
-													placeholder="Enter product name" id="pName">
+												<label for="pname" class="form-label">Product Name</label> <input
+													type="text" class="form-control" name="pname"
+													placeholder="Enter product name" id="pname">
 											</div>
 											
                                            
                                            <div class="col-md-12">
-											   <label for="pDesc" class="form-label">Product Description</label>
+											   <label for="pdesc" class="form-label">Product Description</label>
 												<div class="form-floating" style="margin-bottom: 10px;">
 	
 													<textarea class="form-control"
-														placeholder="product description" id="pDesc" type="text"
+														placeholder="product description" name="pdesc" id="pdesc" type="text"
 														style="height: 100px"></textarea>
 	
 												</div>
@@ -156,29 +156,29 @@
 
                              
 											<div class="col-md-12 mb-3">
-												<label for="pPrice" class="form-label">Product Price</label>
+												<label for="pprice" class="form-label">Product Price</label>
 												<input type="number" placeholder="Enter product price"
-													class="form-control" id="pPrice">
+													class="form-control" name="pprice" id="pprice">
 											</div>
 											<div class="col-md-12 mb-3">
-												<label for="pDiscount" class="form-label">Product
-													Discount</label> <input type="number"
+												<label for="pdiscount" class="form-label">Product
+													Discount</label> <input type="number" name="pdiscount"
 													placeholder="Enter product discount" class="form-control"
-													id="pDiscount">
+													id="pdiscount">
 											</div>
 											<div class="col-md-12 mb-3">
-												<label for="pQuantity" class="form-label">Product
+												<label for="pquantity" class="form-label">Product
 													Quantity</label> <input type="number"
-													placeholder="Enter production Quantity"
-													class="form-control" id="pQuantity">
+													placeholder="Enter production Quantity" name="pquantity"
+													class="form-control" id="pquantity">
 											</div>
 											<div class="col-md-6 mb-3">
 												<label for="category" class="form-label">Product
 													Category</label> 
-													<select class="form-select" id="category" required  >
-													<option selected>Select the category</option>
-												<option th:each="productCategory : ${category}" name="pCategory" th:value="${productCategory.cTitle}" 
-												th:text="${productCategory.cTitle}" >
+													<select class="form-select" id="category" name="category" required  >
+													<option >Select the category</option>
+												<option th:each="pCategory : ${category}" name="category" th:value="${pCategory.cid}" 
+												th:text="${pCategory.ctitle}" >
 												 </option>
 												</select>
 											</div>
