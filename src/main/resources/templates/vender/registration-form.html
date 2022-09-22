@@ -13,6 +13,7 @@
 <!-- Custom CSS -->
 <link th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
 <link th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
+<link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}" />
 </head>
 <style>
 .error {
@@ -36,24 +37,40 @@
 		data-sidebartype="full" data-sidebar-position="absolute"
 		data-header-position="absolute" data-boxed-layout="full">
 		<div class="forget-password-detail-area responsive_height">
-<!-- 			<div class="forget-password-left-area left_area">
+			<!-- 			<div class="forget-password-left-area left_area">
 				<a th:href="@{/dashboard}"> <img
 					th:src="@{/mylibraries/images/logo-JD-business-02-1-1-p8vrip8b47htdpmkyb4kcbgm964m3uckzbrcg8qmh0.png}"
 					alt="logo-img">
 				</a>
 			</div> -->
-			
+
 			<div
 				class="forget-password-input-area middel-heading-main-area right_area_back-image">
 				<div class="forget-password-left-area">
-					 <img
-						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
-					
+					<img th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
+
 				</div>
 
-				<form th:action="@{/addNewUser}" th:object="${myuser}" method="post"
-					autocomplete="off" id="register-Form"
+				<form th:action="@{/v1/addVender}" th:object="${vender}"
+					method="post" autocomplete="off" id="register-Form"
 					class="right_area responsive_area">
+
+					<div class="alert alert-success d-flex alert-dismissible fade show"
+						role="alert" th:if="${session.succussRegister}">
+						<strong>Success!</strong>
+						<span th:text="${session.succussRegister}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<div class="alert alert-danger alert-warning alert-dismissible fade show"
+						role="alert" th:if="${session.error_message}" >
+						<strong>Danger!</strong>
+						<span th:text="${session.error_message}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+				<th:block th:inline="text" th:if="${session.succussRegister}" style="display:none;"> [[${#session.removeAttribute('succussRegister')}]]</th:block>
+				<th:block th:inline="text" th:if="${session.error_message}" style="display:none;"> [[${#session.removeAttribute('error_message')}]]</th:block>	
 					<div class="login">
 						<h2 class="change_position">Sign Up</h2>
 					</div>
@@ -87,12 +104,14 @@
 					</div>
 
 					<div class="email-submit-btn-area btn_area">
-						<input type="submit" class="email-submit-btn btn_submit" value="Register" />
-							
+						<input type="submit" class="email-submit-btn btn_submit"
+							value="Register" />
+
 					</div>
 					<div class="signup_area">
 						<p>
-							Already a member?<a th:href="@{/vender/login}" type="submit"> login</a>
+							Already a member?<a th:href="@{/vender/login}" type="submit">
+								login</a>
 						</p>
 					</div>
 				</form>
@@ -108,7 +127,7 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
- <div th:replace="userlayout/layouts.html :: script-customLinks" ></div>
+	<div th:replace="userlayout/layouts.html :: script-customLinks"></div>
 </body>
 <script>
 const firstName1 = document.querySelector('#firstname');

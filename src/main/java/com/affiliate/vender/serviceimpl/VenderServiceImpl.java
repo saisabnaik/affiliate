@@ -12,10 +12,11 @@ import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
 import com.affiliate.vender.Vender;
 import com.affiliate.vender.VenderRepository;
-import com.affiliate.vender.service.VenderUpdateService;
+import com.affiliate.vender.service.VenderService;
+
 
 @Service
-public class UpdateVenderServiceImpl implements VenderUpdateService{
+public class VenderServiceImpl implements VenderService{
 
 	@Autowired
 	private VenderRepository venderRepository;

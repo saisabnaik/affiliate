@@ -1,4 +1,4 @@
-package com.affiliate.user.controller;
+package com.affiliate.customer.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,11 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
-import com.affiliate.user.service.EmailService;
-import com.affiliate.user.serviceimpl.EmailSenderServiceimpl;
+import com.affiliate.customer.service.EmailService;
+import com.affiliate.customer.serviceimpl.EmailSenderServiceimpl;
 
 @Controller
-public class UserController {
+public class CustomerController {
 
 	@Autowired
 	private CustomerRepository repo;
@@ -65,24 +65,29 @@ public class UserController {
 	}
 
 	@PostMapping("/addNewUser")
-	public String registerUser(@ModelAttribute Customer myuser, RedirectAttributes redirect, Model model)
+	public String registerUser(@ModelAttribute Customer myuser, HttpSession session, Model model)
 			throws Exception {
 		if (myuser.getFirstname() == null || myuser.getFirstname().isEmpty()) {
-			redirect.addFlashAttribute("message", "firstname cannot be blank");
+			session.setAttribute("error", "firstname cannot be blank");
 			return "redirect:/registerUser";
+		}else {
+			if (myuser.getLastname() == null || myuser.getLastname().isEmpty()) {
+				session.setAttribute("error", "Last Name cannot be blank");
+				return "redirect:/registerUser";
+			}else {
+				if (myuser.getEmail() == null || myuser.getEmail().isEmpty()) {
+					session.setAttribute("error", "email cannot be blank");
+					return "redirect:/registerUser";
+				}else {
+					if (myuser.getPassword() == null || myuser.getPassword().isEmpty()) {
+						session.setAttribute("error", "password cannot be blank");
+						return "redirect:/registerUser";
+					}
+				}
+			}
+				
 		}
-		if (myuser.getLastname() == null || myuser.getLastname().isEmpty()) {
-			redirect.addFlashAttribute("message", "Last Name cannot be blank");
-			return "redirect:/registerUser";
-		}
-		if (myuser.getEmail() == null || myuser.getEmail().isEmpty()) {
-			redirect.addFlashAttribute("message", "email cannot be blank");
-			return "redirect:/registerUser";
-		}
-		if (myuser.getPassword() == null || myuser.getPassword().isEmpty()) {
-			redirect.addFlashAttribute("message", "password cannot be blank");
-			return "redirect:/registerUser";
-		}
+			
 
 		Customer u = repo.findByEmail(myuser.getEmail());
 
@@ -92,8 +97,7 @@ public class UserController {
 			System.out.println(myuser);
 			repo.save(myuser);
 		} else {
-			redirect.addFlashAttribute("message", "User already Exist Choose Another");
-
+			session.setAttribute("error", "User already Exist Choose Another");
 			return "redirect:/registerUser";
 		}
 
@@ -133,19 +137,19 @@ public class UserController {
 					session.setAttribute("email", to);
 					session.setAttribute("otp", otp);
 					System.out.println("otp sent successfully...");
-					session.setAttribute("message", "otp sent successfully");
+					session.setAttribute("success", "otp sent successfully");
 
 					modelAndView.setViewName("users/verify-otp");
 					return modelAndView;
 				} else {
 
-					session.setAttribute("message", "Please resend otp");
+					session.setAttribute("success", "Please resend otp");
 					modelAndView.setViewName("users/forget-password");
 					return modelAndView;
 				}
 			} else {
 				System.out.println(to + " not found");
-				session.setAttribute("message", "Please provide correct email");
+				session.setAttribute("error", "Entered email does not exist.");
 				modelAndView.setViewName("users/forget-password");
 				return modelAndView;
 			}
@@ -165,11 +169,11 @@ public class UserController {
 			System.out.println("old otp is " + oldOtp);
 			System.out.println("new otp is " + otp);
 			if (oldOtp.equals(otp)) {
-				session.setAttribute("message", "otp successfully verified.");
+				session.setAttribute("success", "otp successfully verified.");
 				modelAndView.setViewName("users/reset-password");
 				return modelAndView;
 			} else {
-				session.setAttribute("message", "You have entered wrong otp");
+				session.setAttribute("error", "You have entered wrong otp");
 				modelAndView.setViewName("users/forget-password");
 				return modelAndView;
 			}
@@ -188,7 +192,6 @@ public class UserController {
 			String email = (String) session.getAttribute("email");
 			Customer currentUser = repo.findByEmail(email);
 			if (currentUser != null) {
-				System.out.println("user not null email is : " + email);
 				currentUser.setPassword(bp.encode(password));
 				repo.save(currentUser);
 				modelAndView.setViewName("users/login");

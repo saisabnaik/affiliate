@@ -47,16 +47,33 @@
 						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
 					<!-- </a> -->
 				</div>
-
-				<div th:if="${param.logout}">
-					<h5 class="text-center text-success">logout successful</h5>
-				</div>
-				<div th:if="${param.error}">
-					<h5 class="text-danger text-success">login error</h5>
-				</div>
-
+	
 
 				<form th:action="@{/vender/dologin}" method="post" class="right_area" autocomplete="off" id="login-form">
+								
+					<div class="alert alert-success d-flex alert-dismissible fade show" 
+						role="alert" th:if="${param.logout}">
+						<strong>Success!</strong> <span>You have successfully log out.</span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					
+					<div class="alert alert-danger alert-warning alert-dismissible fade show"
+						role="alert" th:if="${param.error}" >
+						<strong>Danger!</strong><span> Please enter correct credentials</span>
+						
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<div
+						class="alert alert-success d-flex alert-warning alert-dismissible fade show"
+						role="alert" th:if="${session.success}">
+						<strong>Success!</strong> <span th:text="${session.success}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<th:block th:inline="text" th:if="${session.success}"
+						style="display:none;"> [[${#session.removeAttribute('success')}]]</th:block>
 					<div class="login">
 						<h2>Login In</h2>
 					</div>
@@ -75,14 +92,14 @@
 							<input type="submit" class="email-submit-btn btn_submit" value="submit" /> 
 						</div>
 						<div class="email-submit-btn-area forget_login">
-							<a href="forget-password" type="submit" th:href="@{/forgot-password}"
+							<a href="forget-password" type="submit" th:href="@{/v1/forgot-password}"
 								class="email-submit-btn btn_login">Forgot Password?</a>
 						</div>
 					</div>
 					
 					<div class="signup_area">
 						<p>
-							Not a member?<a th:href="@{/registerUser}"> Sign up now</a>
+							Not a member?<a th:href="@{/v1/Register}"> Sign up now</a>
 						</p>
 					</div>
 				</form>
@@ -96,7 +113,7 @@
 	<!-- End Wrapper -->
 
 
- <div th:replace="userlayout/layouts.html :: script-customLinks" ></div>
+ <div th:replace="venderlayout/layouts.html :: script-customLinks" ></div>
 
 
 </body>

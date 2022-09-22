@@ -1,4 +1,4 @@
-package com.affiliate.user.service;
+package com.affiliate.customer.service;
 
 import java.security.Principal;
 

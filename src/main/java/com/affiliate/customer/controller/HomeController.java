@@ -1,4 +1,4 @@
-package com.affiliate.user.controller;
+package com.affiliate.customer.controller;
 
 import java.security.Principal;
 import java.util.List;
@@ -22,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
+import com.affiliate.customer.service.UserUpdate;
 import com.affiliate.model.CustomerMyAffiliate;
 import com.affiliate.repository.CustomerAffiliateRepository;
-import com.affiliate.user.service.UserUpdate;
 
 
 @RestController
@@ -58,11 +58,12 @@ public class HomeController {
 
 	
 	@GetMapping("/home")
-	public ModelAndView home(ModelAndView modelAndView, Principal principal) throws NumberFormatException, Exception {
+	public ModelAndView home(ModelAndView modelAndView, Principal principal,HttpSession session) throws NumberFormatException, Exception {
 
-		Customer currentCustomer = this.repo.findByEmail(principal.getName());
-		if (currentCustomer != null) {
-			modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
+		if (principal.getName() != null) {
+			Customer currentCustomer = this.repo.findByEmail(principal.getName());
+			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
+			//modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			modelAndView.addObject("user_details", currentCustomer);
 
 			modelAndView.setViewName("users/dashboard");
@@ -81,7 +82,6 @@ public class HomeController {
 		if (currentCustomer != null) {
 
 			modelAndView.addObject("user_details", currentCustomer);
-			modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			modelAndView.setViewName("users/profile-details");
 			return modelAndView;
 		} else {
@@ -97,7 +97,6 @@ public class HomeController {
 
 		Customer currentCustomer = this.userUpdate.updateProfile(myuser, principal, profileImage);
 		modelAndView.addObject("user_details", currentCustomer);
-		modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 		modelAndView.addObject("success", "Record updated successfully");
 		modelAndView.setViewName("users/mysetting");
 
@@ -110,7 +109,6 @@ public class HomeController {
 
 		Customer currentCustomer = this.userUpdate.changeMyPassword(oldPassword, password, principal);
 		modelAndView.addObject("user_details", currentCustomer);
-		modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 		modelAndView.addObject("success", "Your password hasbeen changed successfully...");
 		modelAndView.setViewName("users/mysetting");
 
@@ -123,7 +121,6 @@ public class HomeController {
 		Customer currentCustomer = repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
 			modelAndView.addObject("user_details", currentCustomer);
-			modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			modelAndView.setViewName("users/mysetting");
 			return modelAndView;
 		} else {
@@ -137,7 +134,6 @@ public class HomeController {
 	public ModelAndView myAffiliate(ModelAndView modelAndView, Principal principal) throws Exception {
 		Customer currentCustomer = this.repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
-			modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			modelAndView.setViewName("users/my-affiliate");
 			System.out.println("myaffiliate called....");
 
@@ -161,10 +157,10 @@ public class HomeController {
 //total sale by affiliate
 	@RequestMapping("/payment")
 	public ModelAndView totalSale(ModelAndView modelAndView, Principal principal) throws Exception {
-		Customer currentUser = this.repo.findByEmail(principal.getName());
 
-		if (currentUser != null) {
-			modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+
+		if (principal.getName() != null) {
+			Customer currentUser = this.repo.findByEmail(principal.getName());
 			modelAndView.setViewName("users/payment");
 			System.out.println("myaffiliate called....");
 
@@ -186,23 +182,17 @@ public class HomeController {
 	
 	@GetMapping("/notification")
 	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
-		Customer currentUser = this.repo.findByEmail(principal.getName());
-		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
 		modelAndView.setViewName("users/notification");
 		return modelAndView;
 	}
 	@GetMapping("/term-condition")
 	public ModelAndView termCondition(ModelAndView modelAndView, Principal principal) {
-		Customer currentUser = this.repo.findByEmail(principal.getName());
-		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
 		modelAndView.setViewName("users/term-condition");
 		return modelAndView;
 	}	
 	
 	@GetMapping("/contact-us")
 	public ModelAndView contactUs(ModelAndView modelAndView, Principal principal) {
-		Customer currentUser = this.repo.findByEmail(principal.getName());
-		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
 		modelAndView.setViewName("users/contact-us");
 		return modelAndView;
 	}	
@@ -210,8 +200,7 @@ public class HomeController {
 	
 	@GetMapping("/privacy-policy")
 	public ModelAndView privacyPolicy(ModelAndView modelAndView, Principal principal) {
-		Customer currentUser = this.repo.findByEmail(principal.getName());
-		modelAndView.addObject("fullname", currentUser.getFirstname() + " " + currentUser.getLastname());
+
 		modelAndView.setViewName("users/privacy-policy");
 		return modelAndView;
 	}

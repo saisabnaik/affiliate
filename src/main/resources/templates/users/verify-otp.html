@@ -50,19 +50,36 @@
 						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
 					<!-- th:src="@{/mylibraries/images/user-img.jpg}" -->
 				</div>
-				<form action="" class="right_area" th:action="@{/verify-otp}" name="veify-otp"
-					method="post" id="sendOtpToMailForm">
+				<form action="" class="right_area" th:action="@{/verify-otp}"
+					name="veify-otp" method="post" id="sendOtpToMailForm">
+					<div
+						class="alert alert-success d-flex alert-warning alert-dismissible fade show"
+						role="alert" th:if="${session.success}">
+						<strong>Success!</strong> <span th:text="${session.success}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<th:block th:inline="text" th:if="${session.success}"
+						style="display:none;"> [[${#session.removeAttribute('success')}]]</th:block>
+											<div
+						class="alert alert-danger alert-warning alert-dismissible fade show"
+						role="alert" th:if="${session.error}">
+						<strong>Danger!</strong> <span th:text="${session.error}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<th:block th:inline="text" th:if="${session.error}"
+						style="display:none;"> [[${#session.removeAttribute('error')}]]</th:block>
 					<div class="login">
-						<h2> Verify Your OTP </h2>
-						<div  th:text="${session.message}" th:if="${session.message}"></div>
+						<h2>Verify Your OTP</h2>
 					</div>
 					<p>Please provide 4 digit otp to reset your password.</p>
 
 					<input type="text" id="text" name="otp"
-						class="form-control input_area" placeholder="Enter OTP"
-						> <small></small>
+						class="form-control input_area" placeholder="Enter OTP">
+					<small></small>
 					<div class="email-submit-btn-area btn_area">
-						<input type="submit" class="btn_submit" value="verify otp" >
+						<input type="submit" class="btn_submit" value="verify otp">
 					</div>
 				</form>
 			</div>
@@ -78,16 +95,15 @@
 	<div th:replace="userlayout/layouts.html :: script-customLinks"></div>
 
 	<script>
-
-	   function emptyValidation() {
-	      var formField = document.forms["veify-otp"]["otp"].value;
-	      if (formField == "" || x == null) {
-	         return false;
-	      }else{	    	  
-	    	  return true;
-	      }
-	   }
-</script>
+		function emptyValidation() {
+			var formField = document.forms["veify-otp"]["otp"].value;
+			if (formField == "" || x == null) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
 
 </body>
 

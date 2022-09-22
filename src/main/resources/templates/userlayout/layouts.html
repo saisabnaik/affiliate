@@ -76,7 +76,7 @@
 							th:src="@{/mylibraries/plugins/images/users/varun.jpg}" alt="user-img"
 							width="36" class="img-circle"> <span
 							class="text-white font-medium"
-							th:text="${fullname}"> <i
+							th:text="${session.fullname}" th:if="${session.fullname}"> <i
 								class="fa fa-caret-down" aria-hidden="true"></i>
 						</span></a> <!-- <a class="profile-pic"
 						href="users/profile-details.html" th:href="@{/profile-details}" class="dropdown-toggle"
@@ -197,7 +197,7 @@
 					</a></li>
 					<li class="sidebar-item"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="user/login.html" th:href="@{/logout}" aria-expanded="false">
+						href="user/login.html" th:href="@{/customer/logout}"  aria-expanded="false">
 							<i class="fas fa-power-off leftside_icon"></i> <span
 							class="hide-menu">Log Out</span>
 					</a></li>

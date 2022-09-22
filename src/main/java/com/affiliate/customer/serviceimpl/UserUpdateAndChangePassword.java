@@ -1,4 +1,4 @@
-package com.affiliate.user.serviceimpl;
+package com.affiliate.customer.serviceimpl;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
-import com.affiliate.user.service.UserUpdate;
+import com.affiliate.customer.service.UserUpdate;
 
 @Service
 public class UserUpdateAndChangePassword implements UserUpdate{

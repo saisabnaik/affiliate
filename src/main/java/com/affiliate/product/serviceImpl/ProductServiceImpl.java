@@ -23,11 +23,11 @@ public class ProductServiceImpl implements ProductService {
 		try {
 
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			product.setPname(product.getPname());
-			product.setPdesc(product.getPdesc());
-			product.setPdiscount(product.getPprice());
-			product.setPprice(product.getPdiscount());
-			product.setPprice(product.getPquantity());
+			//product.setPname(product.getPname());
+			//product.setPdesc(product.getPdesc());
+			//product.setPdiscount(product.getPprice());
+			//product.setPprice(product.getPdiscount());
+			//product.setPprice(product.getPquantity());
 			product.setPpic(fileName);
 			product.setCategory(category);
 			String uploadDir = "productImages/"+venderid + "/" ;

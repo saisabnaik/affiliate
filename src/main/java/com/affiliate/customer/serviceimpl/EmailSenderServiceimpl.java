@@ -1,11 +1,11 @@
-package com.affiliate.user.serviceimpl;
+package com.affiliate.customer.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.affiliate.user.service.EmailService;
+import com.affiliate.customer.service.EmailService;
 
 @Service
 public class EmailSenderServiceimpl implements EmailService{

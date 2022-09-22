@@ -22,14 +22,15 @@ import com.affiliate.product.repository.CategoryRepository;
 import com.affiliate.product.service.ProductService;
 import com.affiliate.vender.Vender;
 import com.affiliate.vender.VenderRepository;
-import com.affiliate.vender.service.VenderUpdateService;
+import com.affiliate.vender.service.VenderService;
+
 
 @RestController
 @RequestMapping("/vender")
 public class VenderController {
 
 	@Autowired
-	public VenderUpdateService venderUpdateService;
+	public VenderService venderService;
 
 	private CustomerRepository customerRepository;
 
@@ -47,6 +48,10 @@ public class VenderController {
 		modelAndView.setViewName("vender/login");
 		return modelAndView;
 	}
+	
+	
+	
+	
 
 	@GetMapping("/home")
 	public ModelAndView home(ModelAndView modelAndView, Principal principal, HttpSession session)
@@ -97,7 +102,7 @@ public class VenderController {
 	public ModelAndView showEditStudentPage(Vender Vender, ModelAndView modelAndView, Principal principal,
 			@RequestParam("userImage") MultipartFile profileImage, HttpSession session) throws Exception {
 		if (principal.getName() != null) {
-			Vender currentVender = this.venderUpdateService.updateProfile(Vender, principal, profileImage);
+			Vender currentVender = this.venderService.updateProfile(Vender, principal, profileImage);
 			modelAndView.addObject("vender_details", currentVender);
 			session.setAttribute("success", "Record updated successfully");
 			modelAndView.setViewName("vender/mysetting");
@@ -114,7 +119,7 @@ public class VenderController {
 	public ModelAndView changePassword(ModelAndView modelAndView, @RequestParam("oldPassword") String oldPassword,
 			@RequestParam("password") String password, Principal principal) throws Exception {
 		if (principal.getName() != null) {
-			Vender currentVender = this.venderUpdateService.changeMyPassword(oldPassword, password, principal);
+			Vender currentVender = this.venderService.changeMyPassword(oldPassword, password, principal);
 			modelAndView.addObject("vender_details", currentVender);
 			modelAndView.addObject("fullname", currentVender.getFirstname() + " " + currentVender.getLastname());
 			modelAndView.addObject("success", "Your password hasbeen changed successfully...");
@@ -133,7 +138,7 @@ public class VenderController {
 		if (principal.getName() != null) {
 			modelAndView.addObject("vender_details", currentVender);
 
-			List<Customer> customers = this.venderUpdateService.getAllCustomer();
+			List<Customer> customers = this.venderService.getAllCustomer();
 
 			if (customers.isEmpty() == false) {
 				modelAndView.addObject("customers", customers);
@@ -219,14 +224,12 @@ public class VenderController {
 		if (principal.getName() != null) {
 			Vender currentVender = this.venderRepo.findByEmail(principal.getName());
 			int venderid = currentVender.getVenderId();
-			boolean productresult=productService.addProduct(product,category,multipartFile, venderid);
+			boolean productresult=productService.addProduct(product,category,multipartFile, currentVender.getVenderId());
 			if(productresult) {
 				System.out.println("product added successfully");
 			}else {
 				System.out.println("product not added please try again");
-			}
-			
-			
+			}	
 			
 			modelAndView.setViewName("product/add-product");
 			return modelAndView;
