@@ -129,6 +129,14 @@
                             </a>
                         </li>
                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
+                                aria-expanded="false" th:href="@{/vender/image/show}" >
+                                <i class="fas fa-user-plus leftside_icon"></i>
+                                <span class="hide-menu">My productList</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
                                 aria-expanded="false" th:href="@{/vender/settings}" >
                                 <i class="fas fa-cog leftside_icon"></i>

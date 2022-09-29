@@ -45,7 +45,7 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.logout().clearAuthentication(true)
 					.logoutUrl("/customer/logout")
-					.logoutSuccessUrl("/customer/login")
+					.logoutSuccessUrl("/")
 					.and().csrf().disable();
 	}
 	

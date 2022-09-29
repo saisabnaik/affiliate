@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>gogoGlobal.LIFE</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}">
+<link href="plugins/bower_components/chartist/dist/chartist.min.css"
+	th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css"
+	th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}">
+<!-- Custom CSS -->
+<link href="./css/style.min.css"
+	th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
+<link href="./css/fontawesome.min.css"
+	th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
+<link href="./css/responsive.css"
+	th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
+<link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}" />
+
+<script
+	th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+<style type="text/css">
+.switchToggle input[type=checkbox] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+	position: absolute;
+}
+
+.switchToggle label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 70px;
+	max-width: 70px;
+	height: 30px;
+	background: #d1d1d1;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+.switchToggle label:after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 26px;
+	height: 26px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+.switchToggle input:checked+label, .switchToggle input:checked+input+label
+	{
+	background: #3e98d3;
+}
+
+.switchToggle input+label:before, .switchToggle input+input+label:before
+	{
+	content: 'No';
+	position: absolute;
+	top: 5px;
+	left: 35px;
+	width: 26px;
+	height: 26px;
+	border-radius: 90px;
+	transition: 0.3s;
+	text-indent: 0;
+	color: #fff;
+}
+
+.switchToggle input:checked+label:before, .switchToggle input:checked+input+label:before
+	{
+	content: 'Yes';
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	width: 26px;
+	height: 26px;
+	border-radius: 90px;
+	transition: 0.3s;
+	text-indent: 0;
+	color: #fff;
+}
+
+.switchToggle input:checked+label:after, .switchToggle input:checked+input+label:after
+	{
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+}
+
+.switchToggle label:active:after {
+	width: 60px;
+}
+
+.toggle-switchArea {
+	margin: 10px 0 10px 0;
+}
+</style>
+</head>
+
+<body style="font-family: Roboto, sans-serif;">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
+		data-sidebartype="full" data-sidebar-position="absolute"
+		data-header-position="absolute" data-boxed-layout="full">
+		<!-- ============================================================== -->
+		<!-- Topbar header - style you can find in pages.scss -->
+		<!-- ============================================================== -->
+
+		<!--  header section -->
+		<div th:replace="venderlayout/layouts.html :: header">header
+			section</div>
+		<!-- ============================================================== -->
+		<!-- End Topbar header -->
+
+		<!-- ============================================================== -->
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<!-- ============================================================== -->
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<div th:replace="venderlayout/layouts.html :: sidemenu"></div>
+		<!-- ============================================================== -->
+		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper wrapper_page" style="min-height: 250px;">
+			<!-- ============================================================== -->
+			<!-- Bread crumb and right sidebar toggle -->
+			<!-- ============================================================== -->
+			<div class="container-fluid white_bg">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="application-detail-heading-area">
+							<h2 class="noti_detail">Product List</h2>
+						</div>
+						<div class="table-data-search-box">
+							<div class="search">
+								<input type="text" class="searchTerm" placeholder="Search">
+								<button type="submit" class="searchButton">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+						<div class="manage-admins-main-area">
+							<div class="manage-admins-table-area">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Sl no</th>
+											<th>Product Name</th>
+											<th>Product image</th>
+
+											<th>Product Category</th>
+											<th>Product price</th>
+											<th>Product Description</th>
+											<th>Product Quantity</th>
+											<th>Product Creation date</th>
+											<th>Action</th>
+
+											<th>Status</th>
+											<th>View</th>
+										</tr>
+									</thead>
+
+
+									<tbody th:with="count=0">
+										<tr th:each="imageGallery, hh : ${images}">
+											<td th:with="count=${count + 1}" th:text="${count}"></td>
+											<td th:text="${imageGallery.productname}"></td>
+											<td><img
+												th:src="@{${'/vender/myimage/display/'+ imageGallery.productId}}"
+												class="card img-fluid" style="width: 200px; height: 200px;"
+												alt="" /></td>
+
+											<td th:text="${imageGallery.category}"></td>
+											<td th:text="${imageGallery.price}"></td>
+											<td th:text="${imageGallery.description}"></td>
+											<td th:text="${imageGallery.quantity}"></td>
+											<td
+												th:text="${#dates.format({imageGallery.createDate}, 'dd-MM-yyyy')}" /></td>
+											<td><a
+												th:href="@{/vender/image/imageDetails(id=${imageGallery.productId})}"
+												class="btn btn-info text-right" target="_blank">View</a></td>
+										</tr>
+									</tbody>
+								</table>
+
+
+
+
+								<!-- 
+									<tbody th:if="${productlist}">
+										<tr th:each="productData, iStart : ${productlist}">
+
+											<td th:text=${iStart.count}></td>
+											<td>
+												<div th:each="productImg, pcount : ${productImages}">
+													<div
+														th:if="${productData.pid} eq ${productImg.productId}">
+
+														<img alt="userimg" style="height: 50px; width: 50px;"
+															th:src="@{'productImages/' + ${productData.vid} + '/' + ${productData.category.ctitle} +'/'+ ${productImg.productImageName}}">
+													</div>
+												</div>
+											</td>
+											<td th:text="${productData.pname}"></td>
+											<td th:text="${productData.category.ctitle}"></td>
+											<td th:text="${productData.pprice}"></td>
+											<td th:text="${productData.pquantity}"></td>
+
+											<td><a
+												th:href="@{'/vender/product-edit/'+ ${productData.pid}}"
+												method="get" type="submit"
+												class="mange-admins-edit-btn submit-btn"> <i
+													class="fas fa-edit"></i>
+											</a></td>
+
+
+											<td>
+											
+											<div class="switchToggle">
+											    <input type="checkbox" id="switch1" name="status">
+											    <label for="switch1">Toggle</label>
+											</div>
+											
+											</td>
+
+
+ -->
+								<!--                        <td>
+							<div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-6" checked >
+                             <label class="onoffswitch-label" for="myonoffswitch-6">
+                              <span class="onoffswitch-inner"></span>
+                              <span class="onoffswitch-switch"></span>
+                            </label>
+                           </div>  </td>  -->
+
+
+								<!--    <td>
+                            <button type="submit" class="mange-admins-edit-btn submit-btn"><i class="fas fa-edit"></i></button>
+                            <button type="submit" class="mange-admins-dlt-btn submit-btn"><i class="far fa-trash-alt"></i></button>
+                        </td> -->
+
+								<!-- 	<td><a href="#"
+												th:href="@{'/vender/product-view/'+ ${productData.pid}}"
+												type="submit" method="get" class="mange-admins-edit-btn"><i
+													class="fas fa-eye"></i></a></td> -->
+								</tr>
+								</tbody>
+
+								<tbody th:if="${noDataMsg}">
+									<tr>
+										<td colspan="10" th:text="${noDataMsg}"
+											style="text-align: center;"></td>
+									</tr>
+								</tbody>
+
+
+								<!-- *************************************** -->
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Bread crumb and right sidebar toggle -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- End Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer -->
+			<!-- ============================================================== -->
+			<footer th:replace="venderlayout/layouts.html :: footer"></footer>
+			<!-- ============================================================== -->
+			<!-- End footer -->
+			<!-- ============================================================== -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<div th:replace="venderlayout/layouts.html :: script-links"></div>
+</body>
+
+
+
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

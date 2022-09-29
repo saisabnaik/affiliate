@@ -84,24 +84,28 @@
                         <td  th:text="${mydata.getUnpaidTotalEarnings()}"/>
                         <td  th:text="${mydata.getUnpaidTotalReferals()}"/>
                         <td  th:text="${mydata.getPaidTotalReferals()}"/>
-                         <td  th:text="${mydata.getStatus()}"/>
-			<!--        
+                         <!-- <td  th:text="${mydata.getStatus()}"/> -->
+			       <!-- <td>
 							<div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-6" checked>
-                             <label class="onoffswitch-label" for="myonoffswitch-6">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" >
+                             <label class="onoffswitch-label">
                               <span class="onoffswitch-inner"></span>
                               <span class="onoffswitch-switch"></span>
                             </label>
-                           </div>  -->
+                           </div> 
                            
+                        </td> -->
+                        
+                         <td>
+							<div class="form-check form-switch">
+							  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+							  <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+							</div>
                         </td>
+                        
                         <td><a href="./admin-details.html" th:href="@{/admin/affiliatersData}" class="mange-admins-edit-btn"><i class="fas fa-eye"></i></a>
                         </td>
 
-<!--                         <td>
-                            <button type="submit" class="mange-admins-edit-btn submit-btn"><i class="fas fa-edit"></i></button>
-                            <button type="submit" class="mange-admins-dlt-btn submit-btn"><i class="far fa-trash-alt"></i></button>
-                        </td> -->
 
                       </tr>
                     </tbody>

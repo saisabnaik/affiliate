@@ -34,9 +34,12 @@
 			<div class="navbar-header" data-logobg="skin6">
 				<!-- Logo -->
 				 <span
-					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
+					class="logo-icon icon_logo  navbar-brand navbar_logo" > 
+					<a href="/customer/home">
+					<img
 						src="./myuser/images/logopng.png"
-						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
+						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img" >
+					</a>
 				</span>
 				
 				<!-- toggle and nav items -->
@@ -131,7 +134,7 @@
 					<!-- User Profile-->
 					<li class="sidebar-item pt-2"><a
 						class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar"
-						href="users/dashboard.html" th:href="@{/customer/home}"
+						href="users/dashboard.html" th:href="@{/customer/dashboard}"
 						aria-expanded="false"> <i
 							class="fas fa-tachometer-alt leftside_icon"></i> <span
 							class="hide-menu">Dashboard</span>

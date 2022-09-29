@@ -13,6 +13,7 @@ public class FileUploadUtil {
         System.out.println(uploadPath); 
         
         if (!Files.exists(uploadPath)) {
+        	System.out.println("file path created"+uploadPath);
             Files.createDirectories(uploadPath);
             System.out.println("directory created");
         }else {
@@ -21,6 +22,7 @@ public class FileUploadUtil {
          
         try (InputStream inputStream = multipartFile.getInputStream()) {
             Path filePath = uploadPath.resolve(fileName);
+            System.out.println("file path submitted"+uploadPath);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {        
             throw new IOException("Could not save image file: " + fileName, ioe);

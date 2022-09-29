@@ -11,12 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,69 +25,81 @@ import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
 import com.affiliate.customer.service.UserUpdate;
 import com.affiliate.model.CustomerMyAffiliate;
+import com.affiliate.product.repository.CategoryRepository;
 import com.affiliate.repository.CustomerAffiliateRepository;
 
-
-@RestController
+@Controller
 @RequestMapping("/customer")
 public class HomeController {
 
 	@Autowired
 	public UserUpdate userUpdate;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bp;
 
 	@Autowired
 	private CustomerRepository repo;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
-	//@Autowired
-	//private UserUpdateAndChangePassword userUpdateAndChangePassword;
+	// @Autowired
+	// private UserUpdateAndChangePassword userUpdateAndChangePassword;
 
 	@Autowired
 	private CustomerAffiliateRepository userAffiliateRepository;
 
-
 	@RequestMapping("/login")
-	public ModelAndView login(ModelAndView modelAndView) {
+	public String login(ModelAndView modelAndView) {
 		System.out.println("login");
-		modelAndView.setViewName("users/login");
-		
-		return modelAndView;
+		return "users/login";
 	}
-	
 
-	
 	@GetMapping("/home")
-	public ModelAndView home(ModelAndView modelAndView, Principal principal,HttpSession session) throws NumberFormatException, Exception {
+	public String home(Model model, Principal principal, HttpSession session) throws NumberFormatException, Exception {
 
 		if (principal.getName() != null) {
 			Customer currentCustomer = this.repo.findByEmail(principal.getName());
 			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
-			//modelAndView.addObject("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
-			modelAndView.addObject("user_details", currentCustomer);
-
-			modelAndView.setViewName("users/dashboard");
-			return modelAndView;
+			model.addAttribute("user_details", currentCustomer);
+			model.addAttribute("categories", categoryRepository.findAll());
+			session.setAttribute("customeremail", principal.getName());
+			return "redirect:/";
 		} else {
-			modelAndView.setViewName("users/login");
-			return modelAndView;
+			session.invalidate();
+			return "redirect:/";
+		}
+
+	}
+
+	@GetMapping("/dashboard")
+	public String dashboad(Model model, Principal principal, HttpSession session)
+			throws NumberFormatException, Exception {
+		if (principal.getName() != null) {
+			Customer currentCustomer = this.repo.findByEmail(principal.getName());
+			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
+			model.addAttribute("user_details", currentCustomer);
+			return "users/dashboard";
+
+		} else {
+			session.invalidate();
+			return "redirect:/";
 		}
 
 	}
 
 	@RequestMapping("/profile-details")
-	public ModelAndView profileDetails(ModelAndView modelAndView, Principal principal) throws Exception {
+	public String profileDetails(Model model, Principal principal, HttpSession session) throws Exception {
 		System.out.println("profile");
 		Customer currentCustomer = this.repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
+			model.addAttribute("user_details", currentCustomer);
 
-			modelAndView.addObject("user_details", currentCustomer);
-			modelAndView.setViewName("users/profile-details");
-			return modelAndView;
+			return "users/profile-details";
 		} else {
-			modelAndView.setViewName("users/login");
-			return modelAndView;
+			session.invalidate();
+			return "redirect:/";
 		}
 
 	}
@@ -117,112 +130,94 @@ public class HomeController {
 	}
 
 	@RequestMapping("/settings")
-	public ModelAndView settings(Principal principal, ModelAndView modelAndView) throws Exception {
+	public String settings(Principal principal, Model model, HttpSession session) throws Exception {
 		Customer currentCustomer = repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
-			modelAndView.addObject("user_details", currentCustomer);
-			modelAndView.setViewName("users/mysetting");
-			return modelAndView;
+			model.addAttribute("user_details", currentCustomer);
+
+			return "users/mysetting";
 		} else {
-			modelAndView.setViewName("users/login");
-			return modelAndView;
+			session.invalidate();
+			return "redirect:/";
 		}
 
 	}
 
 	@RequestMapping("/myaffiliate")
-	public ModelAndView myAffiliate(ModelAndView modelAndView, Principal principal) throws Exception {
+	public String myAffiliate(Model model, Principal principal, HttpSession session) throws Exception {
 		Customer currentCustomer = this.repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
-			modelAndView.setViewName("users/my-affiliate");
 			System.out.println("myaffiliate called....");
-
-			 List<CustomerMyAffiliate> affiliatelist = currentCustomer.getAffiliateList();
-
+			List<CustomerMyAffiliate> affiliatelist = currentCustomer.getAffiliateList();
 			if (affiliatelist.isEmpty() == false) {
-				modelAndView.addObject("affiliatelist", affiliatelist);
-				return modelAndView;
+				model.addAttribute("affiliatelist", affiliatelist);
 			} else {
-				modelAndView.addObject("noDataMsg", "No Record found");
-				return modelAndView;
+				model.addAttribute("noDataMsg", "No Record found");
 			}
+			return "users/my-affiliate";
 
 		} else {
-			modelAndView.setViewName("users/login");
-			return modelAndView;
+
+			session.invalidate();
+			return "redirect:/";
 		}
 
 	}
 
 //total sale by affiliate
 	@RequestMapping("/payment")
-	public ModelAndView totalSale(ModelAndView modelAndView, Principal principal) throws Exception {
-
+	public String totalSale(Model model, Principal principal, HttpSession session) throws Exception {
 
 		if (principal.getName() != null) {
 			Customer currentUser = this.repo.findByEmail(principal.getName());
-			modelAndView.setViewName("users/payment");
-			System.out.println("myaffiliate called....");
-
 			List<CustomerMyAffiliate> affiliatelist = currentUser.getAffiliateList();
-
 			if (affiliatelist.isEmpty() == false) {
-				modelAndView.addObject("affiliatelist", affiliatelist);
-
-				return modelAndView;
+				model.addAttribute("affiliatelist", affiliatelist);
 			} else {
-				modelAndView.addObject("noDataMsg", "No Record found");
-				return modelAndView;
+				model.addAttribute("noDataMsg", "No Record found");
 			}
+			return "users/payment";
 		} else {
-			modelAndView.setViewName("users/login");
-			return modelAndView;
+			session.invalidate();
+			return "redirect:/";
 		}
 	}
-	
-	@GetMapping("/notification")
-	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
-		modelAndView.setViewName("users/notification");
-		return modelAndView;
-	}
-	@GetMapping("/term-condition")
-	public ModelAndView termCondition(ModelAndView modelAndView, Principal principal) {
-		modelAndView.setViewName("users/term-condition");
-		return modelAndView;
-	}	
-	
-	@GetMapping("/contact-us")
-	public ModelAndView contactUs(ModelAndView modelAndView, Principal principal) {
-		modelAndView.setViewName("users/contact-us");
-		return modelAndView;
-	}	
-	
-	
-	@GetMapping("/privacy-policy")
-	public ModelAndView privacyPolicy(ModelAndView modelAndView, Principal principal) {
 
-		modelAndView.setViewName("users/privacy-policy");
-		return modelAndView;
+	@GetMapping("/notification")
+	public String notification(Model model, Principal principal) {
+		return "users/notification";
 	}
-	
-	@RequestMapping(value = {"/logout"}, method = RequestMethod.POST)
-	public ModelAndView logoutDo(ModelAndView modelAndView,HttpServletRequest request,HttpServletResponse response){
-	HttpSession session= request.getSession(false);
-	    SecurityContextHolder.clearContext();
-	         session= request.getSession(false);
-	        if(session != null) {
-	            session.invalidate();
-	        }
-	        for(Cookie cookie : request.getCookies()) {
-	            cookie.setMaxAge(0);
-	        }
-	        System.out.println("you are successfully logedout.");
-	        modelAndView.setViewName("users/login");
-	    return modelAndView;
-	}	
-	
-	
-	
-	
+
+	@GetMapping("/term-condition")
+	public String termCondition(Model model, Principal principal) {
+		return "users/term-condition";
+	}
+
+	@GetMapping("/contact-us")
+	public String contactUs(Model model, Principal principal) {
+		return "users/contact-us";
+	}
+
+	@GetMapping("/privacy-policy")
+	public String privacyPolicy(Model model, Principal principal) {
+		return "users/privacy-policy";
+	}
+
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
+	public String logoutDo(Model model, HttpServletRequest request, Principal principal) {
+		HttpSession session = request.getSession(false);
+		SecurityContextHolder.clearContext();
+		session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		for (Cookie cookie : request.getCookies()) {
+			cookie.setMaxAge(0);
+		}
+		System.out.println("you are successfully logedout.");
+
+		session.invalidate();
+		return "redirect:/";
+	}
 
 }

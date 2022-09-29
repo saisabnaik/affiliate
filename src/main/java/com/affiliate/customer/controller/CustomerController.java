@@ -57,6 +57,11 @@ public class CustomerController {
 	 * } else { modelAndView.setViewName("users/login"); return modelAndView; } }
 	 */
 
+	
+	
+	
+	
+	
 	@RequestMapping("/registerUser")
 	public String registration() {
 
