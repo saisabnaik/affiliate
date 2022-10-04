@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head th:fragment="head">
+<!-- Meta Tag -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='copyright' content=''>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	
+	
+<title>GogoGLOBAL.LIFE</title>
+<link rel="icon" type="image/png" href="images/favicon.png"
+	th:href="@{/mylibraries/images/webimg/favicon.png}">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+	rel="stylesheet" >
+
+<link rel="stylesheet" href="css/bootstrap.css"
+	th:href="@{/mylibraries/css/webcss/bootstrap.css}">
+<link rel="stylesheet" href="css/font-awesome.css"
+	th:href="@{/mylibraries/css/webcss/font-awesome.css}">
+<link rel="stylesheet" href="css/themify-icons.css"
+	th:href="@{/mylibraries/css/webcss/themify-icons.css}">
+<link rel="stylesheet" href="css/niceselect.css"
+	th:href="@{/mylibraries/css/webcss/niceselect.css}">
+<link rel="stylesheet" href="css/animate.css"
+	th:href="@{/mylibraries/css/webcss/animate.css}">
+<link rel="stylesheet" href="css/owl-carousel.css"
+	th:href="@{/mylibraries/css/webcss/owl-carousel.css}">
+<link rel="stylesheet" href="css/slicknav.min.css"
+	th:href="@{/mylibraries/css/webcss/slicknav.min.css}">
+<link rel="stylesheet" href="css/reset.css"
+	th:href="@{/mylibraries/css/webcss/reset.css}">
+<link rel="stylesheet" href="css/style.css"
+	th:href="@{/mylibraries/css/webcss/style.css}">
+<link rel="stylesheet" href="css/responsive.css"
+	th:href="@{/mylibraries/css/webcss/responsive.css}">
+
+</head>
+
+<!-- header section  -->
+
+<header class="header shop" th:fragment="header">
+	<!-- Topbar -->
+	<div class="topbar">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 col-12">
+					<!-- Top Left -->
+					<div class="top-left">
+						<ul class="list-main">
+							<li><i class="ti-headphone-alt"></i> +91 (000) 000-000</li>
+							<li th:if="${session.myEmail}"><i class="ti-email"></i> <span
+								th:text="${session.myEmail}"></span></li>
+						</ul>
+					</div>
+					<!--/ End Top Left -->
+				</div>
+				<p th:if="${myEmail}" th:text="${myEmail}"></p>
+				<div class="col-lg-7 col-md-12 col-12">
+					<div class="right-content">
+						<ul class="list-main" th:unless="${session.myEmail}">
+							<li><i class="ti-user"></i> <a href="#!"
+								th:href="@{/vender/login}">Become a vendor</a></li>
+							<li><i class="ti-user"></i> <a href="#!"
+								th:href="@{/registerUser}">Become a affiliate</a></li>
+							<li><a th:href="@{/customer/login}"><i
+									class="ti-power-off"></i>Login</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Topbar -->
+	<div class="middle-inner">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-12">
+					<!-- Logo -->
+					<div class="logo">
+						<a href="index.html"><img src="images/logo.png" alt="logo"
+							th:src="@{/mylibraries/images/webimg/logo.png}"></a>
+					</div>
+					<div class="search-top">
+						<div class="top-search">
+							<a href="#0"><i class="ti-search"></i></a>
+						</div>
+
+						<div class="search-top">
+							<form class="search-form">
+								<input type="text" placeholder="Search here..." name="search">
+								<button value="search" type="submit">
+									<i class="ti-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+					<!--/ End Search Form -->
+					<div class="mobile-nav"></div>
+				</div>
+				<div class="col-lg-8 col-md-7 col-12">
+					<div class="search-bar-top">
+						<div class="search-bar">
+							<select>
+								<option selected="selected">All Category</option>
+								<option>watch</option>
+								<option>mobile</option>
+								<option>kid’s item</option>
+							</select>
+							<form>
+								<input name="search" placeholder="Search Products Here....."
+									type="search">
+								<button class="btnn">
+									<i class="ti-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<style>
+/* a.userProfile{
+					position:relative;
+					}
+					  ul.userprofileDropdown {
+						    background: #fff;
+						    min-width: 122px;
+						    position: absolute;
+						    max-width: 100%;
+						    box-shadow: -1px 0px 6px #c3c3c3;
+						    border-radius:3px;
+						    left:0;
+						    z-index:9999;
+						    display:none;
+						}
+					  ul.userprofileDropdown .dropdown-item {
+						    display: block;
+						    width: 100%;
+						    padding: 0;
+						    clear: both;
+						    font-weight: 400;
+						    color: #212529;
+						    text-align: inherit;
+						    white-space: nowrap;
+						    border: 0;
+						}
+						ul.userprofileDropdown .dropdown-item a{
+						    display: block;
+						    width: 100%;
+						    padding: 0.25rem 0.5rem;
+						    color:#333;
+						}
+						ul.userprofileDropdown .dropdown-item a:hover{
+						    background:#dedede;
+						    color:#333;
+						} */
+div#nav {
+	position: relative;
+}
+
+div#nav a {
+	padding: 5px 12px;
+}
+
+.dropdown-toggle {
+	padding: 0;
+}
+
+ul.dropdown {
+	display: none;
+	min-width: 122px;
+	position: absolute;
+	max-width: 100%;
+	top: 100%;
+	margin-top: 0px;
+	padding: 0px;
+	background: #fff;
+	box-shadow: -1px 0px 6px #c3c3c3;
+	border-radius: 4px;
+	z-index: 99999;
+}
+
+ul.dropdown li {
+	list-style-type: none;
+}
+
+ul.dropdown li a {
+	text-decoration: none;
+	padding: 0em 1em;
+	display: block;
+	color: #333;
+}
+
+ul.dropdown li a:hover {
+	background: #dedede;
+}
+</style>
+				<div class="col-lg-2 col-md-3 col-12">
+					<div th:if="${session.myEmail}">
+
+						<!-- <div class="right-bar"  >
+							Search Form
+							<div class="sinlge-bar">
+								<a href="#!" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+							</div>
+						
+							<div class="sinlge-bar" id="nav">
+							    <a href="#!" class="single-icon dropdown-toggle"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+								<ul class="dropdown">
+								  <li><a th:href="@{/customer/dashboard}">Dashboard</a></li>
+								  <li><a href="#">Menu</a></li>
+								  <li><a href="#" th:href="@{/customer/settings}" >Settings</a></li>
+								  
+								  <li><a th:href="@{/customer/logout}">Logout </a></li>
+								  
+								</ul>
+								</div>
+						</div> -->
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dropdown button</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li><a class="dropdown-item" href="#">Something else
+										here</a></li>
+							</ul>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Header Inner -->
+	<div class="header-inner">
+		<div class="container">
+			<div class="cat-nav-head">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="all-category">
+							<h3 class="cat-heading">
+								<i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES
+							</h3>
+							<ul class="main-category">
+								<!-- <li><a href="#!">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
+											<li ><a href="#!">accessories</a></li>
+											<li><a href="#!">best selling</a></li>
+											<li><a href="#!">top 100 offer</a></li>
+										</ul>
+									</li>
+									<li class="main-mega"><a href="#!">best selling <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="mega-menu">
+											<li class="single-menu">
+												<a href="#!" class="title-link">Shop Kid's</a>
+												<div class="image">
+													<img src="images/shopKids.jpg" alt="#" th:src="@{/mylibraries/images/webimg/shopKids.jpg}">
+												</div>
+												<div class="inner-link">
+													<a href="#!">Kids Toys</a>
+													<a href="#!">Kids Travel Car</a>
+												</div>
+											</li>
+											<li class="single-menu">
+												<a href="#!" class="title-link">Shop Men's</a>
+												<div class="image">
+													<img src="images/menshop.jpg" alt="#" th:src="@{/mylibraries/images/webimg/menshop.jpg}">
+												</div>
+												<div class="inner-link">
+													<a href="#!">Watch</a>
+													<a href="#!">T-shirt</a>
+												</div>
+											</li>
+											<li class="single-menu">
+												<a href="#!" class="title-link">Shop Women's</a>
+												<div class="image">
+													<img src="images/womenshop.jpg" alt="#" th:src="@{/mylibraries/images/webimg/womenshop.jpg}">
+												</div>
+												<div class="inner-link">
+													<a href="#!">Ladies Shirt</a>
+													<a href="#!">Ladies Frog</a>
+												</div>
+											</li>
+										</ul>
+									</li> -->
+
+
+								<li th:each="pCategory : ${category}"><a
+									href="#!"><span th:value="${pCategory.categoryId}"
+										th:text="${pCategory.categoryTitle}">accessories</span></a></li>
+
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-9 col-12">
+						<div class="menu-area">
+							<!-- Main Menu -->
+							<nav class="navbar navbar-expand-lg">
+								<div class="navbar-collapse">
+									<div class="nav-inner">
+										<ul class="nav main-menu menu navbar-nav">
+											<li><a href="#" th:href="@{/}">Home</a></li>
+											<li><a href="#!">About Us</a></li>
+											<li><a href="#!" th:href="@{/products}">Product</a></li>
+											<!-- <li><a href="#!">Service</a></li> -->
+											<!-- <li><a href="#!">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+														<ul class="dropdown">
+															<li><a href="#!">Shop men</a></li>
+															<li><a href="#!">Cart</a></li>
+															<li><a href="#!">Checkout</a></li>
+														</ul>
+													</li> -->
+											<li><a href="#!">Contact Us</a></li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--/ End Header -->
+
+
+<!-- Start Shop Services Area -->
+<div th:fragment="mainfooter">
+
+	<section class="shop-services section home">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-service">
+						<i class="ti-rocket"></i>
+						<h4>Free shiping</h4>
+						<p>Orders over $100</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-service">
+						<i class="ti-reload"></i>
+						<h4>Free Return</h4>
+						<p>Within 30 days returns</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-service">
+						<i class="ti-lock"></i>
+						<h4>Sucure Payment</h4>
+						<p>100% secure payment</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="single-service">
+						<i class="ti-tag"></i>
+						<h4>Best Peice</h4>
+						<p>Guaranteed price</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Shop Services Area -->
+
+
+	<!-- Start Shop Newsletter  -->
+	<!-- <section class="shop-newsletter section">
+		<div class="container">
+			<div class="inner-top">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 col-12">
+						<div class="inner">
+							<h4>Newsletter</h4>
+							<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+							<form action="#!" class="newsletter-inner">
+								<input name="EMAIL" placeholder="Your email address" required="" type="email">
+								<button class="btn">Subscribe</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<!-- End Shop Newsletter -->
+
+
+	<!-- Start Footer Area -->
+	<footer class="footer">
+		<!-- Footer Top -->
+		<div class="footer-top section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-12">
+						<div class="single-footer about">
+							<div class="logo">
+								<a href="#!"><img src="images/logo2.png" alt="#"
+									th:src="@{/mylibraries/images/webimg/logo2.png}"></a>
+							</div>
+							<p class="text">Praesent dapibus, neque id cursus ucibus,
+								tortor neque egestas augue, magna eros eu erat. Aliquam erat
+								volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
+								facilisis luctus, metus.</p>
+							<!-- <p class="call">Got Question? Call us 24/7<span><a href="#!">+000 000 000</a></span></p> -->
+						</div>
+
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<div class="single-footer links">
+							<h4>Information</h4>
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Faq</a></li>
+								<li><a href="#">Terms & Conditions</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<div class="single-footer links">
+							<h4>Customer Service</h4>
+							<ul>
+								<li><a href="#">Payment Methods</a></li>
+								<li><a href="#">Money-back</a></li>
+								<li><a href="#">Returns</a></li>
+								<li><a href="#">Shipping</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="single-footer social">
+							<h4>Get In Tuch</h4>
+							<div class="contact">
+								<ul>
+									<li>NO. 342 - London Oxford Street.</li>
+									<li>012 United Kingdom.</li>
+									<li>info@gmail..com</li>
+									<li>+000 0000 0000</li>
+								</ul>
+							</div>
+							<ul>
+								<li><a href="#"><i class="ti-facebook"></i></a></li>
+								<li><a href="#"><i class="ti-twitter"></i></a></li>
+								<li><a href="#"><i class="ti-flickr"></i></a></li>
+								<li><a href="#"><i class="ti-instagram"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="copyright">
+			<div class="container">
+				<div class="inner">
+					<div class="row">
+						<div class="col-lg-6 col-12">
+							<div class="left">
+								<p>
+									Copyright © 2020 <a href="#!" target="_blank">GogoGLOBAL.LIFE</a>
+									- All Rights Reserved.
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="right">
+								<img src="images/payments.png" alt="#"
+									th:src="@{/mylibraries/images/webimg/payments.png}">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

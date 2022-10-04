@@ -60,7 +60,7 @@ public class VenderSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 					.logout()
 						.logoutUrl("/vender/logout")
-						.logoutSuccessUrl("/vender/login")
+						.logoutSuccessUrl("/")
 						.and().csrf().disable();
 
 	}

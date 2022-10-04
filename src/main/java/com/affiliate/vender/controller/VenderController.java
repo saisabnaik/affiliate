@@ -213,7 +213,7 @@ public class VenderController {
 	@PostMapping("/image/saveImageDetails")
 	public String createProduct(@RequestParam("productname") String productname, @RequestParam("price") double price,
 			@RequestParam("description") String description, @RequestParam("quantity") int quantity,
-			@RequestParam("link") String link, Principal principal, @RequestParam("category") String category,
+			@RequestParam("productlink") String productlink, Principal principal, @RequestParam("category") String category,
 			Model model, HttpServletRequest request, final @RequestParam("image") MultipartFile file,
 			HttpSession session) {
 
@@ -261,6 +261,7 @@ public class VenderController {
 			product.setCreateDate(createDate);
 			product.setCategory(category);
 			product.setVid(currentVender.getVenderId());
+			product.setLink(productlink);
 			productService.saveImage(product);
 			model.addAttribute("successOk", "Product Saved With File" + fileName);
 			return "redirect:/vender/add-product";

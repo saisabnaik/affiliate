@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- head section -->
+
+<div th:replace="mainlayout/mainlayout.html :: head">links</div>
+<style>
+.single-product .product-img {
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	height: 344px;
+}
+
+.single-product .product-img a {
+	display: initial;
+}
+
+.single-product .product-img a img {
+	width: 100%;
+	height: 100%;
+	object-fit: initial;
+}
+
+.product-action span.shareicon {
+	position: absolute;
+	bottom: 50px;
+	right: 4px;
+	width: 34px;
+	background: #fff;
+	text-align: center;
+	display: none;
+	transition: .6s;
+	z-index: 99999;
+}
+
+.producteshare:hover i+.shareicon {
+	display: block;
+	transition: .6s;
+}
+
+.single-product .product-img span.shareicon a {
+	margin-right: 0 !important;
+	height: 48px !important;
+}
+
+span.producteshare {
+	padding: 12px 0;
+	padding-right: 16px;
+}
+</style>
+<!-- head end section -->
+
+<body>
+	<!-- header section -->
+	<div th:replace="mainlayout/mainlayout.html :: header"></div>
+	<!-- header end section -->
+
+
+
+	<div class="product-area section">
+            <div class="container">
+				<div class="row">
+					<div class="col-12 ">
+						<div class="section-title pt-0" >
+							<h2>Our Products</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="product-info">
+							<!-- <div class="nav-main">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">Man</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">Woman</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Kids</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Accessories</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">Essential</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prices" role="tab">Prices</a></li>
+								</ul>
+							</div> -->
+							<div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade show active" id="man" role="tabpanel">
+									<div class="tab-single">
+										<div class="row" th:if="${dbproductImages}">
+										
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12" th:each="imageGallery, count : ${dbproductImages}">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="#" th:href="@{/image/imageDetails(id=${imageGallery.productId})}" target="_blank">
+															<img class="default-img" src="images/product/1.webp" alt="#" th:src="@{${'/image/display/'+ imageGallery.productId}}">
+															<!-- <img class="hover-img" src="images/product/1-2.webp" alt="#" th:src="@{/mylibraries/images/webimg/product/1-2.webp}"> -->
+														</a>
+														<div class="button-head">
+															<div class="product-action">
+																<a data-toggle="modal" th:href="@{/image/imageDetails(id=${imageGallery.productId})}" target="_blank" data-target="#exampleModal" title="Quick View" href="#!"><i class=" ti-eye"></i><span >View Details</span></a>
+																<a title="Wishlist" href="#"><i class="ti-heart"></i><span>Add to Wishlist</span></a>
+																
+																<span class="producteshare" title="Share">
+																<i class="ti-sharethis"></i>
+																
+																	<span class="shareicon">
+																		 <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+																		 <a href="https://mail.google.com/"><i class="ti-email"></i></a>
+																		 <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+																		 <a href="#!"><i class="ti-layers"></i></a>					 
+																	</span>
+																</span>
+																
+															</div>
+															<!-- <div class="product-action-2">
+																<a title="Add to cart" href="#">Add to cart</a>
+															</div> -->
+														</div>
+													</div>
+													<div class="product-content">
+														<h3><a href="#" ><span th:text="${imageGallery.productname}"></span></a></h3>
+														<div class="product-price">
+															<span th:text="${imageGallery.price}"></span>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+    </div>
+
+
+	<!-- footer section  -->
+	<div th:replace="mainlayout/mainlayout.html :: mainfooter"></div>
+	<!-- footer end section -->
+</body>
+</html>

@@ -60,11 +60,12 @@ public class HomeController {
 	public String home(Model model, Principal principal, HttpSession session) throws NumberFormatException, Exception {
 
 		if (principal.getName() != null) {
+			System.out.println("home controller");
 			Customer currentCustomer = this.repo.findByEmail(principal.getName());
 			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			model.addAttribute("user_details", currentCustomer);
 			model.addAttribute("categories", categoryRepository.findAll());
-			session.setAttribute("customeremail", principal.getName());
+			session.setAttribute("myEmail", principal.getName());
 			return "redirect:/";
 		} else {
 			session.invalidate();
