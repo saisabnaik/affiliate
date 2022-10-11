@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
+import com.affiliate.customer.service.AffiliateIdGenerateService;
 import com.affiliate.customer.service.EmailService;
 import com.affiliate.customer.serviceimpl.EmailSenderServiceimpl;
 
@@ -27,41 +28,17 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerRepository repo;
-	
+
 	@Autowired
 	public EmailService emailService;
 
-	@Autowired 
+	@Autowired
 	private BCryptPasswordEncoder bp;
-	
-	Random random = new Random(1000);
 
+	// Random random = new Random(1000);
+	@Autowired
+	private AffiliateIdGenerateService affiliateIdGenerateService;
 
-
-	/*
-	 * @PostMapping("/dologin") public ModelAndView loginVerify(ModelAndView
-	 * modelAndView, @RequestParam("email") String email,
-	 * 
-	 * @RequestParam("password") String password) throws Exception {
-	 * 
-	 * Customer currentUser = this.repo.findByEmail(email); if (currentUser != null)
-	 * { currentUser.getPassword(); if
-	 * (this.myBcryptPasswordEncoder.password1().matches(password,
-	 * currentUser.getPassword())) { modelAndView.addObject("fullname",
-	 * currentUser.getFirstname() + " " + currentUser.getLastname());
-	 * modelAndView.addObject("user_details", currentUser);
-	 * modelAndView.setViewName("users/business-panel-dashboard1"); return
-	 * modelAndView; } else { modelAndView.setViewName("users/login"); return
-	 * modelAndView; }
-	 * 
-	 * } else { modelAndView.setViewName("users/login"); return modelAndView; } }
-	 */
-
-	
-	
-	
-	
-	
 	@RequestMapping("/registerUser")
 	public String registration() {
 
@@ -70,37 +47,38 @@ public class CustomerController {
 	}
 
 	@PostMapping("/addNewUser")
-	public String registerUser(@ModelAttribute Customer myuser, HttpSession session, Model model)
-			throws Exception {
+	public String registerUser(@ModelAttribute Customer myuser, HttpSession session, Model model) throws Exception {
 		if (myuser.getFirstname() == null || myuser.getFirstname().isEmpty()) {
 			session.setAttribute("error", "firstname cannot be blank");
 			return "redirect:/registerUser";
-		}else {
+		} else {
 			if (myuser.getLastname() == null || myuser.getLastname().isEmpty()) {
 				session.setAttribute("error", "Last Name cannot be blank");
 				return "redirect:/registerUser";
-			}else {
+			} else {
 				if (myuser.getEmail() == null || myuser.getEmail().isEmpty()) {
 					session.setAttribute("error", "email cannot be blank");
 					return "redirect:/registerUser";
-				}else {
+				} else {
 					if (myuser.getPassword() == null || myuser.getPassword().isEmpty()) {
 						session.setAttribute("error", "password cannot be blank");
 						return "redirect:/registerUser";
 					}
 				}
 			}
-				
+
 		}
-			
 
 		Customer u = repo.findByEmail(myuser.getEmail());
 
 		if (u == null) {
 			System.out.println("this user is null values");
 			myuser.setPassword(bp.encode(myuser.getPassword().trim()));
-			System.out.println(myuser);
+			
+			myuser.setAffiliateId(affiliateIdGenerateService.generateAffiliateId());
+			
 			repo.save(myuser);
+			
 		} else {
 			session.setAttribute("error", "User already Exist Choose Another");
 			return "redirect:/registerUser";

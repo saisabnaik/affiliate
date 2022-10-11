@@ -2,6 +2,9 @@ package com.affiliate.customer.serviceimpl;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -65,6 +68,5 @@ public class UserUpdateAndChangePassword implements UserUpdate{
 	        }
 	        return byteObjects;
 	    }
-	
-	
+
 }

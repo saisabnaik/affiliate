@@ -11,4 +11,5 @@ public interface UserUpdate {
 	public Customer updateProfile(Customer myuser, Principal principal, MultipartFile profileImage) throws Exception;
 	
 	public Customer changeMyPassword(String oldPassword, String password,	Principal principal) throws Exception ;
+	
 }

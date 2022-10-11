@@ -76,232 +76,199 @@ public class Customer {
 	private String totalSharedReferals;
 	private String status;
 	
+	@Column(name="affiliate_id",length=10)
+	private String affiliateId;
 	
 	@OneToMany(targetEntity = CustomerMyAffiliate.class ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="myuser_fk", referencedColumnName = "userid")
 	private List<CustomerMyAffiliate> affiliateList;
 
-
 	public Long getUserid() {
 		return userid;
 	}
-
 
 	public String getFirstname() {
 		return firstname;
 	}
 
-
 	public String getLastname() {
 		return lastname;
 	}
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public String getGender() {
 		return gender;
 	}
 
-
 	public String getCity() {
 		return city;
 	}
-
 
 	public String getCountry() {
 		return country;
 	}
 
-
 	public Long getZip() {
 		return zip;
 	}
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
 	public String getState() {
 		return state;
 	}
-
 
 	public String getMobile() {
 		return mobile;
 	}
 
-
 	public Byte[] getImage() {
 		return image;
 	}
-
 
 	public String getOtp() {
 		return otp;
 	}
 
-
 	public String getDateTime() {
 		return DateTime;
 	}
-
 
 	public String getPaidTotalEarnings() {
 		return paidTotalEarnings;
 	}
 
-
 	public String getUnpaidTotalEarnings() {
 		return unpaidTotalEarnings;
 	}
-
 
 	public String getUnpaidTotalReferals() {
 		return unpaidTotalReferals;
 	}
 
-
 	public String getPaidTotalReferals() {
 		return paidTotalReferals;
 	}
-
 
 	public String getTotalSharedReferals() {
 		return totalSharedReferals;
 	}
 
-
 	public String getStatus() {
 		return status;
 	}
 
+	public String getAffiliateId() {
+		return affiliateId;
+	}
 
 	public List<CustomerMyAffiliate> getAffiliateList() {
 		return affiliateList;
 	}
 
-
 	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
-
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-
 	public void setCity(String city) {
 		this.city = city;
 	}
-
 
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
-
 	public void setZip(Long zip) {
 		this.zip = zip;
 	}
-
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-
 	public void setState(String state) {
 		this.state = state;
 	}
-
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-
 	public void setImage(Byte[] image) {
 		this.image = image;
 	}
-
 
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
 
-
 	public void setDateTime(String dateTime) {
 		DateTime = dateTime;
 	}
-
 
 	public void setPaidTotalEarnings(String paidTotalEarnings) {
 		this.paidTotalEarnings = paidTotalEarnings;
 	}
 
-
 	public void setUnpaidTotalEarnings(String unpaidTotalEarnings) {
 		this.unpaidTotalEarnings = unpaidTotalEarnings;
 	}
-
 
 	public void setUnpaidTotalReferals(String unpaidTotalReferals) {
 		this.unpaidTotalReferals = unpaidTotalReferals;
 	}
 
-
 	public void setPaidTotalReferals(String paidTotalReferals) {
 		this.paidTotalReferals = paidTotalReferals;
 	}
-
 
 	public void setTotalSharedReferals(String totalSharedReferals) {
 		this.totalSharedReferals = totalSharedReferals;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
+	public void setAffiliateId(String affiliateId) {
+		this.affiliateId = affiliateId;
+	}
 
 	public void setAffiliateList(List<CustomerMyAffiliate> affiliateList) {
 		this.affiliateList = affiliateList;
 	}
 
 
+	
 	
 	
 	

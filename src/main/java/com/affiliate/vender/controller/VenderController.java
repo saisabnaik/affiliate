@@ -219,7 +219,7 @@ public class VenderController {
 
 		try {
 			Vender currentVender = venderRepo.findByEmail(principal.getName());
-			// String uploadDirectory = System.getProperty("user.dir") + uploadFolder;
+		
 			String uploadDirectory = request.getServletContext().getRealPath(uploadFolder);
 			log.info("uploadDirectory:: " + uploadDirectory);
 			String fileName = file.getOriginalFilename();
@@ -234,9 +234,9 @@ public class VenderController {
 			String[] productnames = productname.split(",");
 			String[] descriptions = description.split(",");
 			Date createDate = new Date();
-			log.info("Name: " + productnames[0] + " " + filePath);
-			log.info("description: " + descriptions[0]);
-			log.info("price: " + price);
+			//log.info("Name: " + productnames[0] + " " + filePath);
+			//log.info("description: " + descriptions[0]);
+			//log.info("price: " + price);
 			try {
 				File dir = new File(uploadDirectory);
 				if (!dir.exists()) {
@@ -278,8 +278,8 @@ public class VenderController {
 	}
 
 	@GetMapping("/myimage/display/{id}")
-	//@ResponseBody
-	String showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
+	@ResponseBody
+	void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
 			throws ServletException, IOException {
 		System.out.println("this is id");
 		log.info("Id :: " + id);
@@ -287,7 +287,8 @@ public class VenderController {
 		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 		response.getOutputStream().write(product.get().getImage());
 		response.getOutputStream().close();
-		return "redirect:/vender/product-list";
+		//return "redirect:/vender/product-list";
+		//return "product/productdetails";
 	}
 
 	@GetMapping("/image/imageDetails")

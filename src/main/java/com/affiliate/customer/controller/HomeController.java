@@ -204,6 +204,17 @@ public class HomeController {
 		return "users/privacy-policy";
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
 	public String logoutDo(Model model, HttpServletRequest request, Principal principal) {
 		HttpSession session = request.getSession(false);
@@ -220,5 +231,12 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }

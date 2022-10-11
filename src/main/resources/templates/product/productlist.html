@@ -200,10 +200,17 @@
 											<td th:text="${imageGallery.quantity}"></td>
 											<td
 												th:text="${#dates.format({imageGallery.createDate}, 'dd-MM-yyyy')}" /></td>
-											<td><a
+											<td style="width: 137px;">
+											<span style="float: left;">
+											<a
 												th:href="@{/vender/image/imageDetails(id=${imageGallery.productId})}"
 												
-												class="btn btn-info text-right" target="_blank">View</a></td>
+												class="btn btn-success text-right" target="_blank">Edit</a></span>
+												<span style="float: right; ">
+											<a
+												th:href="@{/vender/image/imageDetails(id=${imageGallery.productId})}"
+												
+												class="btn btn-primary text-right" target="_blank">View</a></span></td>
 										</tr>
 									</tbody>
 								</table>
