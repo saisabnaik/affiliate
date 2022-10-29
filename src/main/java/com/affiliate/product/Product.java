@@ -24,6 +24,8 @@ import javax.persistence.TemporalType;
 @Table(name="product")
 public class Product {
 
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="product_id", nullable = false, unique = true)
@@ -51,13 +53,18 @@ public class Product {
     private int vid;
     
 	@Lob
-    @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
+    @Column(name = "Image", length = Integer.MAX_VALUE)
     private byte[] image;
       
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
+    public Product() {
+		super();
+	}
+    
+    
 	public Long getProductId() {
 		return productId;
 	}

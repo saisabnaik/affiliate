@@ -32,10 +32,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.affiliate.customer.Customer;
+import com.affiliate.model.MyAffiliate;
 import com.affiliate.product.Category;
 import com.affiliate.product.Product;
 import com.affiliate.product.repository.CategoryRepository;
+import com.affiliate.product.repository.ProductRepository;
 import com.affiliate.product.service.ProductService;
+import com.affiliate.repository.AffiliateRepository;
 import com.affiliate.vender.Vender;
 import com.affiliate.vender.VenderRepository;
 import com.affiliate.vender.service.VenderService;
@@ -55,6 +58,12 @@ public class VenderController {
 
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private ProductRepository productRepo;
+
+	@Autowired
+	private AffiliateRepository affiliateRepository;
+
 	@Value("${uploadDir}")
 	private String uploadFolder;
 
@@ -71,6 +80,7 @@ public class VenderController {
 		if (principal.getName() != null) {
 			Vender currentVender = this.venderRepo.findByEmail(principal.getName());
 			session.setAttribute("fullname", currentVender.getFirstname() + " " + currentVender.getLastname());
+			session.setAttribute("venderid", currentVender.getVenderid());
 			return "vender/dashboard";
 		} else {
 			return "redirect:/vender/login";
@@ -108,14 +118,26 @@ public class VenderController {
 
 	@PostMapping("/updateVender")
 	public String showEditStudentPage(Vender Vender, Model model, Principal principal,
-			@RequestParam("userImage") MultipartFile profileImage, HttpSession session) throws Exception {
+			@RequestParam("userImage") MultipartFile profileImage, HttpSession session, HttpServletRequest request)
+			throws Exception {
 		if (principal.getName() != null) {
-			Vender currentVender = this.venderService.updateProfile(Vender, principal, profileImage);
+			this.venderService.updateProfile(Vender, principal, profileImage, request);
 			session.setAttribute("success", "Record updated successfully");
 			return "redirect:/vender/settings";
 		} else {
 			return "redirect:/vender/login";
 		}
+	}
+
+	@GetMapping("/vender-icon/{id}")
+	@ResponseBody
+	void showImage(@PathVariable("id") int id, HttpServletResponse response, HttpSession session)
+			throws ServletException, IOException {
+		Vender vender = venderRepo.findByVenderid(id);
+		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+		response.getOutputStream().write(vender.getImage());
+		response.getOutputStream().close();
+
 	}
 
 	@PostMapping("/changePassword")
@@ -126,45 +148,35 @@ public class VenderController {
 			session.setAttribute("successMessage", "Your password hasbeen changed successfully...");
 			return "redirect:/vender/settings";
 		} else {
-
 			return "redirect:/vender/login";
-
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@GetMapping("/manage-business")
-	public ModelAndView manageBusiness(ModelAndView modelAndView, Principal principal) throws Exception {
+	public String manageBusiness(Model model, Principal principal) throws Exception {
 		Vender currentVender = this.venderRepo.findByEmail(principal.getName());
 		if (principal.getName() != null) {
-			modelAndView.addObject("vender_details", currentVender);
-
-			List<Customer> customers = this.venderService.getAllCustomer();
-
-			if (customers.isEmpty() == false) {
-				modelAndView.addObject("customers", customers);
-				modelAndView.setViewName("vender/manage-business");
-				return modelAndView;
-			} else {
-				modelAndView.setViewName("vender/manage-business");
-				modelAndView.addObject("noDataMsg", "No Record found");
-
-				return modelAndView;
+			model.addAttribute("vender_details", currentVender);
+			// List<Customer> customers = this.venderService.getAllCustomer();
+			List<MyAffiliate> customers = affiliateRepository.findAllByVenderid(currentVender.getVenderid());
+			if (customers.isEmpty() == false || customers != null) {
+				model.addAttribute("customers", customers);
+				return "vender/manage-business";
 			}
-
+			model.addAttribute("noDataMsg", "No Record found");
+			return "vender/manage-business";
 		} else {
-			modelAndView.setViewName("vender/login");
-			return modelAndView;
+			return "redirect:/vender/login";
 		}
 	}
 
 	@GetMapping("/notification")
-	public ModelAndView notification(ModelAndView modelAndView, Principal principal) {
+	public String notification(Principal principal) {
 		if (principal.getName() != null) {
-			modelAndView.setViewName("vender/notification");
-			return modelAndView;
+			return "vender/notification";
 		} else {
-			modelAndView.setViewName("vender/login");
-			return modelAndView;
+			return "redirect:/vender/login";
 		}
 	}
 
@@ -211,68 +223,73 @@ public class VenderController {
 	}
 
 	@PostMapping("/image/saveImageDetails")
-	public String createProduct(@RequestParam("productname") String productname, @RequestParam("price") double price,
-			@RequestParam("description") String description, @RequestParam("quantity") int quantity,
-			@RequestParam("productlink") String productlink, Principal principal, @RequestParam("category") String category,
-			Model model, HttpServletRequest request, final @RequestParam("image") MultipartFile file,
-			HttpSession session) {
+	public String createProduct(@RequestParam(value = "productname", required = true) String productname,
+			@RequestParam(value = "price", required = true) double price,
+			@RequestParam(value = "description", required = true) String description,
+			@RequestParam(value = "quantity", required = true) int quantity,
+			@RequestParam(value = "link", required = true) String link, Principal principal,
+			@RequestParam(value = "category", required = true) String category, Model model, HttpServletRequest request,
+			final @RequestParam(value = "image", required = true) MultipartFile file, HttpSession session) {
+		if (principal.getName() != null) {
 
-		try {
-			Vender currentVender = venderRepo.findByEmail(principal.getName());
-		
-			String uploadDirectory = request.getServletContext().getRealPath(uploadFolder);
-			log.info("uploadDirectory:: " + uploadDirectory);
-			String fileName = file.getOriginalFilename();
-			String filePath = Paths.get(uploadDirectory, fileName).toString();
-			log.info("FileName: " + file.getOriginalFilename());
-			if (fileName == null || fileName.contains("..")) {
-				model.addAttribute("invalid", "Sorry! Filename contains invalid path sequence \" + fileName");
-				// return new ResponseEntity<>("Sorry! Filename contains invalid path sequence "
-				// + fileName, HttpStatus.BAD_REQUEST);
-				return "redirect:/vender/add-product";
-			}
-			String[] productnames = productname.split(",");
-			String[] descriptions = description.split(",");
-			Date createDate = new Date();
-			//log.info("Name: " + productnames[0] + " " + filePath);
-			//log.info("description: " + descriptions[0]);
-			//log.info("price: " + price);
 			try {
-				File dir = new File(uploadDirectory);
-				if (!dir.exists()) {
-					log.info("Folder Created");
-					dir.mkdirs();
+
+				Vender currentVender = venderRepo.findByEmail(principal.getName());
+
+				String uploadDirectory = request.getServletContext().getRealPath(uploadFolder);
+				// log.info("uploadDirectory:: " + uploadDirectory);
+				String fileName = file.getOriginalFilename();
+				String filePath = Paths.get(uploadDirectory, fileName).toString();
+				// log.info("FileName: " + file.getOriginalFilename());
+				if (fileName == null || fileName.contains("..")) {
+					model.addAttribute("invalid", "Sorry! Filename contains invalid path sequence \" + fileName");
+					// return new ResponseEntity<>("Sorry! Filename contains invalid path sequence "
+					// + fileName, HttpStatus.BAD_REQUEST);
+					return "redirect:/vender/add-product";
 				}
-				// Save the file locally
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
-				stream.write(file.getBytes());
-				stream.close();
+				try {
+					File dir = new File(uploadDirectory);
+					if (!dir.exists()) {
+						dir.mkdirs();
+					}
+					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
+					stream.write(file.getBytes());
+					stream.close();
+				} catch (Exception e) {
+					log.info("in catch");
+					e.printStackTrace();
+				}
+				byte[] imageData = file.getBytes();
+				Product product = new Product();
+
+				// String[] productnames = productname.split(",");
+				// String[] descriptions = description.split(",");
+
+				// product.setProductname(productnames[0]);
+				// product.setDescription(descriptions[0]);
+				Date createDate = new Date();
+				product.setProductname(productname);
+				product.setDescription(description);
+				product.setQuantity(quantity);
+				product.setPrice(price);
+				product.setCreateDate(createDate);
+				product.setCategory(category);
+				product.setVid(currentVender.getVenderid());
+				product.setImage(imageData);
+				product.setLink(link);
+				productService.saveImage(product);
+				session.setAttribute("successOk", "Product Saved successfully");
+				return "redirect:/vender/add-product";
 			} catch (Exception e) {
-				log.info("in catch");
 				e.printStackTrace();
+				log.info("Exception: " + e);
+				// return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				session.setAttribute("badrequest", HttpStatus.BAD_REQUEST);
+				return "redirect:/vender/add-product";
+
 			}
-			byte[] imageData = file.getBytes();
-			Product product = new Product();
-			product.setProductname(productnames[0]);
-			product.setQuantity(quantity);
-			product.setImage(imageData);
-			product.setPrice(price);
-			product.setDescription(descriptions[0]);
-			product.setCreateDate(createDate);
-			product.setCategory(category);
-			product.setVid(currentVender.getVenderId());
-			product.setLink(productlink);
-			productService.saveImage(product);
-			model.addAttribute("successOk", "Product Saved With File" + fileName);
-			return "redirect:/vender/add-product";
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.info("Exception: " + e);
-			// return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			model.addAttribute("badrequest", HttpStatus.BAD_REQUEST);
-
-			return "redirect:/vender/add-product";
-
+		} else {
+			return "redirect:/vender/login";
 		}
 
 	}
@@ -281,31 +298,31 @@ public class VenderController {
 	@ResponseBody
 	void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
 			throws ServletException, IOException {
-		System.out.println("this is id");
-		log.info("Id :: " + id);
+		// log.info("Id :: " + id);
 		product = productService.getImageById(id);
+
 		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 		response.getOutputStream().write(product.get().getImage());
 		response.getOutputStream().close();
-		//return "redirect:/vender/product-list";
-		//return "product/productdetails";
+		// return "redirect:/vender/product-list";
+		// return "product/productdetails";
 	}
 
 	@GetMapping("/image/imageDetails")
-	String showProductDetails(@RequestParam("id") Long id, Optional<Product> Product, Model model) {
+	String showProductDetails(@RequestParam("id") Long id, Optional<Product> product, Model model) {
 		try {
-			log.info("Id :: " + id);
+			// log.info("Id :: " + id);
 			if (id != 0) {
-				Product = productService.getImageById(id);
-				System.out.println("this is details");
-				log.info("products :: " + Product);
-				if (Product.isPresent()) {
-					model.addAttribute("id", Product.get().getProductId());
-					model.addAttribute("description", Product.get().getDescription());
-					model.addAttribute("productname", Product.get().getProductname());
-					model.addAttribute("quantity", Product.get().getQuantity());
-					model.addAttribute("price", Product.get().getPrice());
-					
+				product = productService.getImageById(id);
+				// System.out.println("this is details");
+				// log.info("products :: " + Product);
+				if (product.isPresent()) {
+					model.addAttribute("id", product.get().getProductId());
+					model.addAttribute("description", product.get().getDescription());
+					model.addAttribute("productname", product.get().getProductname());
+					model.addAttribute("quantity", product.get().getQuantity());
+					model.addAttribute("price", product.get().getPrice());
+					model.addAttribute("vid", product.get().getVid());
 					return "product/productdetails";
 				}
 				return "product/productdetails";
@@ -319,11 +336,9 @@ public class VenderController {
 
 	@GetMapping("/image/show")
 	public String show(Model map, Principal principal) {
-		System.out.println("method called image show");
-
 		if (principal.getName() != null) {
 			Vender currentVender = venderRepo.findByEmail(principal.getName());
-			List<Product> images = productService.getAllImagesById(currentVender.getVenderId());
+			List<Product> images = productService.getAllImagesById(currentVender.getVenderid());
 
 			if (images.isEmpty() == false) {
 				map.addAttribute("images", images);
@@ -333,6 +348,111 @@ public class VenderController {
 			}
 
 			return "product/productlist";
+		} else {
+			return "redirect:/vender/login";
+		}
+
+	}
+
+	// delete item
+	@GetMapping("/delete-product/{id}")
+	public String removeItem(@PathVariable("id") Long id, Principal principal) {
+		if (principal.getName() != null) {
+			productService.deleteProduct(id);
+			System.out.println("product successfully deleted");
+		}
+		return "redirect:/vender/image/show";
+
+	}
+
+	// find-item for edit page
+	@GetMapping("/find-product/{id}")
+	public String findProduct(@PathVariable("id") Long id, Principal principal, Model model) {
+		System.out.println("edit product method called...");
+		Product product = productService.findProduct(id);
+		List<Category> productCategories = catRepository.findAll();
+		model.addAttribute("category", productCategories);
+		model.addAttribute("product", product);
+		return "product/edit-product";
+	}
+
+	// update item from edit page
+	@PostMapping("/image/update-item")
+	public String updateProduct(@RequestParam(value = "productname", required = true) String productname,
+			@RequestParam(value = "price", required = true) double price,
+			@RequestParam(value = "description", required = true) String description,
+			@RequestParam(value = "quantity", required = true) int quantity,
+			@RequestParam(value = "link", required = true) String link, Principal principal,
+			@RequestParam(value = "category", required = true) String category, Model model, HttpServletRequest request,
+			@RequestParam(value = "image", required = false) MultipartFile file, HttpSession session,
+			@RequestParam(value = "productId", required = true) Long productId) {
+		System.out.println("update-item");
+
+		if (principal.getName() != null) {
+			try {
+				Product product = productRepo.findByProductId(productId);
+				if (file.getSize() > 0) {
+					String uploadDirectory = request.getServletContext().getRealPath(uploadFolder);
+					// log.info("uploadDirectory:: " + uploadDirectory);
+					String fileName = file.getOriginalFilename();
+					String filePath = Paths.get(uploadDirectory, fileName).toString();
+					// log.info("FileName: " + file.getOriginalFilename());
+					if (fileName == null || fileName.contains("..")) {
+						model.addAttribute("invalid", "Sorry! Filename contains invalid path sequence \" + fileName");
+						// return new ResponseEntity<>("Sorry! Filename contains invalid path sequence "
+						// + fileName, HttpStatus.BAD_REQUEST);
+						return "redirect:/vender/add-product";
+					}
+					try {
+						File dir = new File(uploadDirectory);
+						if (!dir.exists()) {
+							// log.info("Folder Created");
+							dir.mkdirs();
+						}
+						// System.out.println("file path: "+uploadDirectory);
+						// System.out.println("file name"+fileName);
+						// Save the file locally
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(new File(filePath)));
+						stream.write(file.getBytes());
+						stream.close();
+					} catch (Exception e) {
+						log.info("in catch");
+						e.printStackTrace();
+					}
+					byte[] imageData = file.getBytes();
+					product.setImage(imageData);
+				}
+
+				// String[] productnames = productname.split(",");
+				// String[] descriptions = description.split(",");
+				Date createDate = new Date();
+
+				// product.setProductname(productnames[0]);
+				// product.setDescription(descriptions[0]);
+				product.setProductname(productname);
+				product.setDescription(description);
+
+				product.setQuantity(quantity);
+
+				product.setPrice(price);
+				product.setCreateDate(createDate);
+				product.setCategory(category);
+				// product.setVid(currentVender.getVenderId());
+				product.setLink(link);
+
+				product.setProductId(productId);
+				productService.saveImage(product);
+				System.out.println("item saved successfully..");
+				session.setAttribute("successOk", "Product Saved successfully");
+				return "redirect:/vender/image/show";
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info("Exception: " + e);
+				session.setAttribute("successOk", "Item not updated, please try again...");
+				return "redirect:/vender/find-product" + productId;
+
+			}
 		} else {
 			return "redirect:/vender/login";
 		}

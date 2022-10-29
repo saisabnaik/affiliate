@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VenderRepository extends JpaRepository<Vender, Integer> {
 	public Vender findByEmail(String email);	
+	public Vender findByVenderid(int venderid);
+	public void deleteByVenderid(int venderid);
 }

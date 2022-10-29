@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,10 +131,14 @@ public class ProductService {
 		return productRepository.findById(productId);
 	}
 	
-	
-	
+	@Transactional
+	public void deleteProduct(Long productId) {
+		productRepository.deleteByProductId(productId);
+	}
 		
-	
+	public Product findProduct(Long productId) {
+		return productRepository.findByProductId(productId);
+	}
 	
 	
 	

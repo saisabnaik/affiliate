@@ -1,32 +1,44 @@
 package com.affiliate.customer.controller;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
 import com.affiliate.customer.service.UserUpdate;
-import com.affiliate.model.CustomerMyAffiliate;
+import com.affiliate.model.MyAffiliate;
+import com.affiliate.product.Product;
 import com.affiliate.product.repository.CategoryRepository;
-import com.affiliate.repository.CustomerAffiliateRepository;
+import com.affiliate.product.repository.ProductRepository;
+import com.affiliate.product.service.ProductService;
+import com.affiliate.repository.AffiliateRepository;
+import com.affiliate.vender.Vender;
 
 @Controller
 @RequestMapping("/customer")
@@ -40,19 +52,22 @@ public class HomeController {
 
 	@Autowired
 	private CustomerRepository repo;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	// @Autowired
-	// private UserUpdateAndChangePassword userUpdateAndChangePassword;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Autowired
-	private CustomerAffiliateRepository userAffiliateRepository;
+	private AffiliateRepository userAffiliateRepository;
+	
+	@Autowired
+	private ProductService productService;
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping("/login")
 	public String login(ModelAndView modelAndView) {
-		System.out.println("login");
 		return "users/login";
 	}
 
@@ -60,12 +75,14 @@ public class HomeController {
 	public String home(Model model, Principal principal, HttpSession session) throws NumberFormatException, Exception {
 
 		if (principal.getName() != null) {
-			System.out.println("home controller");
 			Customer currentCustomer = this.repo.findByEmail(principal.getName());
 			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			model.addAttribute("user_details", currentCustomer);
+			session.setAttribute("fullname", currentCustomer.getFirstname()+ " "+currentCustomer.getLastname());
+			session.setAttribute("userid", currentCustomer.getUserid());
 			model.addAttribute("categories", categoryRepository.findAll());
 			session.setAttribute("myEmail", principal.getName());
+			session.setAttribute("affiliatid", currentCustomer.getAffiliateId());
 			return "redirect:/";
 		} else {
 			session.invalidate();
@@ -79,7 +96,7 @@ public class HomeController {
 			throws NumberFormatException, Exception {
 		if (principal.getName() != null) {
 			Customer currentCustomer = this.repo.findByEmail(principal.getName());
-			session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
+			//session.setAttribute("fullname", currentCustomer.getFirstname() + " " + currentCustomer.getLastname());
 			model.addAttribute("user_details", currentCustomer);
 			return "users/dashboard";
 
@@ -107,14 +124,25 @@ public class HomeController {
 
 	@PostMapping("/updateMyUser")
 	public ModelAndView showEditStudentPage(Customer myuser, ModelAndView modelAndView, Principal principal,
-			@RequestParam("userImage") MultipartFile profileImage) throws Exception {
+			@RequestParam(value="userImage",required=false) MultipartFile profileImage,HttpServletRequest request) throws Exception {
 
-		Customer currentCustomer = this.userUpdate.updateProfile(myuser, principal, profileImage);
+		Customer currentCustomer = this.userUpdate.updateProfile(myuser, principal, profileImage,request);
 		modelAndView.addObject("user_details", currentCustomer);
 		modelAndView.addObject("success", "Record updated successfully");
 		modelAndView.setViewName("users/mysetting");
 
 		return modelAndView;
+	}
+	
+	@GetMapping("/customer-icon/{id}")
+	@ResponseBody
+	void showImage(@PathVariable("id") Long id, HttpServletResponse response,HttpSession session)
+			throws ServletException, IOException {
+		Customer customer=repo.findByUserid(id);
+		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+		response.getOutputStream().write(customer.getImage());
+		response.getOutputStream().close();
+
 	}
 
 	@PostMapping("/changePassword")
@@ -148,8 +176,7 @@ public class HomeController {
 	public String myAffiliate(Model model, Principal principal, HttpSession session) throws Exception {
 		Customer currentCustomer = this.repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
-			System.out.println("myaffiliate called....");
-			List<CustomerMyAffiliate> affiliatelist = currentCustomer.getAffiliateList();
+			List<MyAffiliate> affiliatelist = userAffiliateRepository.findByAffiliateid(currentCustomer.getAffiliateId());
 			if (affiliatelist.isEmpty() == false) {
 				model.addAttribute("affiliatelist", affiliatelist);
 			} else {
@@ -171,7 +198,7 @@ public class HomeController {
 
 		if (principal.getName() != null) {
 			Customer currentUser = this.repo.findByEmail(principal.getName());
-			List<CustomerMyAffiliate> affiliatelist = currentUser.getAffiliateList();
+			List<MyAffiliate> affiliatelist = userAffiliateRepository.findByAffiliateid(currentUser.getAffiliateId());
 			if (affiliatelist.isEmpty() == false) {
 				model.addAttribute("affiliatelist", affiliatelist);
 			} else {
@@ -204,18 +231,58 @@ public class HomeController {
 		return "users/privacy-policy";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
+	// link copy section
+	@PostMapping("/copy")
+	public String copyLink(@RequestParam("id") Long productId, @RequestParam("vid") int vid, Principal principal) {
+		if (principal.getName() != null) {
+			Customer currentcustomer = repo.findByEmail(principal.getName());
+			// Long pid=Long.parseLong(productId);
+			Product productdetails = productRepository.findByProductId(productId);
+			String generatedLink = productdetails.getLink() + "/ref_" + currentcustomer.getAffiliateId();
+			System.out.println(generatedLink);	
+			if (userAffiliateRepository.findByGeneratedLinks(generatedLink) == null) {
+				MyAffiliate myaffiliate = new MyAffiliate();
+				myaffiliate.setAffiliateid(currentcustomer.getAffiliateId());
+				myaffiliate.setProductName(productdetails.getProductname());
+				myaffiliate.setProductLinks(productdetails.getLink());
+				myaffiliate.setGeneratedLinks(generatedLink);
+				myaffiliate.setPriceOfProduct(productdetails.getPrice());
+				String date = new Date().toString();
+				myaffiliate.setCreatedDate(date);
+				myaffiliate.setProductId(productdetails.getProductId());
+				myaffiliate.setVenderid(vid);
+				
+				userAffiliateRepository.save(myaffiliate);
+			}
+		}
+		return "redirect:/image/imageDetails";
+	}
+
+	@PostMapping("/socialshare")
+	public String sendbyWhatsapp(@RequestParam("id") Long productId,@RequestParam("vid") int vid,Principal principal) {
+		if (principal.getName() != null) {
+			Customer currentcustomer = repo.findByEmail(principal.getName());
+			// Long pid=Long.parseLong(productId);
+			Product productdetails = productRepository.findByProductId(productId);
+			String generatedLink = productdetails.getLink() + "/ref_" + currentcustomer.getAffiliateId();
+			if (userAffiliateRepository.findByGeneratedLinks(generatedLink) == null) {
+				MyAffiliate myaffiliate = new MyAffiliate();
+				myaffiliate.setAffiliateid(currentcustomer.getAffiliateId());
+				myaffiliate.setProductName(productdetails.getProductname());
+				myaffiliate.setProductLinks(productdetails.getLink());
+				myaffiliate.setGeneratedLinks(generatedLink);
+				myaffiliate.setPriceOfProduct(productdetails.getPrice());
+				String date = new Date().toString();
+				myaffiliate.setCreatedDate(date);
+				myaffiliate.setProductId(productdetails.getProductId());
+				myaffiliate.setVenderid(vid);
+				userAffiliateRepository.save(myaffiliate);
+			}
+		}
+		return "redirect:/image/imageDetails";
+	}
+
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
 	public String logoutDo(Model model, HttpServletRequest request, Principal principal) {
 		HttpSession session = request.getSession(false);
 		SecurityContextHolder.clearContext();
@@ -231,12 +298,5 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

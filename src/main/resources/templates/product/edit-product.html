@@ -1,181 +1,212 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="head">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>gogoGlobal.LIFE</title>
-<link rel="icon" type="image/png" sizes="16x16"
-	href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}">
-<link href="plugins/bower_components/chartist/dist/chartist.min.css"
-	th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css"
-	th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}">
-<!-- Custom CSS -->
-<link href="./css/style.min.css"
-	th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
-<link href="./css/fontawesome.min.css"
-	th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
-<link href="./css/responsive.css"
-	th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
-<link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}" />
-<script
-	th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-<link th:href="@{/mylibraries/css/active_inactive.css}" />
+<!-- links section -->
+<head th:replace="venderlayout/layouts.html :: head">links
 </head>
+<link rel="stylesheet" href="/mylibraries/css/style1.css">
+<!-- *********** -->
+<style>
+.addProductSec {
+	height: 460px;
+}
 
+.white-box.analytics-info.box_white.counter {
+	height: 150px;
+}
+</style>
 <body style="font-family: Roboto, sans-serif;">
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
-	<div class="preloader">
+	<!-- <div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
 			<div class="lds-pos"></div>
 		</div>
-	</div>
+	</div> -->
 	<!-- ============================================================== -->
 	<!-- Main wrapper - style you can find in pages.scss -->
 	<!-- ============================================================== -->
 	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
 		data-sidebartype="full" data-sidebar-position="absolute"
 		data-header-position="absolute" data-boxed-layout="full">
-		<!-- ============================================================== -->
-		<!-- Topbar header - style you can find in pages.scss -->
-		<!-- ============================================================== -->
 
-		<!--  header section -->
+		<!-- header section -->
 		<div th:replace="venderlayout/layouts.html :: header">header
 			section</div>
-		<!-- ============================================================== -->
-		<!-- End Topbar header -->
 
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<!-- ******** -->
+
 		<div th:replace="venderlayout/layouts.html :: sidemenu"></div>
-		<!-- ============================================================== -->
-		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Page wrapper  -->
-		<!-- ============================================================== -->
-		<div class="page-wrapper wrapper_page" style="min-height: 250px;">
-			<!-- ============================================================== -->
-			<!-- Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<div class="container-fluid white_bg">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="application-detail-heading-area">
-							<h2 class="noti_detail">Product List</h2>
-						</div>
 
-						<div class="manage-admins-main-area">
-							<div class="manage-admins-table-area">
+		<!-- body of this page -->
 
+		<div class="page-wrapper wrapper_page">
+			<div class="page-breadcrumb bg-white white_bg">
+				<!-- <div class="row align-items-center">
+					<div class="col-lg-9 col-md-4 col-sm-4 col-xs-12 mb-3">
+						<h4 class="page-title title_page">Add Product</h4>
+					</div>
+				</div> -->
+				<h4 class="page-title title_page">Edit Product</h4>
 
-								<form th:action="@{/vender/save-product}" th:Object="${product}" 
-									method="post" enctype="multipart/form-data">
-									<input type="hidden" th:field="*{pid}" />
+				<div class="dashboardBox">
+					<div class="container-fluid">
 
-									<div class="col-md-12 mb-3">
-										<label for="pname" class="form-label">Product Name</label> <input
-											type="text" th:field="*{pname}" class="form-control"
-											placeholder="Enter product name" id="pname">
-									</div>
+						<div class="contact ">
+							<div class="container ">
+								<!-- form -->
 
+								<div class="contact-grids1 w3agile-6">
+									<div class="row">
+										<div class="col-md-6 col-sm-6">
+											<form th:action="@{/vender/image/update-item}" method="post"
+												enctype="multipart/form-data">
 
-									<div class="col-md-12">
-										<label for="pdesc" class="form-label">Product
-											Description</label>
-										<div class="form-floating" style="margin-bottom: 10px;">
+												<input th:field="${product.productId}" hidden="true"/>
 
-											<textarea class="form-control"
-												placeholder="product description" th:field="*{pdesc}"
-												type="text" style="height: 100px"></textarea>
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Product Name</label> <input
+														type="text" class="form-control"
+														placeholder="Product Name" id="name"
+														th:field="${product.productname}" required="required">
+
+												</div>
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Product Description</label>
+													<textarea class="form-control"
+														placeholder="Product Description" id="description"
+														rows="3" cols="45" th:field="${product.description}"
+														required="required"></textarea>
+
+												</div>
+
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Price</label> <input
+														type="text" class="form-control" placeholder="Price"
+														th:field="${product.price}" id="price" required="required">
+
+												</div>
+
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Product Quantity</label> <input
+														type="text" class="form-control" placeholder="Quantity"
+														th:field="${product.quantity}" id="quantity"
+														required="required">
+
+												</div>
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Product Link</label> <input
+														type="text" class="form-control"
+														placeholder="Enter productlink" th:field="${product.link}"
+														id="link" required="required">
+
+												</div>
+
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Add Product Category</label>
+													<select class="form-select" id="category"
+														th:field="${product.category}" required>
+
+														<option th:each="pCategory : ${category}"
+															th:value="${pCategory.categoryTitle}"
+															th:text="${pCategory.categoryTitle}"></option>
+													</select>
+												</div>
+												<div class="col-md-12 col-sm-12 contact-form1 form-group">
+													<label class="col-form-label">Product Image</label> <input
+														type="file" accept="image/*" class="form-control"
+														name="image" id="image">
+
+												</div>
+												<div class="right-w3l col-md-12">
+													<input type="submit" id="submit"
+														class="btn btn-primary form-control" value="Submit">
+												</div>
+											</form>
+										</div>
+										<div class="col-md-6 col-sm-6">
+
+											<div class="col-md-12 col-sm-12 contact-form1 form-group">
+												<label class="col-form-label">Product Image</label><img
+													src="images/product1.jpg"
+													th:src="@{${'/vender/myimage/display/'+ product.productId}}"
+													style="width: 100%; height: 650px;" />
+												<p id="error_file"></p>
+											</div>
+
 
 										</div>
+
+
 									</div>
 
 
-									<div class="col-md-12 mb-3">
-										<label for="pprice" class="form-label">Product Price</label> <input
-											type="number" placeholder="Enter product price"
-											class="form-control" th:field="*{pprice}">
-									</div>
-
-									<div class="col-md-12 mb-3">
-										<label for="pquantity" class="form-label">Product
-											Quantity</label> <input type="number"
-											placeholder="Enter production Quantity"
-											th:field="*{pquantity}" class="form-control" id="pquantity">
-									</div>
-									<div class="col-md-12 mb-3">
-										<label for="category" class="form-label">Product
-											Category</label> <select class="form-select" id="category"
-											name="category">
-											<!-- <option th:text="${product.category.ctitle}" selected ></option> -->
-											<option th:each="pCategory : ${category}" name="category"   
-												th:value="${pCategory.cid}" th:text="${pCategory.ctitle}" >
-											</option>
-										</select>
-									</div>
-
-<!-- 									 <div class="col-md-12 mb-3">
-											   <label for="category" class="form-label">Upload Images</label> 
-											    <input type="file" name="files" multiple/>
-											       <input type="file"  class="form-control"  name="image" id="image" multiple  />
-											  
-											</div>  -->
 
 
-									<div style="text-align: center" class="mb-3">
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
-
-								</form>
 
 
+
+								</div>
+								<br>
+								<div id="success" class="text-center" style="color: green;"></div>
+								<div id="error" class="text-center" style="color: red;"></div>
 
 							</div>
 						</div>
+
+
+
+						<!-- <p class="text-center">
+							<img src="/images/loader.gif" alt="loader"
+								style="width: 150px; height: 120px;" id="loader">
+						</p> -->
+
+						<!-- ============================================================== -->
+
 					</div>
+
 				</div>
+
+
+
+
+
 			</div>
-			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- End Container fluid  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- footer -->
-			<!-- ============================================================== -->
+
+
+			<!-- add product modal form -->
+
+
+
+
+
+
+			<!-- end add product modal form -->
+
+			<!-- footer section -->
 			<footer th:replace="venderlayout/layouts.html :: footer"></footer>
-			<!-- ============================================================== -->
-			<!-- End footer -->
-			<!-- ============================================================== -->
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
-		<!-- ============================================================== -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<div th:replace="venderlayout/layouts.html :: script-links"></div>
+
+			<!--  links  -->
+			<div th:replace="venderlayout/layouts.html :: script-links"></div>
+
+
+			<!-- <script src="/mylibraries/js/customjs/product.js" ></script>  -->
+
+
+			<!-- <script>
+				$(document).ready(function() {
+					$('.counter-value').each(function() {
+						$(this).prop('Counter', 0).animate({
+							Counter : $(this).text()
+						}, {
+							duration : 3500,
+							easing : 'swing',
+							step : function(now) {
+								$(this).text(Math.ceil(now));
+							}
+						});
+					});
+				});
+			</script> -->
 </body>
 
 </html>

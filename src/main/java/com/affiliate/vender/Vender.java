@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -12,8 +13,8 @@ import javax.persistence.Table;
 public class Vender {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="vender_id")
-	private int venderId;
+	@Column(name="vender_id",length=10)
+	private int venderid;
 	
 	@Column(name="first_name",length=50)
 	private String firstname;
@@ -31,6 +32,10 @@ public class Vender {
 	private String mobile;
 	
 	
+	@Lob
+    @Column(name = "Image", length = Integer.MAX_VALUE)
+    private byte[] image;
+	
 	public Vender() {
 		super();
 	}
@@ -46,8 +51,8 @@ public class Vender {
 	}
 
 
-	public int getVenderId() {
-		return venderId;
+	public int getVenderid() {
+		return venderid;
 	}
 
 
@@ -76,8 +81,8 @@ public class Vender {
 	}
 
 
-	public void setVenderId(int venderId) {
-		this.venderId = venderId;
+	public void setVenderId(int venderid) {
+		this.venderid = venderid;
 	}
 
 
@@ -106,5 +111,18 @@ public class Vender {
 	}
 
 
-	
+	public byte[] getImage() {
+		return image;
+	}
+
+
+	public void setVenderid(int venderid) {
+		this.venderid = venderid;
+	}
+
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 }

@@ -58,7 +58,7 @@
                     <thead>
                       <tr>
                         <th>Sl No</th>
-                        <th>Affiliate Id</th>
+                        <!-- <th>Affiliate Id</th> -->
                         <th>Product Name</th>
                         <th>Product serialNo</th>
                         <th>Product Image</th>
@@ -74,13 +74,15 @@
                     <tbody th:if="${affiliatelist}" >
                       <tr th:each="mydata, iStart : ${affiliatelist}">
                       <td th:text=${iStart.count}/> 
-                        <td th:text="${mydata.getAffiliateId()}"/>
+                       <!--  <td th:text="${mydata.getAffiliateid()}"/> -->
                         <td th:text="${mydata.getProductName()}"/>
                         <td th:text="${mydata.getProductSerialNo()}"/>
                         <td>
-                            <div class="images">
-                                <img src="./images/marissa-grootes-D4jRahaUaIc-unsplash.jpg" th:text="${mydata.getProductImage()}" alt="unsplash" width="100px" height="100px">
-                            </div>
+                            
+                               
+                            <img th:src="@{${'/image/display/'+ mydata.productId}}" class="card img-fluid" style="width: 200px; height: 100px;"	alt="" />
+                            
+                            
                         </td>
                          <td th:text="${mydata.getProductLinks()}"/>
                          <td th:text="${mydata.getGeneratedLinks()}"/>

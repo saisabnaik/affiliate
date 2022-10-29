@@ -11,222 +11,6 @@
 <link rel="stylesheet" href="style.css"
 	th:href="@{/mylibraries/css/social-share.css}" />
 
-
-
-<style>
-.single-product .product-img {
-	position: relative;
-	overflow: hidden;
-	cursor: pointer;
-	height: 344px;
-}
-
-.single-product .product-img a {
-	display: initial;
-}
-
-.single-product .product-img a img {
-	width: 100%;
-	height: 100%;
-	object-fit: initial;
-}
-
-.product-action span.shareicon {
-	position: absolute;
-	bottom: 50px;
-	right: 4px;
-	width: 34px;
-	background: #fff;
-	text-align: center;
-	display: none;
-	transition: .6s;
-	z-index: 99999;
-}
-
-.producteshare:hover i+.shareicon {
-	display: block;
-	transition: .6s;
-}
-
-.single-product .product-img span.shareicon a {
-	margin-right: 0 !important;
-	height: 48px !important;
-}
-
-span.producteshare {
-	padding: 12px 0;
-	padding-right: 16px;
-}
-
-.productDetailSection {
-	padding-bottom: 60px;
-}
-
-.preview {
-	display: flex;
-	flex-direction: column;
-}
-
-@media screen and (max-width: 996px) {
-	.preview {
-		margin-bottom: 20px;
-	}
-}
-
-.card {
-	margin-top: 50px;
-	background: #eee;
-	padding: 3em;
-	line-height: 1.5em;
-}
-
-@media screen and (min-width: 997px) {
-	.wrapper {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-	}
-}
-
-.product-title {
-	text-transform: uppercase;
-	font-weight: bold;
-	font-weight: 500;
-}
-
-.checked, .price span {
-	color: #ff9f1a;
-}
-
-.product-title, .rating, .product-description, .price, .vote, .sizes {
-	margin-bottom: 15px;
-}
-
-.add-to-cart, .like {
-	background: #4691ce;
-	padding: 1.2em 1.5em;
-	border: none;
-	text-transform: uppercase;
-	font-weight: bold;
-	color: #fff;
-	-webkit-transition: background .3s ease;
-	transition: background .3s ease;
-	border-radius: 3px;
-}
-
-.rightShareProduct .action button {
-	padding: 0px;
-	position: relative;
-}
-
-.add-to-cart:hover, .like:hover, .shareProduct li a:hover {
-	color: #4691ce;
-}
-
-.rightShareProduct {
-	display: flex;
-	justify-content: space-between;
-}
-
-.rightShareProduct .action .add-to-cart {
-	background: transparent;
-	color: #000;
-}
-
-.shareProduct {
-	position: absolute;
-	right: 10px;
-	width: 93px;
-	background: #ffffff;
-	padding: 0;
-	border-radius: 4px;
-	display: none;
-	box-shadow: 0px 0px 5px #d5d8dc;
-	margin-top: -178px;
-}
-
-.shareProduct li a {
-	display: block;
-	padding: 10px 0;
-	text-align: center;
-	border-radius: 4px;
-	color: #cdc8c8;
-	font-size: 20px;
-	border-bottom: 1px solid #eee;
-}
-
-#pic-1 {
-	position: relative;
-}
-
-.favorateIcon {
-	position: absolute;
-	top: 20px;
-	right: 40px;
-}
-
-.favorateIcon a span {
-	font-size: 25px;
-	color: #d5d3d3;
-}
-
-.rightShareProduct .action button {
-	padding: 0px;
-	position: relative;
-}
-
-.add-to-cart:hover, .like:hover, .shareProduct li a:hover {
-	color: #4691ce;
-}
-
-.rightShareProduct {
-	display: flex;
-	justify-content: space-between;
-}
-
-.rightShareProduct .action .add-to-cart {
-	background: transparent;
-	color: #000;
-}
-
-.shareProduct {
-	position: absolute;
-	right: 0;
-	width: 93px;
-	background: #ffffff;
-	padding: 0;
-	border-radius: 4px;
-	display: none;
-	box-shadow: 0px 0px 5px #d5d8dc;
-	margin-top: -100px;
-}
-
-.shareProduct li a {
-	display: block;
-	padding: 10px 0;
-	text-align: center;
-	border-radius: 4px;
-	color: #cdc8c8;
-	font-size: 20px;
-	border-bottom: 1px solid #eee;
-}
-
-#pic-1 {
-	position: relative;
-}
-
-.favorateIcon {
-	position: absolute;
-	top: 20px;
-	right: 40px;
-}
-
-.favorateIcon a span {
-	font-size: 25px;
-	color: #d5d3d3;
-}
-</style>
 <!-- head end section -->
 
 <body>
@@ -280,54 +64,71 @@ span.producteshare {
 
 													<div class="details col-md-6">
 
-														<div class="rightShareProduct">
+														<div class="rightShareProduct ">
 															<h3 class="product-title" th:text="${productname}"></h3>
 															<div class="action">
 
-																<button class="add-to-cart btn btn-default shareClick"
-																	type="button">
-																	<i class="fa fa-share"></i>
-																</button>
-
-																<!-- <ul class="shareProduct">
-																	<li><a href="#!" target="_blank"
-																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link} + '&amp; src=sdkpreparse'}"><i
-																			class="fa fa-facebook" aria-hidden="true"></i></a></li>
-																	<li><a href="#!" target="_blank"><i
-																			class="fa fa-instagram" aria-hidden="true"></i></a></li>
-																	<li><a href="#!" target="_blank"
-																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link}}"><i
-																			class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
-																	<li><a href="#!"
-																		th:onclick="myFunction([[${'copylink' + id}]])"><i
-																			class="fa fa-clone" aria-hidden="true"></i><span
-																			th:id="${'copylink' + id +'copied'}">Copy Link</span></a></li>
-
-																	<input type="hidden" th:value="${link}"
-																		th:id="${'copylink' + id}">
-
-																</ul> -->
-																<!-- share buttons -->
-
-																<ul class="share-btn-container shareProduct">
+																<button class="add-to-cart shareClick" type="button">Share</button>
+																<ul class="share-btn-container shareProduct socialshare"
+																	th:if="${session.myEmail}">
+																	<li><a target="_blank"
+																		href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+																		th:href="@{'mailto:?subject='+ ${productname}+'&amp;body=Check out this site '+${link+'/ref_'+session.affiliatid}}"  th:onclick="shareLink([[${id}]])"
+																		title="Share by Email"><span><i
+																				class="fa fa-envelope"></i></span><span>Email</span></a></li>
 																	<li><a href="#" target="_blank"
-																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link} + '&amp; src=sdkpreparse'}">
-																			<i class="fab fa-facebook fb-xfbml-parse-ignore"></i>
-																			<span>facebook</span>
+																		title="Share by facebook"
+																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link+'/ref_'+session.affiliatid} + '&amp; src=sdkpreparse'}" th:onclick="shareLink([[${id}]])">
+																			<span><i
+																				class="fab fa-facebook fb-xfbml-parse-ignore"></i></span><span>facebook</span>
+																	</a></li>
+																	<li><a href="#" title="Share by Whatsapp"
+																		target="_blank"
+																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link+'/ref_'+session.affiliatid}}" th:onclick="shareLink([[${id}]])">
+																			<span><i class="fab fa-whatsapp"></i></span><span>Whatsapp</span>
 																	</a></li>
 																	<li><a href="#"
-																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link}}">
-																			<i class="fab fa-whatsapp"></i> <span>Whatsapp</span>
-																	</a></li>
-																	<li><a href="#"
-																		th:onclick="myFunction([[${'copylink' + id}]])"
-																		class="copy-btn"> <i class="fa fa-clone"
-																			aria-hidden="true"></i> <span
-																			th:id="${'copylink' + id +'copied'}">Copy Link</span></a></li>
+																		th:onclick="myFunction([[${id}]])"
+																		class="copy-btn"> <span><i
+																				class="fa fa-clone" aria-hidden="true"></i></span> <span
+																			th:id="${id}">Copy Link</span></a></li>
+
+																	<input type="hidden"
+																		th:value="${link+'/ref_'+session.affiliatid}"
+																		th:id="${id}">
+																		
+																	
+
 																</ul>
-																<input type="hidden"
-																	th:value="${link}"
-																	th:id="${'copylink' + id}">
+																<!-- 	else condition is displaying -->
+																<ul class="share-btn-container shareProduct socialshare"
+																	th:unless="${session.myEmail}">
+																	<li><a target="_blank"
+																		href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+																		th:href="@{'mailto:?subject='+ ${productname}+'&amp;body=Check out this site '+${link}}"
+																		title="Share by Email"><span><i
+																				class="fa fa-envelope"></i></span><span>Email</span> </a></li>
+																	<li><a href="#" target="_blank"
+																		title="Share by facebook"
+																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link} + '&amp; src=sdkpreparse'}" >
+																			<span><i
+																				class="fab fa-facebook fb-xfbml-parse-ignore"></i></span><span>facebook</span>
+																	</a></li>
+																	<li><a href="#" title="Share by Whatsapp"
+																		target="_blank"
+																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link}}">
+																			<span><i class="fab fa-whatsapp"></i></span><span>Whatsapp</span>
+																	</a></li>
+																	<li><a href="#"
+																		th:onclick="myFunction([[${id}]])"
+																		class="copy-btn"><span><i
+																				class="fa fa-clone" aria-hidden="true"></i></span><span
+																			th:id="${id}">Copy Link</span></a></li>
+																	
+																	<input type="hidden" th:value="${link}"
+																		th:id="${id}">
+	
+																</ul>
 
 																<!-- share buttons end section -->
 															</div>
@@ -338,6 +139,11 @@ span.producteshare {
 														</h4>
 														<p class="product-description" th:text="${description}"></p>
 
+
+
+
+
+
 													</div>
 												</div>
 											</div>
@@ -345,14 +151,22 @@ span.producteshare {
 										</div>
 									</div>
 								</section>
+
+
 							</div>
 
 						</div>
+
 					</div>
+
 				</div>
 			</div>
 		</div>
+		<input type="hidden" th:id="vid" th:value="${vid}" />
 	</div>
+
+
+
 	<!-- Jquery -->
 
 	<!-- footer section  -->
@@ -398,11 +212,68 @@ span.producteshare {
 	<script>
 		function myFunction(id) {
 			var copyText = document.getElementById(id);
+			
+		var vid=document.getElementById("vid").value;
+
 			navigator.clipboard.writeText(copyText.value);
-			document.getElementById(id + 'copied').innerHTML = "Link copied!";
-			//alert("Copied the text: " + copyText.value);
+			document.getElementById(id).innerHTML = "Link copied!";
+			var link= copyText.value;
+			 $.ajax({
+				type : 'POST',
+				url : '/customer/copy',
+				data : {
+					id : id,
+					vid : vid
+				},
+				success : function(data) {
+				}
+			}); 
 
 		}
+		
+		function shareLink(id){
+			var copyText = document.getElementById(id);
+			var vid=document.getElementById("vid").value;
+			var link= copyText.value;
+			$.ajax({
+				type : 'POST',
+				url : '/customer/socialshare',
+				data : {
+					id : id,
+					vid : vid
+				},
+				success : function(data) {
+				}
+			});
+		}
+		/* function whatsappFunc(id){
+			var copyText = document.getElementById(id);
+			console.log(copyText.value);
+			var link= copyText.value;
+			$.ajax({
+				type : 'POST',
+				url : '/customer/sendbywhatsapp',
+				data : {
+					id : id
+				},
+				success : function(data) {
+				}
+			});
+		}
+		function emailFunc(id){
+			var copyText = document.getElementById(id);
+			console.log(copyText.value);
+			var link= copyText.value;
+			$.ajax({
+				type : 'POST',
+				url : '/customer/sendbyemail',
+				data : {
+					id : id
+				},
+				success : function(data) {
+				}
+			});
+		} */
 	</script>
 
 

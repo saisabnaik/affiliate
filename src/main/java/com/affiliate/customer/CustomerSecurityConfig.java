@@ -8,12 +8,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@Order(2)
-public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
+@Order(3)
+public class CustomerSecurityConfig  extends WebSecurityConfigurerAdapter{
 
 	@Bean
 	public UserDetailsService customerUserDetailsService() {
@@ -29,6 +27,7 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 		return authProvider;
 	}
 
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authenticationProvider(authenticationProvider2());

@@ -139,7 +139,7 @@
 		<!-- ============================================================== -->
 
 		<!--  header section -->
-		<div th:replace="venderlayout/layouts.html :: header">header
+		<div th:replace="super-admin-layout/layouts.html :: header">header
 			section</div>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
@@ -148,7 +148,7 @@
 		<!-- Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
 		<!-- Left Sidebar - style you can find in sidebar.scss  -->
-		<div th:replace="venderlayout/layouts.html :: sidemenu"></div>
+		<div th:replace="super-admin-layout/layouts.html :: sidemenu"></div>
 		<!-- ============================================================== -->
 		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
@@ -164,7 +164,7 @@
 					<div class="col-lg-12">
 						<div class="application-detail-heading-area">
 							<h2 class="noti_detail">Product List</h2>
-							<div
+							<!-- <div
 								class="alert alert-success d-flex alert-dismissible fade show"
 								role="alert" th:if="${session.successOk}">
 								<strong>Success!</strong><span >Item updated successfully...</span>
@@ -172,7 +172,7 @@
 									aria-label="Close" ></button>
 							</div>
 							<th:block th:inline="text" th:if="${session.successOk}"
-								style="display:none;"> [[${#session.removeAttribute('successOk')}]]</th:block>
+								style="display:none;"> [[${#session.removeAttribute('successOk')}]]</th:block> -->
 						</div>
 						<div class="table-data-search-box">
 							<div class="search">
@@ -204,16 +204,17 @@
 									</thead>
 
 
-									<tbody th:with="count=0">
-										<tr th:each="imageGallery, iStart : ${images}">
+									<tbody th:with="count=0" th:if="${products}">
+										<tr th:each="imageGallery, iStart : ${products}">
 											<td th:text=${iStart.count} />
 											<!-- <td th:with="count=${count + 1}" th:text="${count}"></td> -->
 											<td th:text="${imageGallery.productname}"></td>
+											
 											<td><span th:if="${imageGallery.image}"> <img
-													th:src="@{${'/vender/myimage/display/'+ imageGallery.productId}}"
+													th:src="@{${'/super-admin/myimage/display/'+ imageGallery.productId}}"
 													class="card img-fluid" style="width: 200px; height: 100px;"
 													alt="" /></span> <span th:unless="${imageGallery.image}"
-												th:text="No image"></span></td>
+												th:text="${no_image}"></span></td>
 
 											<td th:text="${imageGallery.category}"></td>
 											<td th:text="${imageGallery.price}"></td>
@@ -222,100 +223,31 @@
 											<td
 												th:text="${#dates.format({imageGallery.createDate}, 'dd-MM-yyyy')}" /></td>
 											<td>
-												<div class="edit-view-box">
+												<!-- <div class="edit-view-box">
 													<a
-														th:href="@{'/vender/find-product/'+${imageGallery.productId}}"
+														th:href="@{'/super-admin/find-product/'+${imageGallery.productId}}"
 														class="btn btn-success" target="_blank">Edit</a>
-												</div>
+												</div> -->
 												<div class="edit-view-box">
 													<a
-														th:href="@{/vender/image/imageDetails(id=${imageGallery.productId})}"
+														th:href="@{/super-admin/image/productDetails(id=${imageGallery.productId})}"
 														class="btn btn-primary" target="_blank">View</a>
-												</div>
-												<div class="edit-view-box">
+												</div> <!-- <div class="edit-view-box">
 													<a
-														th:href="@{'/vender/delete-product/'+${imageGallery.productId}}"
+														th:href="@{'/super-admin/delete-product/'+${imageGallery.productId}}"
 														class="btn btn-danger" type="submit">Delete</a>
-												</div>
+												</div> -->
 											</td>
+										</tr>
+									</tbody>
+									<tbody th:unless="${products}">
+										<tr>
+											<!-- <td colspan="11" th:if="${no_record}" th:text="${no_record}" style="text-align:center;"></td> -->
+											<td colspan="11"  style="text-align:center;">no record found</td>
 										</tr>
 									</tbody>
 								</table>
 
-
-
-
-								<!-- 
-									<tbody th:if="${productlist}">
-										<tr th:each="productData, iStart : ${productlist}">
-
-											<td th:text=${iStart.count}></td>
-											<td>
-												<div th:each="productImg, pcount : ${productImages}">
-													<div
-														th:if="${productData.pid} eq ${productImg.productId}">
-
-														<img alt="userimg" style="height: 50px; width: 50px;"
-															th:src="@{'productImages/' + ${productData.vid} + '/' + ${productData.category.ctitle} +'/'+ ${productImg.productImageName}}">
-													</div>
-												</div>
-											</td>
-											<td th:text="${productData.pname}"></td>
-											<td th:text="${productData.category.ctitle}"></td>
-											<td th:text="${productData.pprice}"></td>
-											<td th:text="${productData.pquantity}"></td>
-
-											<td><a
-												th:href="@{'/vender/product-edit/'+ ${productData.pid}}"
-												method="get" type="submit"
-												class="mange-admins-edit-btn submit-btn"> <i
-													class="fas fa-edit"></i>
-											</a></td>
-
-
-											<td>
-											
-											<div class="switchToggle">
-											    <input type="checkbox" id="switch1" name="status">
-											    <label for="switch1">Toggle</label>
-											</div>
-											
-											</td>
-
-
- -->
-								<!--                        <td>
-							<div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch-6" checked >
-                             <label class="onoffswitch-label" for="myonoffswitch-6">
-                              <span class="onoffswitch-inner"></span>
-                              <span class="onoffswitch-switch"></span>
-                            </label>
-                           </div>  </td>  -->
-
-
-								<!--    <td>
-                            <button type="submit" class="mange-admins-edit-btn submit-btn"><i class="fas fa-edit"></i></button>
-                            <button type="submit" class="mange-admins-dlt-btn submit-btn"><i class="far fa-trash-alt"></i></button>
-                        </td> -->
-
-								<!-- 	<td><a href="#"
-												th:href="@{'/vender/product-view/'+ ${productData.pid}}"
-												type="submit" method="get" class="mange-admins-edit-btn"><i
-													class="fas fa-eye"></i></a></td> -->
-								</tr>
-								</tbody>
-
-								<tbody th:if="${noDataMsg}">
-									<tr>
-										<td colspan="10" th:text="${noDataMsg}"
-											style="text-align: center;"></td>
-									</tr>
-								</tbody>
-
-
-								<!-- *************************************** -->
-								</table>
 
 							</div>
 						</div>
@@ -334,7 +266,7 @@
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<footer th:replace="venderlayout/layouts.html :: footer"></footer>
+			<footer th:replace="super-admin-layout/layouts.html :: footer"></footer>
 			<!-- ============================================================== -->
 			<!-- End footer -->
 			<!-- ============================================================== -->
@@ -349,7 +281,7 @@
 	<!-- ============================================================== -->
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
-	<div th:replace="venderlayout/layouts.html :: script-links"></div>
+	<div th:replace="super-admin-layout/layouts.html :: script-links"></div>
 </body>
 
 

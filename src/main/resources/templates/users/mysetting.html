@@ -86,7 +86,7 @@
 												class="setting-profile-detail-main-area responsive_width">
 												<div class="user-photo-main-area">
 													<div class="user-img-area">
-														<img src="/myuser/images/user-img.jpg" alt="user img" th:src="${user_details.image}">
+														<img th:if="user_details.image" src="/myuser/images/user-img.jpg" alt="user img" th:src="@{${'/customer/customer-icon/'+ user_details.userid}}">
 													</div>
 													<!-- <div class="change-photo-btn-area">
 														<label for="edit" class="change-poto-btn edit_btn">

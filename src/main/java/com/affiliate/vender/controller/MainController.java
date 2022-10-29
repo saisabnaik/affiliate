@@ -33,11 +33,11 @@ public class MainController {
 	private CategoryRepository categoryRepository;
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value = { "/", "" })
-	public String myMainController(Model model, Principal principal, HttpSession session, HttpServletResponse response,
+
+	@RequestMapping(value = { "/", " " })
+	public String myMainController(Model model, HttpSession session, HttpServletResponse response,
 			Optional<Product> product) throws Exception {
 		try {
-
 			model.addAttribute("dbproductImages", productService.getAllActiveImages());
 			model.addAttribute("category", categoryRepository.findAll());
 		} catch (NullPointerException e) {
@@ -53,32 +53,34 @@ public class MainController {
 
 	@GetMapping("/image/display/{id}")
 	@ResponseBody
-	void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product)
+	void showImage(@PathVariable("id") Long id, HttpServletResponse response, Optional<Product> product,HttpSession session)
 			throws ServletException, IOException {
 		product = productService.getImageById(id);
 		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 		response.getOutputStream().write(product.get().getImage());
 		response.getOutputStream().close();
+
 	}
 
 	@GetMapping("/image/imageDetails")
-	public String viewProductDetails(@RequestParam("id") Long id, Optional<Product> Product, Model model) {
+	public String viewProductDetails(@RequestParam("id") Long id, Optional<Product> product, Model model) {
 		try {
 			model.addAttribute("category", categoryRepository.findAll());
-			log.info("Id :: " + id);
+			//log.info("Id :: " + id);
 			if (id != 0) {
-				Product = productService.getImageById(id);
-				log.info("products :: " + Product);
-				if (Product.isPresent()) {
-					model.addAttribute("id", Product.get().getProductId());
-					model.addAttribute("description", Product.get().getDescription());
-					model.addAttribute("productname", Product.get().getProductname());
-					model.addAttribute("quantity", Product.get().getQuantity());
-					model.addAttribute("price", Product.get().getPrice());
-					model.addAttribute("link", Product.get().getLink());
+				product = productService.getImageById(id);
+				log.info("products :: " + product);
+				if (product.isPresent()) {
+					model.addAttribute("id", product.get().getProductId());
+					model.addAttribute("description", product.get().getDescription());
+					model.addAttribute("productname", product.get().getProductname());
+					model.addAttribute("quantity", product.get().getQuantity());
+					model.addAttribute("price", product.get().getPrice());
+					model.addAttribute("link", product.get().getLink());
+					model.addAttribute("vid", product.get().getVid());
 					return "product/view-product-details";
 				}
-				return "product/view-product-details";
+				//return "product/view-product-details";
 			}
 			return "redirect:/";
 		} catch (Exception e) {
@@ -99,7 +101,6 @@ public class MainController {
 	public String socialShare() {
 		return "product/social-share";
 	}
-	
 	
 	
 

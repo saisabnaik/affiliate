@@ -53,7 +53,7 @@
 							class="profile-detail-main-area main_area_profile_detail responsive_width">
 							<div class="user-photo-main-area">
 								<div class="user-img-area">
-									<img th:src="@{/mylibraries/images/user-img.jpg}" alt="user img">
+									<img th:if="vender_details.image" th:src="@{${'/vender/vender-icon/'+ vender_details.venderid}}" alt="user img">
 								</div>
 <!-- 								<div class="change-photo-btn-area">
 									<label for="edit" class="change-poto-btn edit_btn"> <i

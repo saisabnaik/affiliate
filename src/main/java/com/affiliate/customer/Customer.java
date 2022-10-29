@@ -1,20 +1,12 @@
 package com.affiliate.customer;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.affiliate.model.CustomerMyAffiliate;
 
 @Entity
 @Table(name = "customers")
@@ -59,8 +51,8 @@ public class Customer {
 	private String mobile;
 
 	@Lob
-	@Column(name="image", length=500)
-	private Byte[] image;
+    @Column(name = "image", length = Integer.MAX_VALUE)
+    private byte[] image;
 		
 	private String otp;
 	
@@ -78,10 +70,6 @@ public class Customer {
 	
 	@Column(name="affiliate_id",length=10)
 	private String affiliateId;
-	
-	@OneToMany(targetEntity = CustomerMyAffiliate.class ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name="myuser_fk", referencedColumnName = "userid")
-	private List<CustomerMyAffiliate> affiliateList;
 
 	public Long getUserid() {
 		return userid;
@@ -131,9 +119,7 @@ public class Customer {
 		return mobile;
 	}
 
-	public Byte[] getImage() {
-		return image;
-	}
+	
 
 	public String getOtp() {
 		return otp;
@@ -169,10 +155,6 @@ public class Customer {
 
 	public String getAffiliateId() {
 		return affiliateId;
-	}
-
-	public List<CustomerMyAffiliate> getAffiliateList() {
-		return affiliateList;
 	}
 
 	public void setUserid(Long userid) {
@@ -223,9 +205,7 @@ public class Customer {
 		this.mobile = mobile;
 	}
 
-	public void setImage(Byte[] image) {
-		this.image = image;
-	}
+
 
 	public void setOtp(String otp) {
 		this.otp = otp;
@@ -263,13 +243,22 @@ public class Customer {
 		this.affiliateId = affiliateId;
 	}
 
-	public void setAffiliateList(List<CustomerMyAffiliate> affiliateList) {
-		this.affiliateList = affiliateList;
+	public byte[] getImage() {
+		return image;
 	}
 
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	/*
+	 * @OneToMany(targetEntity = CustomerMyAffiliate.class ,fetch =
+	 * FetchType.LAZY,cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name="myuser_fk", referencedColumnName = "userid") private
+	 * List<CustomerMyAffiliate> affiliateList;
+	 */
 
-	
-	
 	
 	
 }

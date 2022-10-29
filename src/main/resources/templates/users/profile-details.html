@@ -53,13 +53,13 @@
 							class="profile-detail-main-area main_area_profile_detail responsive_width">
 							<div class="user-photo-main-area">
 								<div class="user-img-area">
-									<img th:src="@{/mylibraries/images/user-img.jpg}" alt="user img">
+									<img th:if="vender_details.image" th:src="@{${'/customer/customer-icon/'+ user_details.userid}}" alt="user img">
 								</div>
-								<div class="change-photo-btn-area">
+<!-- 								<div class="change-photo-btn-area">
 									<label for="edit" class="change-poto-btn edit_btn"> <i
 										class="fa fa-camera" aria-hidden="true"></i>
 									</label> <input type="file" id="edit" class="edit-file">
-								</div>
+								</div> -->
 							</div>
 
 							<div class="user-detail-main-area">

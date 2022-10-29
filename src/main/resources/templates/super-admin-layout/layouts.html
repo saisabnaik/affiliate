@@ -1,28 +1,38 @@
 
-
-
-
-
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
   <!-- links  -->
-<head th:fragment="head" >
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex,nofollow">
-    <title>gogoGlobal.LIFE</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}" >
-    <link href="plugins/bower_components/chartist/dist/chartist.min.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}">
-    <!-- Custom CSS -->
-    <link href="./css/style.min.css" th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
-    <link href="./css/fontawesome.min.css" th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
-    <link href="./css/responsive.css" th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
-</head>
+<header th:fragment="head">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="noindex,nofollow">
+		<title>gogoGlobal.LIFE</title>
+		<!-- Favicon icon -->
+		 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" th:src="@{/mylibraries/images/favicon.png}" >
+	    <link href="plugins/bower_components/chartist/dist/chartist.min.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}" rel="stylesheet">
+	    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" th:href="@{/mylibraries/plugins/bower_components/chartist/dist/chartist.min.css}">
+	    <!-- Custom CSS -->
+	    <link href="./css/style.min.css" th:href="@{/mylibraries/css/style.min.css}" rel="stylesheet">
+	    <link href="./css/fontawesome.min.css" th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
+	    <link href="./css/responsive.css" th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
+	</header>
+<style>
+.topbar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+}
+.left-sidebar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+</style>
 
 	<!-- header section -->
 
@@ -69,19 +79,19 @@
 							<a class="profile-pic"
 						data-bs-toggle="dropdown" href="#" > <img
 							src="/mylibraries/plugins/images/users/varun.jpg"
-							th:src="@{${'/vender/vender-icon/'+ session.venderid}}" alt="user-img"
+							th:src="@{/mylibraries/plugins/images/users/varun.jpg}" alt="user-img"
 							width="36" class="img-circle"> <span
 							class="text-white font-medium"
 							th:text="${session.fullname}" th:if="${session.fullname}"> <i
 								class="fa fa-caret-down" aria-hidden="true"></i>
 						</span></a>
                             <ul class="dropdown-menu profileDropdown">
-                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="profile-details.html" th:href="@{/vender/profile-details}" type="submit" method="get">Profile</a></li>
-                              <li sec:authorize="isAuthenticated()" ><a class="dropdown-item" href="./setting.html" th:href="@{/vender/settings}" >Setting</a></li>
-                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="login.html" th:href="@{/vender/logout}" >Log Out</a></li>
-                            </ul>
+                             <!--  <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="profile-details.html" th:href="@{/vender/profile-details}" type="submit" method="get">Profile</a></li>
+                              <li sec:authorize="isAuthenticated()" ><a class="dropdown-item" href="./setting.html" th:href="@{/vender/settings}" >Setting</a></li> -->
+                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="login.html" th:href="@{/super-admin/logout}" ><i class="fa fa-sign-out" ></i>Log Out</a></li>
+                            </ul> 
                         </li>
-
+						 <li><a th:href="@{/super-admin/logout}"><i class="fa fa-sign-out" ></i>sign out</a></li> 
                         <li class="notification_bell">
                             <a href="#" class="color_white"><i class="fas fa-bell"></i></a>
                             <span class="noti_number">5</span>
@@ -108,7 +118,7 @@
                     <ul id="sidebarnav" class="nav_bar_side">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2" >
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="dashboard.html" th:href="@{/vender/home}"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="dashboard.html" th:href="@{/super-admin/dashboard}"
                                 aria-expanded="false">
                                 <i class="fas fa-tachometer-alt leftside_icon"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -116,64 +126,58 @@
                         </li>
                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
-                                aria-expanded="false" th:href="@{/vender/manage-business}" >
+                                aria-expanded="false" th:href="@{/super-admin/manage-business}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
                                 <span class="hide-menu">Manage Business</span>
                             </a>
                         </li>
                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
-                                aria-expanded="false" th:href="@{/vender/add-product}" >
+                                aria-expanded="false" th:href="@{/super-admin/vender-list}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">Add Product</span>
+                                <span class="hide-menu">Manage Vender</span>
                             </a>
                         </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
-                                aria-expanded="false" th:href="@{/vender/image/show}" >
+                                aria-expanded="false" th:href="@{/super-admin/affiliate-list}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">My productList</span>
+                                <span class="hide-menu">manage Affiliater</span>
                             </a>
-                        </li>
+                        </li> 
                         
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                        <!-- <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
-                                aria-expanded="false" th:href="@{/vender/settings}" >
+                                aria-expanded="false" th:href="@{/super-admin/settings}" >
                                 <i class="fas fa-cog leftside_icon"></i>
                                 <span class="hide-menu">Settings</span>
                             </a>
-                        </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                        </li> -->
+                       <!--  <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="notification.html"
-                                aria-expanded="false" th:href="@{/vender/notification}" >
+                                aria-expanded="false" th:href="@{/super-admin/notification}" >
                                 <i class="fas fa-bell leftside_icon"></i>
                                 <span class="hide-menu">Notifications</span>
                             </a>
-                        </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                        </li> -->
+                       <!--  <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="contact-us.html"
                                 aria-expanded="false" th:href="@{/vender/contactus}" >
                                 <i class="fas fa-address-card leftside_icon"></i>
                                 <span class="hide-menu">Contact Us</span>
                             </a>
-                        </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="term-condition.html"
-                                aria-expanded="false" th:href="@{/vender/termsAndConditions}" >
-                                <i class="fas fa-certificate leftside_icon" aria-hidden="true"></i>
-                                <span class="hide-menu">Terms & Conditions</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                        </li> -->
+                        
+                        <!-- <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="privacy-policy.html"
                                 aria-expanded="false" th:href="@{/vender/privacyPolicy}" >
                                 <i class="fas fa-file-alt leftside_icon"></i>
                                 <span class="hide-menu">Privacy & Policy</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="login.html"
-                                aria-expanded="false" th:href="@{/vender/logout}" >
+                                aria-expanded="false" th:href="@{/super-admin/logout}" >
                                 <i class="fas fa-power-off leftside_icon"></i>
                                 <span class="hide-menu">Log Out</span>
                             </a>
@@ -235,7 +239,12 @@
 		<!--Custom JavaScript -->
 		<script src="/myuser/js/custom.js" th:src="@{/mylibraries/js/custom.js}"></script>
 
+
 	</div>
+	
+	
+	
+	
 
 
 </body>
