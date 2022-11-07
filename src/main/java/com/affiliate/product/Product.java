@@ -23,9 +23,6 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="product")
 public class Product {
-
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="product_id", nullable = false, unique = true)
@@ -60,6 +57,10 @@ public class Product {
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
+    private String status;
+    
+    
+    
     public Product() {
 		super();
 	}
@@ -145,14 +146,22 @@ public class Product {
 		this.createDate = createDate;
 	}
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productname=" + productname + ", description=" + description
 				+ ", price=" + price + ", quantity=" + quantity + ", link=" + link + ", category=" + category + ", vid="
-				+ vid + ", image=" + Arrays.toString(image) + ", createDate=" + createDate + "]";
-	}
-
-	
-    
+				+ vid + ", image=" + Arrays.toString(image) + ", createDate=" + createDate + ", status=" + status + "]";
+	}   
     
 }

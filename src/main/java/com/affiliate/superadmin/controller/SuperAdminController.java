@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.affiliate.customer.Customer;
 import com.affiliate.customer.CustomerRepository;
+import com.affiliate.model.MyAffiliate;
+import com.affiliate.product.Category;
 import com.affiliate.product.Product;
+import com.affiliate.product.repository.CategoryRepository;
+import com.affiliate.product.repository.ProductRepository;
 import com.affiliate.product.service.ProductService;
+import com.affiliate.repository.AffiliateRepository;
 import com.affiliate.superadmin.SuperAdminRepository;
 import com.affiliate.superadmin.Superadmin;
 import com.affiliate.vender.Vender;
@@ -38,9 +43,13 @@ public class SuperAdminController {
 	private VenderRepository venRepo;
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private AffiliateRepository affiliateRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	// login page
 	@RequestMapping("/login")
@@ -69,7 +78,8 @@ public class SuperAdminController {
 	// vender-list
 	@SuppressWarnings("null")
 	@GetMapping("/vender-list")
-	public String venderlist(Principal principal, HttpSession session, Model model) throws Exception {
+	public String venderlist(Principal principal, HttpSession session, Model model)
+			throws Exception, NullPointerException {
 
 		if (principal.getName() != null) {
 			List<Vender> venderlist = venRepo.findAll();
@@ -127,7 +137,7 @@ public class SuperAdminController {
 		}
 		model.addAttribute("no_image", "no image");
 	}
-	
+
 	// product details
 	@GetMapping("/image/productDetails")
 	String showProductDetails(@RequestParam("id") Long id, Optional<Product> Product, Model model) {
@@ -154,13 +164,12 @@ public class SuperAdminController {
 			return "redirect:/super-admin/dashboard";
 		}
 	}
-	
-	
+
 	@GetMapping("/affiliate-list")
-	public String affiliateList(Principal principal,Model model) {
+	public String affiliateList(Principal principal, Model model) throws Exception, NullPointerException {
 		if (principal.getName() != null) {
 			List<Customer> affiliaterlist = (List<Customer>) customerRepository.findAll();
-			
+
 			if (affiliaterlist != null || !affiliaterlist.isEmpty()) {
 				model.addAttribute("affiliaterlist", affiliaterlist);
 				return "super-admin/affiliaterlist";
@@ -170,7 +179,7 @@ public class SuperAdminController {
 		}
 		return "redirect:/super-admin/login";
 	}
-	
+
 	@Transactional
 	@PostMapping("/delete-affiliater")
 	public String deleteAffiliater(Principal principal, @RequestParam("id") Long userid, HttpSession session)
@@ -182,6 +191,172 @@ public class SuperAdminController {
 		}
 		return "redirect:/super-admin/login";
 	}
-	
-	
+
+	@GetMapping("/vender-icon/{id}")
+	@ResponseBody
+	void venderIcon(@PathVariable("id") int id, HttpServletResponse response, HttpSession session)
+			throws ServletException, IOException {
+		Vender vender = venRepo.findByVenderid(id);
+		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+		response.getOutputStream().write(vender.getImage());
+		response.getOutputStream().close();
+
+	}
+
+	@GetMapping("/affiliater-icon/{id}")
+	@ResponseBody
+	void affiliaterIcon(@PathVariable("id") Long id, HttpServletResponse response, HttpSession session)
+			throws ServletException, IOException, NullPointerException {
+		Customer customer = customerRepository.findByUserid(id);
+		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+		response.getOutputStream().write(customer.getImage());
+		response.getOutputStream().close();
+
+	}
+
+	// affiliater-product
+
+	@SuppressWarnings("null")
+	@PostMapping("/affiliater-product")
+	public String affiliaterProductList(Principal principal, @RequestParam("id") String affiliateid,
+			HttpSession session, Model map) throws Exception {
+		if (principal.getName() != null) {
+			List<MyAffiliate> affiliatelist = affiliateRepository.findAllByAffiliateid(affiliateid);
+			if (affiliatelist != null || !affiliatelist.isEmpty()) {
+
+				map.addAttribute("affiliatelist", affiliatelist);
+				return "super-admin/affiliater-product-list";
+			}
+			System.out.println("no product......");
+			map.addAttribute("no_record", "No Record found");
+			return "super-admin/affiliater-product-list";
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	@GetMapping("/manage-product")
+	public String manageProduct(Principal principal, Model model) throws Exception, NullPointerException {
+		if (principal != null) {
+			List<Product> products = productService.getAllProduct();
+			if (products != null) {
+				model.addAttribute("products", products);
+				return "super-admin/all_product";
+			}
+			model.addAttribute("no_record", "No record found.");
+			return "super-admin/all_product";
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	@GetMapping("/view-category")
+	public String viewCategory(Principal principal, Model model) throws Exception, NullPointerException {
+		if (principal != null) {
+			List<Category> category = categoryRepository.findAll();
+			if (category != null) {
+				model.addAttribute("category", category);
+				return "super-admin/category";
+			}
+			model.addAttribute("no_record", "no record found");
+			return "super-admin/category";
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	@PostMapping("/add-category")
+	public String addCategory(Principal principal,
+			@RequestParam(name = "category", required = true) String categoryTitle, HttpSession session)
+			throws Exception, NullPointerException {
+		if (principal != null) {
+			if (!categoryTitle.trim().equals("")) {
+				if (categoryTitle.matches("^[a-zA-Z ]*$")) {
+					Category category = new Category();
+					category.setCategoryTitle(categoryTitle);
+					categoryRepository.save(category);
+					session.setAttribute("successOk", "Record Saved successfully..");
+					return "redirect:/super-admin/view-category";
+				} else {
+					session.setAttribute("error", "Category Title Only Excepts letters");
+					return "redirect:/super-admin/view-category";
+				}
+
+			} else {
+				session.setAttribute("error", "Category Title cannot be blank");
+				return "redirect:/super-admin/view-category";
+			}
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	// edit-category
+	@PostMapping("/edit-category")
+	public String editCategory(@RequestParam(value = "categoryId", required = true) Long id,
+			@RequestParam(value = "categoryTitle", required = true) String title, Principal principal,
+			HttpSession session) throws Exception, NullPointerException {
+		if (principal != null) {
+			if (!title.trim().equals("")) {
+				if (title.matches("^[a-zA-Z ]*$")) {
+					Category category = categoryRepository.findByCategoryId(id);
+					category.setCategoryTitle(title);
+					categoryRepository.save(category);
+					session.setAttribute("successOk", "Record Updated successfully..");
+					return "redirect:/super-admin/view-category";
+				} else {
+					session.setAttribute("error", "Category Title Only Excepts letters");
+					return "redirect:/super-admin/view-category";
+				}
+			} else {
+				session.setAttribute("error", "Category Title cannot be blank");
+				return "redirect:/super-admin/view-category";
+			}
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	// product-status
+	@PostMapping("/product-status")
+	public String productStatus(Principal principal, @RequestParam("id") Long productid,
+			@RequestParam("productstatus") String status) {
+		if (principal != null) {
+			if (status.equals("0") || status.equals("1")) {
+				Product product = productService.findProduct(productid);
+				product.setStatus(status);
+				productService.saveImage(product);
+				return "redirect:/super-admin/manage-product";
+			}
+
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	// vender-status
+	@PostMapping("/vender-status")
+	public String venderStatus(Principal principal, @RequestParam("id") int venderid,
+			@RequestParam("venderstatus") String status) {
+		if (principal != null) {
+			if (status.equals("0") || status.equals("1")) {
+				Vender vender = venRepo.findByVenderid(venderid);
+				vender.setStatus(status);
+				venRepo.save(vender);
+				return "redirect:/super-admin/vender-list";
+			}
+		}
+		return "redirect:/super-admin/login";
+	}
+
+	@PostMapping("/affiliater-status")
+	public String affiliaterStatus(Principal principal, @RequestParam("id") Long id,
+			@RequestParam("affiliaterstatus") String status) {
+		if (principal != null) {
+			if (status.equals("0") || status.equals("1")) {
+				Customer customer = customerRepository.findByUserid(id);
+				customer.setStatus(status);
+				
+				customerRepository.save(customer);
+				return "redirect:/super-admin/affiliate-list";
+			}
+
+		}
+		return "redirect:/super-admin/login";
+	}
+
 }

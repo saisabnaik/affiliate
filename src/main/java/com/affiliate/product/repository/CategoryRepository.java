@@ -6,5 +6,5 @@ import com.affiliate.product.Category;
 import com.affiliate.product.Product;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{
-
+public Category findByCategoryId(Long catid);
 }

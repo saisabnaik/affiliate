@@ -67,10 +67,12 @@
                         
                         <li class="dropdown">
 							<a class="profile-pic"
-						data-bs-toggle="dropdown" href="#" > <img
+						data-bs-toggle="dropdown" href="#" > <img th:if="${session.image}"
 							src="/mylibraries/plugins/images/users/varun.jpg"
 							th:src="@{${'/vender/vender-icon/'+ session.venderid}}" alt="user-img"
-							width="36" class="img-circle"> <span
+							width="36" class="img-circle">
+							<img th:unless="${session.image}" alt="" />
+							 <span
 							class="text-white font-medium"
 							th:text="${session.fullname}" th:if="${session.fullname}"> <i
 								class="fa fa-caret-down" aria-hidden="true"></i>

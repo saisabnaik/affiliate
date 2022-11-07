@@ -4,23 +4,23 @@
 <!-- links section -->
 <head th:replace="super-admin-layout/layouts.html :: head">links
 </head>
+<link th:href="@{/mylibraries/css/active_inactive.css}" rel="stylesheet" />
 <style>
-
 .edit-view-box {
 	padding: 5px;
-
 }
 
- .edit-view-box button {
+.edit-view-box button {
 	width: 75px;
 	border-radius: 25px;
 	/* background-image: radial-gradient(red, yellow, green); */
-} 
+}
+
 .edit-view-box a {
 	width: 75px;
 	border-radius: 25px;
 	/* background-image: radial-gradient(red, yellow, green); */
-} 
+}
 </style>
 
 <body style="font-family: Roboto, sans-serif;">
@@ -46,18 +46,18 @@
 			data-navbarbg="skin5">
 			<nav class="navbar top-navbar navbar-expand-md navbar-dark">
 				<div class="navbar-header" data-logobg="skin6">
-                    <!-- Logo -->
-                  <!--   <a class="navbar-brand navbar_logo" href="dashboard.html" th:href="@{/vender/home}"> -->
-                        				 <span
-					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
-						src="./myuser/images/logopng.png"
+					<!-- Logo -->
+					<!--   <a class="navbar-brand navbar_logo" href="dashboard.html" th:href="@{/vender/home}"> -->
+					<span class="logo-icon icon_logo  navbar-brand navbar_logo">
+						<img src="./myuser/images/logopng.png"
 						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
-				</span>
-                 <!--   </a>  -->
-                    <!-- toggle and nav items -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
+					</span>
+					<!--   </a>  -->
+					<!-- toggle and nav items -->
+					<a
+						class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+						href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+				</div>
 				<i class='fas fa-bars'
 					style='color: #4691ce; font-size: 22px; margin-left: 10px;'></i>
 				<!-- ============================================================== -->
@@ -74,7 +74,7 @@
 					<!-- Right side toggle and nav items -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav ms-auto d-flex align-items-center">
-						<li class=" in">
+						<!-- <li class=" in">
 							<form role="search" class="app-search d-none d-md-block me-3">
 								<input type="text" placeholder="Search..."
 									class="form-control mt-0 border_color"> <a href=""
@@ -82,24 +82,21 @@
 									style="color: #4691ce;"></i>
 								</a>
 							</form>
-						</li>
+						</li> -->
 
-						<li class="dropdown">
-							<a class="profile-pic"
-						data-bs-toggle="dropdown" href="#" > <img
-							src="/mylibraries/plugins/images/users/varun.jpg"
-							th:src="@{/mylibraries/plugins/images/users/varun.jpg}" alt="user-img"
-							width="36" class="img-circle"> <span
-							class="text-white font-medium"
-							th:text="${session.fullname}" th:if="${session.fullname}"> <i
-								class="fa fa-caret-down" aria-hidden="true"></i>
-						</span></a>
-                           <!--  <ul class="dropdown-menu profileDropdown">
+						<li class="dropdown"><a class="profile-pic"
+							data-bs-toggle="dropdown" href="#"> <img
+								src="/mylibraries/plugins/images/users/varun.jpg"
+								th:src="@{/mylibraries/plugins/images/users/varun.jpg}"
+								alt="user-img" width="36" class="img-circle"> <span
+								class="text-white font-medium" th:text="${session.fullname}"
+								th:if="${session.fullname}"> <i class="fa fa-caret-down"
+									aria-hidden="true"></i>
+							</span></a> <!--  <ul class="dropdown-menu profileDropdown">
                               <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="profile-details.html" th:href="@{/vender/profile-details}" type="submit" method="get">Profile</a></li>
                               <li sec:authorize="isAuthenticated()" ><a class="dropdown-item" href="./setting.html" th:href="@{/vender/settings}" >Setting</a></li>
                               <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="login.html" th:href="@{/vender/logout}" >Log Out</a></li>
-                            </ul> -->
-                        </li>
+                            </ul> --></li>
 
 						<li class="notification_bell"><a href="#" class="color_white"><i
 								class="fas fa-bell"></i></a> <span class="noti_number">5</span></li>
@@ -135,15 +132,16 @@
 							<div
 								class="alert alert-success d-flex alert-dismissible fade show"
 								role="alert" th:if="${session.successOk}">
-								<strong>Success!</strong><span th:text="${session.successOk}">Action done successfully...</span>
+								<strong>Success!</strong><span th:text="${session.successOk}">Action
+									done successfully...</span>
 								<button type="button" class="btn-close" data-bs-dismiss="close"
-									aria-label="Close" ></button>
+									aria-label="Close"></button>
 							</div>
 							<th:block th:inline="text" th:if="${session.successOk}"
 								style="display:none;"> [[${#session.removeAttribute('successOk')}]]</th:block>
-							
-							
-							
+
+
+
 						</div>
 						<div class="table-data-search-box">
 							<div class="search">
@@ -165,43 +163,58 @@
 											<th>Email</th>
 											<th>Action</th>
 											<th>view Productlist</th>
-											<th>Active/Inactive</th>
+											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody th:if="${venderlist}">
 										<tr th:each="venderdata, iStart : ${venderlist}">
-											<td th:text="${iStart.count}" >1</td>
-											<td th:text="${venderdata.firstname + ' '+venderdata.lastname}" >demo</td>
-											<td  th:text="${venderdata.mobile}" >no data</td>
-											
+											<td th:text="${iStart.count}">1</td>
+											<td
+												th:text="${venderdata.firstname + ' '+venderdata.lastname}">demo</td>
+											<td th:text="${venderdata.mobile}">no data</td>
+
 											<td>
-												<div >
-													image not found
-													<!-- <img src="images/demo-face.jpg" alt="demo face">    -->
+												<div th:if="${venderdata.image}">
+													<img src="images/demo-face.jpg"
+														th:src="@{${'/super-admin/vender-icon/'+ venderdata.venderid}}"
+														width="36" alt="">
 												</div>
+												<div th:unless="${venderdata.image}"></div>
 											</td>
 											<td th:text="${venderdata.email}">john@example.com</td>
-											
+
 											<td>
 
-												
-												
-												 <form th:action="@{/super-admin/delete-vender(id=${venderdata.venderid})}" th:method="post">	
-														
+
+
+												<form
+													th:action="@{/super-admin/delete-vender(id=${venderdata.venderid})}"
+													th:method="post">
+
 													<button type="submit" class="btn btn-danger">delete</button>
-												
-												</form> 
-												
-												
+
+												</form>
+
+
 											</td>
 											<td>
-											
-														 <form th:action="@{/super-admin/product-list(id=${venderdata.venderid})}" th:method="post">
-														<button type="submit" class="btn btn-success">view productlist</button>
-														</form> 
-												
+
+												<form
+													th:action="@{/super-admin/product-list(id=${venderdata.venderid})}"
+													th:method="post">
+													<button type="submit" class="btn btn-success">view
+														productlist</button>
+												</form>
+
 											</td>
-											<td>active/inactive</td>
+											<td><label class="active-switch"> <input
+													class="active-switch-input" type="checkbox"
+													th:id="${'venderid'+venderdata.venderid}"
+													th:onclick="vendertStatus([[${venderdata.venderid}]])" />
+													<span class="active-switch-label" data-on="Active"
+													data-off="Inactive"></span> <span
+													class="active-switch-handle"></span>
+											</label></td>
 										</tr>
 									</tbody>
 									<tbody th:if="${no_vender}">
@@ -229,8 +242,31 @@
 		<!-- ============================================================== -->
 	</div>
 
-	<!--  <div th:replace="super-admin-layout/layouts.html :: script-customLinks"></div>   -->
-	
+  <div th:replace="super-admin-layout/layouts.html :: script-customLinks"></div>   
+
+
+	<script>
+		function vendertStatus(id) {
+			var venderstatus;
+			if ($("#venderid" + id).is(":checked")) {
+				venderstatus = "1";
+			} else {
+				venderstatus = "0";
+			}
+
+			$.ajax({
+				type : 'POST',
+				url : '/super-admin/vender-status',
+				data : {
+					id : id,
+					venderstatus : venderstatus
+				},
+				success : function(data) {
+				}
+			});
+		}
+	</script>
+
 
 
 </body>

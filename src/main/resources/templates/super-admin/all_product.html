@@ -22,100 +22,16 @@
 	th:href="@{/mylibraries/css/fontawesome.min.css}" rel="stylesheet">
 <link href="./css/responsive.css"
 	th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
-<link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}" />
+<link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}"
+	rel="stylesheet" />
 <link th:href="@{/mylibraries/css/active_inactive.css}" rel="stylesheet" />
+
+
 <script
 	th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-
-<style type="text/css">
-.switchToggle input[type=checkbox] {
-	height: 0;
-	width: 0;
-	visibility: hidden;
-	position: absolute;
-}
-
-.switchToggle label {
-	cursor: pointer;
-	text-indent: -9999px;
-	width: 70px;
-	max-width: 70px;
-	height: 30px;
-	background: #d1d1d1;
-	display: block;
-	border-radius: 100px;
-	position: relative;
-}
-
-.switchToggle label:after {
-	content: '';
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	width: 26px;
-	height: 26px;
-	background: #fff;
-	border-radius: 90px;
-	transition: 0.3s;
-}
-
-.switchToggle input:checked+label, .switchToggle input:checked+input+label
-	{
-	background: #3e98d3;
-}
-
-.switchToggle input+label:before, .switchToggle input+input+label:before
-	{
-	content: 'No';
-	position: absolute;
-	top: 5px;
-	left: 35px;
-	width: 26px;
-	height: 26px;
-	border-radius: 90px;
-	transition: 0.3s;
-	text-indent: 0;
-	color: #fff;
-}
-
-.switchToggle input:checked+label:before, .switchToggle input:checked+input+label:before
-	{
-	content: 'Yes';
-	position: absolute;
-	top: 5px;
-	left: 10px;
-	width: 26px;
-	height: 26px;
-	border-radius: 90px;
-	transition: 0.3s;
-	text-indent: 0;
-	color: #fff;
-}
-
-.switchToggle input:checked+label:after, .switchToggle input:checked+input+label:after
-	{
-	left: calc(100% - 2px);
-	transform: translateX(-100%);
-}
-
-.switchToggle label:active:after {
-	width: 60px;
-}
-
-.toggle-switchArea {
-	margin: 10px 0 10px 0;
-}
-
-.edit-view-box {
-	padding: 5px;
-}
-
-.edit-view-box a {
-	width: 75px;
-	border-radius: 25px;
-	background-image: radial-gradient(red, yellow, green);
-}
+<style>
 </style>
+
 </head>
 
 <body style="font-family: Roboto, sans-serif;">
@@ -188,61 +104,56 @@
 									<thead>
 										<tr>
 											<th>Sl no</th>
-											<th>Product Name</th>
-											<th>Product image</th>
+											<th>Product id</th>
 											<th>Product Category</th>
+											<th>Product image</th>
+											<th>Product Name</th>
 											<th>Product price</th>
-											<th>Product Description</th>
-											<th>Product Quantity</th>
-											<th>Creation date</th>
+											<th>Product Creation date</th>
+											<th>Vender Id</th>
 											<th>Status</th>
-											
 										</tr>
 									</thead>
-
-
 									<tbody th:with="count=0" th:if="${products}">
 										<tr th:each="imageGallery, iStart : ${products}">
 											<td th:text=${iStart.count} />
 											<!-- <td th:with="count=${count + 1}" th:text="${count}"></td> -->
-											<td th:text="${imageGallery.productname}"></td>
-											
+											<td th:text="${imageGallery.productId}"></td>
+											<td th:text="${imageGallery.category}"></td>
 											<td><span th:if="${imageGallery.image}"> <img
 													th:src="@{${'/super-admin/myimage/display/'+ imageGallery.productId}}"
-													class="card img-fluid" style="width: 200px; height: 100px;"
+													class="card img-fluid" style="width: 60px; height: 60px;"
 													alt="" /></span> <span th:unless="${imageGallery.image}"
 												th:text="${no_image}"></span></td>
+											<td th:text="${imageGallery.productname}"></td>
 
-											<td th:text="${imageGallery.category}"></td>
 											<td th:text="${imageGallery.price}"></td>
-											<td th:text="${imageGallery.description}"></td>
-											<td th:text="${imageGallery.quantity}"></td>
+
+											<!-- <td th:text="${imageGallery.createDate}"></td> -->
 											<td
 												th:text="${#dates.format({imageGallery.createDate}, 'dd-MM-yyyy')}" /></td>
-												<td>
-										<label class="active-switch"> <input
+
+											<td th:text="${imageGallery.vid}"></td>
+											<td><label class="active-switch"> <input
 													class="active-switch-input" type="checkbox"
 													th:id="${'productid'+imageGallery.productId}"
 													th:onclick="productStatus([[${imageGallery.productId}]])" />
 													<span class="active-switch-label" data-on="Active"
 													data-off="Inactive"></span> <span
 													class="active-switch-handle"></span>
-											</label>
-
-												</td>
-											
+											</label></td>
 										</tr>
 									</tbody>
 									<tbody th:unless="${products}">
 										<tr>
-											 <td colspan="11" th:if="${no_record}" th:text="${no_record}" style="text-align:center;"></td>
-											<td colspan="11"  style="text-align:center;">no record found</td>
+											<td colspan="9" th:if="${no_record}" th:text="${no_record}"
+												style="text-align: center;"></td>
+
 										</tr>
 									</tbody>
 								</table>
-
-
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -276,11 +187,6 @@
 	<!-- ============================================================== -->
 	<div th:replace="super-admin-layout/layouts.html :: script-links"></div>
 </body>
-
-
-
-
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -291,10 +197,7 @@
 	$(document).ready(function() {
 		$('#example').DataTable();
 	});
-	
-	
-	//changing the status of the product
-	
+
 	function productStatus(id) {
 		var productstatus;
 		if ($("#productid" + id).is(":checked")) {
@@ -313,21 +216,8 @@
 			success : function(data) {
 			}
 		});
-	}	
-	
-	
-	
-	
+	}
 </script>
-
-
-
-
-
-
-
-
-
 
 
 </html>

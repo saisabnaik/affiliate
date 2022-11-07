@@ -36,6 +36,9 @@ public class Vender {
     @Column(name = "Image", length = Integer.MAX_VALUE)
     private byte[] image;
 	
+	private String status;
+	
+	
 	public Vender() {
 		super();
 	}
@@ -125,4 +128,17 @@ public class Vender {
 		this.image = image;
 	}
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
+	
+	
 }

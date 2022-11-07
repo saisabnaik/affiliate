@@ -23,7 +23,7 @@
 <link href="./css/responsive.css"
 	th:href="@{/mylibraries/css/responsive.css}" rel="stylesheet">
 <link th:href="@{/mylibraries/bootstrap/dist/css/bootstrap.min.css}" />
-<link th:href="@{/mylibraries/css/active_inactive.css}" rel="stylesheet" />
+
 <script
 	th:src="@{/mylibraries/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
@@ -184,59 +184,53 @@
 						</div>
 						<div class="manage-admins-main-area">
 							<div class="manage-admins-table-area">
-								<table class="table">
+								<table class="table cenetr">
 									<thead>
 										<tr>
 											<th>Sl no</th>
+											<th>Product ID</th>
+											<th>Product Image</th>
+											<th>Affiliate id</th>
 											<th>Product Name</th>
-											<th>Product image</th>
-											<th>Product Category</th>
-											<th>Product price</th>
-											<th>Product Description</th>
-											<th>Product Quantity</th>
-											<th>Creation date</th>
-											<th>Status</th>
-											
+											<th>Created Date</th>
+											<th>Product Link</th>
+											<th>Generated Link</th>
+											<th>Product Price</th>
+											<th>Rate</th>
+											<th>Unpaid referals</th>
+											<th>Paid referals</th>
+											<th>Total sold</th>
+											<th>view</th>
 										</tr>
 									</thead>
-
-
-									<tbody th:with="count=0" th:if="${products}">
-										<tr th:each="imageGallery, iStart : ${products}">
+									<tbody th:if="${affiliatelist}">
+										<tr th:each="mydata, iStart : ${affiliatelist}">
 											<td th:text=${iStart.count} />
-											<!-- <td th:with="count=${count + 1}" th:text="${count}"></td> -->
-											<td th:text="${imageGallery.productname}"></td>
-											
-											<td><span th:if="${imageGallery.image}"> <img
-													th:src="@{${'/super-admin/myimage/display/'+ imageGallery.productId}}"
-													class="card img-fluid" style="width: 200px; height: 100px;"
-													alt="" /></span> <span th:unless="${imageGallery.image}"
-												th:text="${no_image}"></span></td>
-
-											<td th:text="${imageGallery.category}"></td>
-											<td th:text="${imageGallery.price}"></td>
-											<td th:text="${imageGallery.description}"></td>
-											<td th:text="${imageGallery.quantity}"></td>
-											<td
-												th:text="${#dates.format({imageGallery.createDate}, 'dd-MM-yyyy')}" /></td>
-												<td>
-										<label class="active-switch"> <input
-													class="active-switch-input" type="checkbox"
-													th:id="${'productid'+imageGallery.productId}"
-													th:onclick="productStatus([[${imageGallery.productId}]])" />
-													<span class="active-switch-label" data-on="Active"
-													data-off="Inactive"></span> <span
-													class="active-switch-handle"></span>
-											</label>
-
-												</td>
-											
+											<td th:text="${mydata.productId}" />
+											<td><img
+												th:src="@{${'/image/display/'+ mydata.productId}}"
+												class="card img-fluid" style="width: 200px; height: 100px;"
+												alt="" /></td>
+											<td th:text="${mydata.affiliateid}" />
+											<td th:text="${mydata.productName}" />
+											<td th:text="${mydata.createdDate}" />
+											<td th:text="${mydata.productLinks}" />
+											<td th:text="${mydata.generatedLinks}" />
+											<td th:text="${mydata.priceOfProduct}" />
+											<td th:text="${mydata.rate}" />
+											<td th:text="${mydata.unpaidreferals}" />
+											<td th:text="${mydata.paidreferals}" />
+											<td th:text="${mydata.totalSold}" />
+											<td><a href="./admin-details.html"
+												th:href="@{/admin/affiliatersData}"
+												class="mange-admins-edit-btn"><i class="fas fa-eye"></i></a>
+											</td>
 										</tr>
 									</tbody>
-									<tbody th:unless="${products}">
+									<tbody th:if="${no_record}">
 										<tr>
-											 <td colspan="11" th:if="${no_record}" th:text="${no_record}" style="text-align:center;"></td>
-											<td colspan="11"  style="text-align:center;">no record found</td>
+											<td colspan="12" th:text="${no_record}"
+												style="text-align: center;"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -291,33 +285,6 @@
 	$(document).ready(function() {
 		$('#example').DataTable();
 	});
-	
-	
-	//changing the status of the product
-	
-	function productStatus(id) {
-		var productstatus;
-		if ($("#productid" + id).is(":checked")) {
-			productstatus = "1";
-		} else {
-			productstatus = "0";
-		}
-
-		$.ajax({
-			type : 'POST',
-			url : '/super-admin/product-status',
-			data : {
-				id : id,
-				productstatus : productstatus
-			},
-			success : function(data) {
-			}
-		});
-	}	
-	
-	
-	
-	
 </script>
 
 

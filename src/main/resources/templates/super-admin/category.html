@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- head section replace from layouts -->
+<head th:replace="super-admin-layout/layouts.html :: head"></head>
+<style type="text/css">
+.productDetailSection {
+	padding-bottom: 60px;
+}
+
+.preview {
+	display: flex;
+	flex-direction: column;
+}
+
+@media screen and (max-width: 996px) {
+	.preview {
+		margin-bottom: 20px;
+	}
+}
+
+.card {
+	margin-top: 50px;
+	background: #eee;
+	padding: 3em;
+	line-height: 1.5em;
+}
+
+@media screen and (min-width: 997px) {
+	.wrapper {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+}
+
+.product-title {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-weight: 500;
+}
+
+.checked, .price span {
+	color: #ff9f1a;
+}
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+	margin-bottom: 15px;
+}
+
+.add-to-cart, .like {
+	background: #4691ce;
+	padding: 1.2em 1.5em;
+	border: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #fff;
+	-webkit-transition: background .3s ease;
+	transition: background .3s ease;
+	border-radius: 3px;
+}
+
+.rightShareProduct .action button {
+	padding: 0px;
+	position: relative;
+}
+
+.add-to-cart:hover, .like:hover, .shareProduct li a:hover {
+	color: #4691ce;
+}
+
+.rightShareProduct {
+	display: flex;
+	justify-content: space-between;
+}
+
+.rightShareProduct .action .add-to-cart {
+	background: transparent;
+	color: #000;
+}
+
+.shareProduct {
+	position: absolute;
+	right: 0;
+	width: 43px;
+	background: #ffffff;
+	padding: 0;
+	border-radius: 4px;
+	display: none;
+	box-shadow: 0px 0px 5px #d5d8dc;
+	margin-top: 1px;
+}
+
+.shareProduct li a {
+	display: block;
+	padding: 10px 0;
+	text-align: center;
+	border-radius: 4px;
+	color: #cdc8c8;
+	font-size: 20px;
+	border-bottom: 1px solid #eee;
+}
+
+#pic-1 {
+	position: relative;
+}
+
+.favorateIcon {
+	position: absolute;
+	top: 20px;
+	right: 40px;
+}
+
+.favorateIcon a span {
+	font-size: 25px;
+	color: #d5d3d3;
+}
+</style>
+
+<body style="font-family: Roboto, sans-serif;">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="lds-ripple">
+			<div class="lds-pos"></div>
+			<div class="lds-pos"></div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5"
+		data-sidebartype="full" data-sidebar-position="absolute"
+		data-header-position="absolute" data-boxed-layout="full">
+
+		<!--  header section -->
+		<div th:replace="super-admin-layout/layouts.html :: header">header
+			section</div>
+		<!-- ============================================================== -->
+
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<div th:replace="super-admin-layout/layouts.html :: sidemenu"></div>
+
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper white_bg" style="min-height: 250px;">
+
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid fluid_container pt-3">
+				<div class="row responsive_row">
+					<div class="row align-items-center">
+						<div class="col-lg-9 col-md-4 col-sm-4 col-xs-12 mb-3">
+							<h4 class="page-title title_page">Add Product Category</h4>
+							<div
+								class="alert alert-success d-flex alert-dismissible fade show"
+								role="alert" th:if="${session.successOk}">
+								<strong>Success!</strong> <span th:text="${session.successOk}"></span>
+								<button type="button" class="btn-close" data-bs-dismiss="alert"
+									aria-label="Close"></button>
+							</div>
+							<th:block th:inline="text" th:if="${session.successOk}"
+								style="display:none;"> [[${#session.removeAttribute('successOk')}]]</th:block>
+					<div
+						class="alert alert-danger d-flex alert-warning alert-dismissible fade show"
+						role="alert" th:if="${session.error}">
+						<strong>Error!</strong> <span th:text="${session.error}"></span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+					<th:block th:inline="text" th:if="${session.error}"
+						style="display:none;"> [[${#session.removeAttribute('error')}]]</th:block>
+
+
+
+
+
+						</div>
+					</div>
+
+					<section class="productDetailSection">
+						<div class="container">
+							<div class="card">
+								<div class="container-fliud">
+									<div class="wrapper row">
+
+										<div class="details col-md-12">
+											<form th:action="@{/super-admin/add-category}"
+												th:method="post" id="add-category" >
+												<div class="row">
+													<label class="col-form-label">Add Product Category</label>
+													<div class="col-md-8 col-sm-8 contact-form1 form-group">
+													<small></small>
+														<input type="text" class="form-control"
+															placeholder="Enter Product Category" id="mycategory"
+															name="category" required="required">
+													</div>
+													<div class="col-md-4 col-sm-4">
+														<input type="submit" class="btn btn-success"
+															value=" Save " />
+													</div>
+												</div>
+
+											</form>
+
+
+										</div>
+									</div>
+									<div class="wrapper row">
+
+										<div class="details col-md-12">
+
+											<div class="row">
+												<div class="col-md-6 col-sm-6 contact-form1 form-group">
+													<table class="table">
+														<thead>
+															<tr>
+																<th>Sl no</th>
+																<th>Category Title</th>
+																<th>Edit</th>
+															</tr>
+														</thead>
+
+														<tbody th:with="count=0" th:if="${category}">
+															<tr th:each="categorytitle, iStart : ${category}">
+																<td th:text=${iStart.count} />
+																<!-- <td th:text="${categorytitle.categoryId}"></td> -->
+																<td th:text="${categorytitle.categoryTitle}" th:id="${'title'+categorytitle.categoryId}" th:value="${categorytitle.categoryTitle}"></td>
+																<td >
+																	<button type="button"  class="btn btn-success"
+																		th:onclick="editFunction([[${categorytitle.categoryId}]],[[${categorytitle.categoryTitle}]])" >Edit</button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<div class="col-md-6 col-sm-6 contact-form1 form-group" style="display:none" id="title-update-form">
+													<form  th:action="@{/super-admin/edit-category}" method="post">
+													<label class="col-form-label">Category Title</label>
+													<input  name="categoryId" type="hidden" id="catId"/>
+													 <input
+													type="text" class="form-control" placeholder="Category Title" 
+													id="catTitle" name="categoryTitle" required="required" autofocus>
+													<br/>
+													<input type="submit" class="btn btn-success" value="Update" style="margin-left:150px;" onclick="updateForm()"/>
+													</form>
+												</div>
+	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- ============================================================== -->
+					<!-- End Container fluid  -->
+					<!-- ============================================================== -->
+					<!-- ============================================================== -->
+					<!-- footer -->
+					<!-- ============================================================== -->
+					<!-- <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+                    href="https://www.wrappixel.com/">wrappixel.com</a>
+            </footer> -->
+					<footer th:replace="super-admin-layout/layouts.html :: footer"></footer>
+					<!-- ============================================================== -->
+					<!-- End footer -->
+					<!-- ============================================================== -->
+				</div>
+				<!-- ============================================================== -->
+				<!-- End Page wrapper  -->
+				<!-- ============================================================== -->
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Wrapper -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer section -->
+
+
+			<!-- scripts links -->
+			<div
+				th:replace="super-admin-layout/layouts.html :: script-customLinks"></div>
+</body>
+
+<script type="text/javascript">
+function editFunction(id,title){
+	document.getElementById('title-update-form').style.display="block";
+	document.getElementById('catTitle').value = title;
+	document.getElementById('catId').value = id;	
+}
+
+function updateForm(){
+	document.getElementById('title-update-form').style.display="none";
+}
+
+</script>
+
+
+
+
+
+
+
+
+</html>

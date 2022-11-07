@@ -73,31 +73,32 @@
 																	th:if="${session.myEmail}">
 																	<li><a target="_blank"
 																		href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
-																		th:href="@{'mailto:?subject='+ ${productname}+'&amp;body=Check out this site '+${link+'/ref_'+session.affiliatid}}"  th:onclick="shareLink([[${id}]])"
+																		th:href="@{'mailto:?subject='+ ${productname}+'&amp;body=Check out this site '+${link+'/ref_'+session.affiliatid}}"
+																		th:onclick="shareLink([[${id}]])"
 																		title="Share by Email"><span><i
 																				class="fa fa-envelope"></i></span><span>Email</span></a></li>
 																	<li><a href="#" target="_blank"
 																		title="Share by facebook"
-																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link+'/ref_'+session.affiliatid} + '&amp; src=sdkpreparse'}" th:onclick="shareLink([[${id}]])">
-																			<span><i
+																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link+'/ref_'+session.affiliatid} + '&amp; src=sdkpreparse'}"
+																		th:onclick="shareLink([[${id}]])"> <span><i
 																				class="fab fa-facebook fb-xfbml-parse-ignore"></i></span><span>facebook</span>
 																	</a></li>
 																	<li><a href="#" title="Share by Whatsapp"
 																		target="_blank"
-																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link+'/ref_'+session.affiliatid}}" th:onclick="shareLink([[${id}]])">
-																			<span><i class="fab fa-whatsapp"></i></span><span>Whatsapp</span>
+																		th:href="@{'https://wa.me/?text='+ ${productname} +': '+ ${link+'/ref_'+session.affiliatid}}"
+																		th:onclick="shareLink([[${id}]])"> <span><i
+																				class="fab fa-whatsapp"></i></span><span>Whatsapp</span>
 																	</a></li>
-																	<li><a href="#"
-																		th:onclick="myFunction([[${id}]])"
+																	<li><a href="#" th:onclick="myFunction([[${id}]])"
 																		class="copy-btn"> <span><i
 																				class="fa fa-clone" aria-hidden="true"></i></span> <span
 																			th:id="${id}">Copy Link</span></a></li>
 
 																	<input type="hidden"
 																		th:value="${link+'/ref_'+session.affiliatid}"
-																		th:id="${id}">
-																		
-																	
+																		th:id="${'copy'+id}">
+
+
 
 																</ul>
 																<!-- 	else condition is displaying -->
@@ -110,7 +111,7 @@
 																				class="fa fa-envelope"></i></span><span>Email</span> </a></li>
 																	<li><a href="#" target="_blank"
 																		title="Share by facebook"
-																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link} + '&amp; src=sdkpreparse'}" >
+																		th:href="@{'https://www.facebook.com/sharer/sharer.php?u='+${link} + '&amp; src=sdkpreparse'}">
 																			<span><i
 																				class="fab fa-facebook fb-xfbml-parse-ignore"></i></span><span>facebook</span>
 																	</a></li>
@@ -120,14 +121,12 @@
 																			<span><i class="fab fa-whatsapp"></i></span><span>Whatsapp</span>
 																	</a></li>
 																	<li><a href="#"
-																		th:onclick="myFunction([[${id}]])"
-																		class="copy-btn"><span><i
+																		th:onclick="copyFunction([[${id}]])" class="copy-btn"><span><i
 																				class="fa fa-clone" aria-hidden="true"></i></span><span
-																			th:id="${id}">Copy Link</span></a></li>
-																	
-																	<input type="hidden" th:value="${link}"
-																		th:id="${id}">
-	
+																			th:id="${id}" >Copy Link</span></a></li>
+
+																	<input type="hidden" th:value="${link}" th:id="${'copy'+id}">
+
 																</ul>
 
 																<!-- share buttons end section -->
@@ -211,13 +210,16 @@
 
 	<script>
 		function myFunction(id) {
-			var copyText = document.getElementById(id);
+
+			var copyText = document.getElementById('copy'+id);
 			
-		var vid=document.getElementById("vid").value;
+			
+			var vid = document.getElementById("vid").value;
 
 			navigator.clipboard.writeText(copyText.value);
 			document.getElementById(id).innerHTML = "Link copied!";
-			var link= copyText.value;
+			//var link = copyText.value;
+			
 			 $.ajax({
 				type : 'POST',
 				url : '/customer/copy',
@@ -227,14 +229,14 @@
 				},
 				success : function(data) {
 				}
-			}); 
+			});
 
 		}
-		
-		function shareLink(id){
-			var copyText = document.getElementById(id);
-			var vid=document.getElementById("vid").value;
-			var link= copyText.value;
+
+		function shareLink(id) {
+			//var copyText = document.getElementById(id);
+			var vid = document.getElementById("vid").value;
+			//var link = copyText.value;
 			$.ajax({
 				type : 'POST',
 				url : '/customer/socialshare',
@@ -246,6 +248,17 @@
 				}
 			});
 		}
+
+		function copyFunction(id) {
+			
+			var copyText = document.getElementById('copy'+id);
+			navigator.clipboard.writeText(copyText.value);
+			document.getElementById(id).innerHTML = "Link copied!";
+			//var link = copyText.value;
+			
+			
+		}
+
 		/* function whatsappFunc(id){
 			var copyText = document.getElementById(id);
 			console.log(copyText.value);

@@ -176,12 +176,13 @@ public class HomeController {
 	public String myAffiliate(Model model, Principal principal, HttpSession session) throws Exception {
 		Customer currentCustomer = this.repo.findByEmail(principal.getName());
 		if (currentCustomer != null) {
-			List<MyAffiliate> affiliatelist = userAffiliateRepository.findByAffiliateid(currentCustomer.getAffiliateId());
-			if (affiliatelist.isEmpty() == false) {
+			List<MyAffiliate> affiliatelist = userAffiliateRepository.findAllByAffiliateid(currentCustomer.getAffiliateId());
+			if (affiliatelist!=null || affiliatelist.isEmpty() == false) {
 				model.addAttribute("affiliatelist", affiliatelist);
-			} else {
+				return "users/my-affiliate";
+			} 
 				model.addAttribute("noDataMsg", "No Record found");
-			}
+			
 			return "users/my-affiliate";
 
 		} else {
@@ -198,7 +199,7 @@ public class HomeController {
 
 		if (principal.getName() != null) {
 			Customer currentUser = this.repo.findByEmail(principal.getName());
-			List<MyAffiliate> affiliatelist = userAffiliateRepository.findByAffiliateid(currentUser.getAffiliateId());
+			List<MyAffiliate> affiliatelist = userAffiliateRepository.findAllByAffiliateid(currentUser.getAffiliateId());
 			if (affiliatelist.isEmpty() == false) {
 				model.addAttribute("affiliatelist", affiliatelist);
 			} else {

@@ -4,6 +4,7 @@
 <!-- links section -->
 <head th:replace="super-admin-layout/layouts.html :: head">links
 </head>
+<link th:href="@{/mylibraries/css/active_inactive.css}" rel="stylesheet" />
 <style>
 
 .edit-view-box {
@@ -47,13 +48,14 @@
 			<nav class="navbar top-navbar navbar-expand-md navbar-dark">
 				<div class="navbar-header" data-logobg="skin6">
                     <!-- Logo -->
-                  <!--   <a class="navbar-brand navbar_logo" href="dashboard.html" th:href="@{/vender/home}"> -->
+                    <!-- class="navbar-brand navbar_logo" -->
+                    <a href="dashboard.html" th:href="@{/}"> 
                         				 <span
 					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
 						src="./myuser/images/logopng.png"
 						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
 				</span>
-                 <!--   </a>  -->
+                   </a> 
                     <!-- toggle and nav items -->
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
@@ -74,7 +76,7 @@
 					<!-- Right side toggle and nav items -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav ms-auto d-flex align-items-center">
-						<li class=" in">
+						<!-- <li class=" in">
 							<form role="search" class="app-search d-none d-md-block me-3">
 								<input type="text" placeholder="Search..."
 									class="form-control mt-0 border_color"> <a href=""
@@ -82,7 +84,7 @@
 									style="color: #4691ce;"></i>
 								</a>
 							</form>
-						</li>
+						</li> -->
 
 						<li class="dropdown">
 							<a class="profile-pic"
@@ -175,17 +177,15 @@
 											<td  th:text="${affiliaterData.mobile}" >no data</td>
 											
 											<td>
-												<div >
-													image not found
-													<!-- <img src="images/demo-face.jpg" alt="demo face">    -->
+												<div th:if="${affiliaterData.image}" >
+													
+													 <img src="images/demo-face.jpg"  th:src="@{${'/super-admin/affiliater-icon/'+ affiliaterData.userid}}" width="36"   alt=""> 
 												</div>
+												<div th:unless="${affiliaterData.image}"></div>
 											</td>
 											<td th:text="${affiliaterData.email}">john@example.com</td>
 											
 											<td>
-
-												
-												 
 												  <form th:action="@{/super-admin/delete-affiliater(id=${affiliaterData.userid})}" th:method="post">	
 														
 													<button type="submit" class="btn btn-danger">delete</button>
@@ -194,14 +194,23 @@
 												
 												
 											</td>
-											<td>
-											
-													<!--  <form th:action="@{/super-admin/product-list(id=${affiliaterdata.userid})}" th:method="post">
+											<td> 
+													  <form th:action="@{/super-admin/affiliater-product(id=${affiliaterData.affiliateId})}" th:method="post">
 														<button type="submit" class="btn btn-success">view productlist</button>
-														</form>   -->
+														</form> 
 												
 											</td>
-											<td>active/inactive</td>
+											<td>
+											<label class="active-switch"> <input
+													class="active-switch-input" type="checkbox"
+													th:id="${'affiliaterid'+affiliaterData.userid}"
+													th:onclick="affiliaterStatus([[${affiliaterData.userid}]])" />
+													<span class="active-switch-label" data-on="Active"
+													data-off="Inactive"></span> <span
+													class="active-switch-handle"></span>
+											</label>
+
+</td>
 										</tr>
 									</tbody>
 									<tbody th:if="${no_affiliater}">
@@ -229,8 +238,32 @@
 		<!-- ============================================================== -->
 	</div>
 
-	<!--  <div th:replace="super-admin-layout/layouts.html :: script-customLinks"></div>   -->
-	
+  <div th:replace="super-admin-layout/layouts.html :: script-customLinks"></div>  
+
+<script>
+
+function affiliaterStatus(id) {
+	var affiliaterstatus;
+
+	if ($("#affiliaterid" + id).is(":checked")) {
+		affiliaterstatus = "1";
+	} else {
+		affiliaterstatus = "0";
+	}
+
+	$.ajax({
+		type : 'POST',
+		url : '/super-admin/affiliater-status',
+		data : {
+			id : id,
+			affiliaterstatus : affiliaterstatus
+		},
+		success : function(data) {
+		}
+	});
+}
+
+</script>
 
 
 </body>

@@ -81,6 +81,7 @@ public class VenderController {
 			Vender currentVender = this.venderRepo.findByEmail(principal.getName());
 			session.setAttribute("fullname", currentVender.getFirstname() + " " + currentVender.getLastname());
 			session.setAttribute("venderid", currentVender.getVenderid());
+			session.setAttribute("image", currentVender.getImage());
 			return "vender/dashboard";
 		} else {
 			return "redirect:/vender/login";

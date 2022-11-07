@@ -17,6 +17,7 @@ public class MyAffiliate {
 	private Long id;
 	
 	private String affiliateid;
+	
 	private Long productId;
 	
 	@Column(name="product_name",length=150)

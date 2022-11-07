@@ -139,6 +139,10 @@ public class ProductService {
 	public Product findProduct(Long productId) {
 		return productRepository.findByProductId(productId);
 	}
+
+	public List<Product> getAllProduct() {	
+		return productRepository.findAll();
+	}
 	
 	
 	

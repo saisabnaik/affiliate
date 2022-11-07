@@ -40,13 +40,13 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- Logo -->
-                  <!--   <a class="navbar-brand navbar_logo" href="dashboard.html" th:href="@{/vender/home}"> -->
-                        				 <span
+                   <a  href="dashboard.html" th:href="@{/}"> 
+                    <span
 					class="logo-icon icon_logo  navbar-brand navbar_logo" > <img
 						src="./myuser/images/logopng.png"
 						th:src="@{/mylibraries/images/logopng.png}" alt="logo-img">
 				</span>
-                 <!--   </a>  -->
+                  </a>  
                     <!-- toggle and nav items -->
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
@@ -66,14 +66,14 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <li class=" in">
+                        <!-- <li class=" in">
                             <form role="search" class="app-search d-none d-md-block me-3">
                                 <input type="text" placeholder="Search..." class="form-control mt-0 border_color">
                                 <a href="" class="active">
                                     <i class="fa fa-search" style="color: #4691ce;"></i>
                                 </a>
                             </form>
-                        </li>
+                        </li> -->
                         
                         <li class="dropdown">
 							<a class="profile-pic"
@@ -126,13 +126,6 @@
                         </li>
                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
-                                aria-expanded="false" th:href="@{/super-admin/manage-business}" >
-                                <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">Manage Business</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" sec:authorize="isAuthenticated()">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
                                 aria-expanded="false" th:href="@{/super-admin/vender-list}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
                                 <span class="hide-menu">Manage Vender</span>
@@ -142,17 +135,24 @@
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
                                 aria-expanded="false" th:href="@{/super-admin/affiliate-list}" >
                                 <i class="fas fa-user-plus leftside_icon"></i>
-                                <span class="hide-menu">manage Affiliater</span>
+                                <span class="hide-menu">Manage Affiliater</span>
+                            </a>
+                        </li> 
+                         <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="manage-business.html"
+                                aria-expanded="false" th:href="@{/super-admin/manage-product}" >
+                                <i class="fas fa-hand-receiving"></i>
+                                <span class="hide-menu">Manage Product</span>
                             </a>
                         </li> 
                         
-                        <!-- <li class="sidebar-item" sec:authorize="isAuthenticated()">
+                       <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="./setting.html"
-                                aria-expanded="false" th:href="@{/super-admin/settings}" >
+                                aria-expanded="false" th:href="@{/super-admin/view-category}" >
                                 <i class="fas fa-cog leftside_icon"></i>
-                                <span class="hide-menu">Settings</span>
+                                <span class="hide-menu">Add Product Category</span>
                             </a>
-                        </li> -->
+                        </li> 
                        <!--  <li class="sidebar-item" sec:authorize="isAuthenticated()">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link link_sidebar" href="notification.html"
                                 aria-expanded="false" th:href="@{/super-admin/notification}" >
